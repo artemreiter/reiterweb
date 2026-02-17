@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReiterWeb - Web Analytics Consultant</title>
-    <meta name="description" content="Helping businesses make data-driven decisions. Analytics setup, reporting, and growth strategies.">
+    <title>ReiterWeb - Web Analytics Agency</title>
+    <meta name="description" content="Data-driven growth for e-commerce businesses. Analytics setup, reporting automation, and conversion optimization.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,6 +25,8 @@
             color: var(--text);
             line-height: 1.6;
         }
+        
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -38,35 +40,108 @@
             border-bottom: 1px solid var(--border);
             z-index: 1000;
         }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--text); text-decoration: none; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
-        .nav-links a:hover { color: var(--primary); }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo svg {
+            width: 32px;
+            height: 32px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        /* Hamburger Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.625rem 1.25rem;
             border-radius: 6px;
             font-weight: 500;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: inline-block;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
-        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
         
-        section { padding: 5rem 5%; }
-        .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2rem; font-weight: 600; color: var(--text); }
-        .section-title h2 span { color: var(--primary); }
-        .section-title p { color: var(--text-muted); margin-top: 0.5rem; }
+        main {
+            padding-top: 80px;
+        }
         
         /* Hero */
         .hero {
             min-height: 90vh;
             display: flex;
             align-items: center;
-            padding-top: 6rem;
+            padding: 6rem 5% 4rem;
+            background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg) 100%);
         }
         .hero-content {
             max-width: 1200px;
@@ -83,9 +158,19 @@
             margin-bottom: 1.5rem;
             color: var(--text);
         }
-        .hero-text h1 span { color: var(--primary); }
-        .hero-text p { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 2rem; }
-        .hero-buttons { display: flex; gap: 1rem; }
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+        .hero-text p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
         .hero-visual {
             background: var(--bg-white);
             border-radius: 16px;
@@ -95,7 +180,6 @@
             position: relative;
             overflow: hidden;
         }
-        
         .hero-visual::before {
             content: '';
             position: absolute;
@@ -106,94 +190,73 @@
             background: radial-gradient(circle, rgba(5,150,105,0.08) 0%, transparent 70%);
             animation: pulse 8s ease-in-out infinite;
         }
-        
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.1); opacity: 0.8; }
         }
-        .metric-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
-        .metric-card { background: var(--bg); padding: 1rem; border-radius: 8px; }
-        .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
-        .metric-value { font-size: 1.5rem; font-weight: 600; color: var(--primary); }
-        .chart-placeholder {
-            height: 150px;
-            background: linear-gradient(135deg, rgba(5,150,105,0.1) 0%, rgba(16,185,129,0.05) 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: 500;
-        }
-        
-        /* About */
-        .about { background: var(--bg-white); border-top: 1px solid var(--border); }
-        .about-content {
-            max-width: 1000px;
-            margin: 0 auto;
+        .metric-row {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 4rem;
-            align-items: start;
-        }
-        .about-photo {
-            position: relative;
-        }
-        .about-photo img {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
             position: relative;
             z-index: 1;
         }
-        .about-text h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-        .about-text p { color: var(--text-muted); margin-bottom: 1rem; }
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
-        .stat-item { text-align: center; padding: 1rem; background: var(--bg); border-radius: 8px; }
-        .stat-number { font-size: 1.5rem; font-weight: 600; color: var(--primary); }
-        .stat-label { font-size: 0.75rem; color: var(--text-muted); }
+        .metric-card {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
         
-        /* Services */
+        /* Services Preview */
+        .services-preview {
+            padding: 4rem 5%;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .section-header h2 span {
+            color: var(--primary);
+        }
+        .section-header p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
         .services-grid {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
         .service-card {
-            background: var(--bg-white);
+            background: var(--bg);
             padding: 1.5rem;
             border-radius: 8px;
             border: 1px solid var(--border);
-        }
-        .service-card {
-            background: var(--bg-white);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s;
         }
         .service-card:hover {
             border-color: var(--primary);
             transform: translateY(-4px);
             box-shadow: 0 12px 24px rgba(5,150,105,0.08);
-        }
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-        .service-card:hover::before {
-            transform: scaleX(1);
         }
         .service-icon {
             width: 40px;
@@ -206,503 +269,487 @@
             margin-bottom: 1rem;
             font-size: 1.25rem;
         }
-        .service-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .service-card p { font-size: 0.9rem; color: var(--text-muted); }
+        .service-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
         
-        /* Cases */
-        .cases { background: var(--bg-white); border-top: 1px solid var(--border); }
+        /* Case Studies */
+        .cases {
+            padding: 4rem 5%;
+            background: var(--bg);
+        }
         .cases-grid {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
         .case-card {
-            background: var(--bg);
+            background: var(--bg-white);
             border-radius: 8px;
-            overflow: hidden;
             border: 1px solid var(--border);
+            overflow: hidden;
         }
         .case-header {
             padding: 1.25rem;
             background: rgba(5,150,105,0.05);
             border-bottom: 1px solid var(--border);
         }
-        .case-company { font-weight: 600; }
-        .case-industry { font-size: 0.875rem; color: var(--text-muted); }
-        .case-body { padding: 1.25rem; }
-        .case-body p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
-        .case-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-        .case-metric { text-align: center; padding: 0.75rem; background: var(--bg-white); border-radius: 6px; }
-        .case-metric-value { font-weight: 600; color: var(--primary); }
-        .case-metric-label { font-size: 0.7rem; color: var(--text-muted); }
+        .case-company {
+            font-weight: 600;
+        }
+        .case-industry {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        .case-body {
+            padding: 1.25rem;
+        }
+        .case-body p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .case-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        .case-metric {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg);
+            border-radius: 6px;
+        }
+        .case-metric-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .case-metric-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
         
         /* Testimonials */
+        .testimonials {
+            padding: 4rem 5%;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
+        }
         .testimonials-grid {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
         .testimonial-card {
-            background: var(--bg-white);
+            background: var(--bg);
             padding: 1.5rem;
             border-radius: 8px;
             border: 1px solid var(--border);
         }
-        .testimonial-rating { color: #f59e0b; margin-bottom: 0.75rem; }
-        .testimonial-text { font-size: 0.95rem; color: var(--text); margin-bottom: 1rem; line-height: 1.6; }
-        .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
-        .author-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.8rem;
+        .testimonial-rating {
+            color: #f59e0b;
+            margin-bottom: 0.75rem;
         }
-        .author-info h4 { font-size: 0.9rem; }
-        .author-info p { font-size: 0.8rem; color: var(--text-muted); }
-        
-        /* Audit Section */
-        .audit { background: var(--bg-white); border-top: 1px solid var(--border); }
-        .audit-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.6;
         }
-        .audit-info h3 { font-size: 1.75rem; margin-bottom: 1rem; color: var(--primary); }
-        .audit-benefits { list-style: none; margin: 1.5rem 0; }
-        .audit-benefits li { padding: 0.5rem 0; color: var(--text-muted); }
-        .audit-form {
-            background: var(--bg);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.25rem; font-size: 0.9rem; font-weight: 500; }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+        .testimonial-author h4 {
             font-size: 0.9rem;
-            font-family: inherit;
         }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
+        .testimonial-author p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
         
         /* CTA */
-        .cta { background: var(--bg); }
-        .cta-box {
-            max-width: 600px;
-            margin: 0 auto;
+        .cta {
+            padding: 4rem 5%;
             text-align: center;
-            padding: 3rem;
-            background: var(--bg-white);
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(5,150,105,0.05) 0%, rgba(16,185,129,0.05) 100%);
         }
-        .cta-box h2 { margin-bottom: 1rem; }
-        .cta-box p { color: var(--text-muted); margin-bottom: 1.5rem; }
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+        }
         
         /* Footer */
         footer {
-            padding: 2rem;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
+            background: var(--text);
+            color: white;
+            padding: 3rem 5%;
+        }
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            margin-top: 1rem;
             font-size: 0.9rem;
         }
+        .footer-links h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.25rem 0;
+        }
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.875rem;
+        }
         
+        /* Mobile */
         @media (max-width: 768px) {
-            .hero-content { grid-template-columns: 1fr; }
-            .about-content { grid-template-columns: 1fr; }
-            .audit-container { grid-template-columns: 1fr; }
-            .hero-text h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
-        }
-        
-        /* Floating Decorative Shapes */
-        .floating-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(5,150,105,0.08), rgba(16,185,129,0.03));
-            filter: blur(60px);
-        }
-        .shape-1 {
-            width: 500px;
-            height: 500px;
-            top: -100px;
-            right: -150px;
-            animation: float 20s ease-in-out infinite;
-        }
-        .shape-2 {
-            width: 400px;
-            height: 400px;
-            bottom: 10%;
-            left: -150px;
-            animation: float 25s ease-in-out infinite reverse;
-        }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(30px, -20px) rotate(5deg); }
-        }
-        
-        /* Data Dots Pattern */
-        .data-dots {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(circle, #059669 1px, transparent 1px);
-            background-size: 20px 20px;
-            opacity: 0.1;
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .services-grid,
+            .cases-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-    </div>
     <nav>
         <a href="index.html" class="logo">
-                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px;">
-                    <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="18" cy="12" r="2" fill="#059669"/>
-                    <circle cx="24" cy="8" r="2" fill="#10b981"/>
-                    <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                ReiterWeb
-            </a>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="pages/about.html">About</a></li>
+            <li><a href="pages/services.html">Services</a></li>
+            <li><a href="pages/case-studies.html">Case Studies</a></li>
             <li><a href="blog/index.html">Blog</a></li>
-            <li><a href="#cases">Case Studies</a></li>
-            <li><a href="#audit" class="btn btn-primary">Free Audit</a></li>
+            <li><a href="pages/contact.html" class="btn btn-primary">Contact</a></li>
         </ul>
     </nav>
 
-    <div class="floating-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-        </div>
+    <main>
         <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Web analytics that <span>drives sales</span></h1>
-                <p>Helping businesses make data-driven decisions. Analytics setup, reporting, and growth strategies that actually work.</p>
-                <div class="hero-buttons">
-                    <a href="#audit" class="btn btn-primary">Get Free Audit</a>
-                    <a href="#cases" class="btn btn-secondary">View Case Studies</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="metric-row">
-                    <div class="metric-card">
-                        <div class="metric-label">Conversion Rate</div>
-                        <div class="metric-value">+127%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Revenue</div>
-                        <div class="metric-value">$892K</div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Analytics that <span>drives growth</span></h1>
+                    <p>We help e-commerce businesses make data-driven decisions. From GA4 setup to automated reporting — we turn your data into revenue.</p>
+                    <div class="hero-buttons">
+                        <a href="pages/contact.html" class="btn btn-primary">Get Free Audit</a>
+                        <a href="pages/case-studies.html" class="btn btn-secondary">View Results</a>
                     </div>
                 </div>
-                <svg class="hero-chart" viewBox="0 0 300 120" style="width: 100%; height: 120px;">
-                            <defs>
-                                <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#059669;stop-opacity:0.2"/>
-                                    <stop offset="100%" style="stop-color:#059669;stop-opacity:0"/>
-                                </linearGradient>
-                            </defs>
-                            <path d="M0,100 Q50,80 100,60 T200,40 T300,20" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M0,100 Q50,80 100,60 T200,40 T300,20 V120 H0 Z" fill="url(#chartGrad)"/>
-                            <circle cx="100" cy="60" r="4" fill="#059669"/>
-                            <circle cx="200" cy="40" r="4" fill="#059669"/>
-                            <circle cx="300" cy="20" r="5" fill="#10b981"/>
-                        </svg>
+                <div class="hero-visual">
+                    <div class="metric-row">
+                        <div class="metric-card">
+                            <div class="metric-label">Avg ROI Increase</div>
+                            <div class="metric-value">+127%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Revenue Generated</div>
+                            <div class="metric-value">$2M+</div>
+                        </div>
+                    </div>
+                    <svg class="hero-chart" viewBox="0 0 300 120" style="width: 100%; height: 120px;">
+                        <defs>
+                            <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#059669;stop-opacity:0.2"/>
+                                <stop offset="100%" style="stop-color:#059669;stop-opacity:0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M0,100 Q50,80 100,60 T200,40 T300,20" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M0,100 Q50,80 100,60 T200,40 T300,20 V120 H0 Z" fill="url(#chartGrad)"/>
+                        <circle cx="100" cy="60" r="4" fill="#059669"/>
+                        <circle cx="200" cy="40" r="4" fill="#059669"/>
+                        <circle cx="300" cy="20" r="5" fill="#10b981"/>
+                    </svg>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="about" id="about">
-        <div class="section-title">
-            <h2>About <span>Me</span></h2>
-        </div>
-        <div class="about-content">
-            <div class="about-photo">
-                <img src="images/artem-photo.jpg" alt="Artem Reiter">
-                <svg class="about-decoration" viewBox="0 0 200 200" style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; z-index: -1; opacity: 0.3;">
-                    <circle cx="100" cy="100" r="80" fill="none" stroke="#059669" stroke-width="1" stroke-dasharray="10 5"/>
-                    <circle cx="100" cy="100" r="60" fill="none" stroke="#10b981" stroke-width="1" stroke-dasharray="5 10"/>
-                    <circle cx="100" cy="100" r="40" fill="rgba(5,150,105,0.1)"/>
-                </svg>
+        <section class="services-preview">
+            <div class="section-header">
+                <h2>Our <span>Services</span></h2>
+                <p>Everything you need to turn data into growth</p>
             </div>
-            <div class="about-text">
-                <h3>Artem Reiter</h3>
-                <p>Web analytics expert with 8+ years of experience helping e-commerce businesses grow through data-driven decisions.</p>
-                <p>I transform raw data into actionable insights. My clients see an average of 34% improvement in marketing ROI within 3 months.</p>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">150+</div>
-                        <div class="stat-label">Projects</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">8+</div>
-                        <div class="stat-label">Years</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">$2M+</div>
-                        <div class="stat-label">Revenue</div>
-                    </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Analytics Setup</h3>
+                    <p>Complete GA4 and GTM implementation for accurate tracking.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📈</div>
+                    <h3>Data Analysis</h3>
+                    <p>Deep insights into sales funnels and customer behavior.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>Reporting</h3>
+                    <p>Automated dashboards that save you hours every week.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Ad Optimization</h3>
+                    <p>Better tracking leads to better ROAS on your ads.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>CRO & Testing</h3>
+                    <p>Data-driven website optimization through A/B testing.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3>Growth Strategy</h3>
+                    <p>Comprehensive scaling strategy based on your data.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="services" id="services">
-        <div class="section-title">
-            <h2>My <span>Services</span></h2>
-            <p>Everything you need to turn data into growth</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3>Analytics Setup</h3>
-                <p>Google Analytics 4, Tag Manager, and complete tracking implementation for your e-commerce store.</p>
+        <section class="cases">
+            <div class="section-header">
+                <h2>Success <span>Stories</span></h2>
+                <p>Real results from real clients</p>
             </div>
-            <div class="service-card">
-                <div class="service-icon">📈</div>
-                <h3>Data Analysis</h3>
-                <p>Deep analysis of sales funnels, user behavior, and traffic channels to find growth opportunities.</p>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-company">TechGadgets Pro</div>
+                        <div class="case-industry">Consumer Electronics · Los Angeles</div>
+                    </div>
+                    <div class="case-body">
+                        <p>Complete analytics overhaul and Google Ads optimization for electronics retailer.</p>
+                        <div class="case-metrics">
+                            <div class="case-metric">
+                                <div class="case-metric-value">+156%</div>
+                                <div class="case-metric-label">ROI</div>
+                            </div>
+                            <div class="case-metric">
+                                <div class="case-metric-value">-42%</div>
+                                <div class="case-metric-label">CAC</div>
+                            </div>
+                            <div class="case-metric">
+                                <div class="case-metric-value">$1.2M</div>
+                                <div class="case-metric-label">Revenue</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-company">Luxe Fashion Co</div>
+                        <div class="case-industry">Premium Fashion · New York</div>
+                    </div>
+                    <div class="case-body">
+                        <p>Dashboard automation and customer segmentation for fashion brand.</p>
+                        <div class="case-metrics">
+                            <div class="case-metric">
+                                <div class="case-metric-value">+203%</div>
+                                <div class="case-metric-label">Conversion</div>
+                            </div>
+                            <div class="case-metric">
+                                <div class="case-metric-value">-35%</div>
+                                <div class="case-metric-label">Time</div>
+                            </div>
+                            <div class="case-metric">
+                                <div class="case-metric-value">+127%</div>
+                                <div class="case-metric-label">LTV</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-company">ModernHome Direct</div>
+                        <div class="case-industry">Furniture · Austin</div>
+                    </div>
+                    <div class="case-body">
+                        <p>Checkout optimization and cart abandonment recovery for furniture store.</p>
+                        <div class="case-metrics">
+                            <div class="case-metric">
+                                <div class="case-metric-value">+78%</div>
+                                <div class="case-metric-label">Orders</div>
+                            </div>
+                            <div class="case-metric">
+                                <div class="case-metric-value">+45%</div>
+                                <div class="case-metric-label">AOV</div>
+                            </div>
+                            <div class="case-metric">
+                                <div class="case-metric-value">-28%</div>
+                                <div class="case-metric-label">Abandonment</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="service-card">
-                <div class="service-icon">📋</div>
-                <h3>Reporting Automation</h3>
-                <p>Looker Studio dashboards and automated reports that save you hours every week.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🎯</div>
-                <h3>Ad Optimization</h3>
-                <p>Google Ads setup and optimization. Reduce customer acquisition cost by 30-50%.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🔍</div>
-                <h3>A/B Testing</h3>
-                <p>Data-driven website optimization through proper experimentation and analysis.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">💡</div>
-                <h3>Growth Strategy</h3>
-                <p>Comprehensive scaling strategy based on your actual data and market opportunities.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="cases" id="cases">
-        <div class="section-title">
-            <h2>Success <span>Stories</span></h2>
-            <p>Real results from real clients</p>
-        </div>
-        <div class="cases-grid">
-            <div class="case-card">
-                <div class="case-header">
-                    <div class="case-company">TechGadgets Pro</div>
-                    <div class="case-industry">Consumer Electronics · Los Angeles</div>
-                </div>
-                <div class="case-body">
-                    <p>Complete analytics overhaul and Google Ads optimization for electronics retailer.</p>
-                    <div class="case-metrics">
-                        <div class="case-metric">
-                            <div class="case-metric-value">+156%</div>
-                            <div class="case-metric-label">ROI</div>
-                        </div>
-                        <div class="case-metric">
-                            <div class="case-metric-value">-42%</div>
-                            <div class="case-metric-label">CAC</div>
-                        </div>
-                        <div class="case-metric">
-                            <div class="case-metric-value">$1.2M</div>
-                            <div class="case-metric-label">Revenue</div>
-                        </div>
-                    </div>
-                </div>
+        <section class="testimonials">
+            <div class="section-header">
+                <h2>Client <span>Feedback</span></h2>
             </div>
-            <div class="case-card">
-                <div class="case-header">
-                    <div class="case-company">Luxe Fashion Co</div>
-                    <div class="case-industry">Premium Fashion · New York</div>
-                </div>
-                <div class="case-body">
-                    <p>Dashboard automation and customer segmentation for fashion brand.</p>
-                    <div class="case-metrics">
-                        <div class="case-metric">
-                            <div class="case-metric-value">+203%</div>
-                            <div class="case-metric-label">Conversion</div>
-                        </div>
-                        <div class="case-metric">
-                            <div class="case-metric-value">-35%</div>
-                            <div class="case-metric-label">Time</div>
-                        </div>
-                        <div class="case-metric">
-                            <div class="case-metric-value">+127%</div>
-                            <div class="case-metric-label">LTV</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="case-card">
-                <div class="case-header">
-                    <div class="case-company">ModernHome Direct</div>
-                    <div class="case-industry">Furniture · Austin</div>
-                </div>
-                <div class="case-body">
-                    <p>Checkout optimization and cart abandonment recovery for furniture store.</p>
-                    <div class="case-metrics">
-                        <div class="case-metric">
-                            <div class="case-metric-value">+78%</div>
-                            <div class="case-metric-label">Orders</div>
-                        </div>
-                        <div class="case-metric">
-                            <div class="case-metric-value">+45%</div>
-                            <div class="case-metric-label">AOV</div>
-                        </div>
-                        <div class="case-metric">
-                            <div class="case-metric-value">-28%</div>
-                            <div class="case-metric-label">Abandonment</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials" id="testimonials">
-        <div class="section-title">
-            <h2>Client <span>Testimonials</span></h2>
-        </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-text">"Artem transformed our entire approach to data. Revenue jumped 156% in just 6 months."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">JM</div>
-                    <div class="author-info">
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"ReiterWeb transformed our entire approach to data. Revenue jumped 156% in just 6 months."</p>
+                    <div class="testimonial-author">
                         <h4>James Mitchell</h4>
                         <p>CEO, TechGadgets Pro</p>
                     </div>
                 </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-text">"The dashboards save us 15 hours weekly. Uncovered customer segments we didn't know existed."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">SC</div>
-                    <div class="author-info">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"The dashboards save us 15 hours weekly. They uncovered customer segments we didn't know existed."</p>
+                    <div class="testimonial-author">
                         <h4>Sarah Chen</h4>
                         <p>CMO, Luxe Fashion Co</p>
                     </div>
                 </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-text">"Found $200K in unattributed revenue. Best investment we've made for our analytics."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">MR</div>
-                    <div class="author-info">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Found $200K in unattributed revenue. Best investment we've made for our analytics."</p>
+                    <div class="testimonial-author">
                         <h4>Michael Rodriguez</h4>
                         <p>Founder, ModernHome Direct</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="audit" id="audit">
-        <div class="section-title">
-            <h2>Free Analytics <span>Audit</span></h2>
-        </div>
-        <div class="audit-container">
-            <div class="audit-info">
-                <h3>Get a comprehensive review of your analytics</h3>
-                <ul class="audit-benefits">
-                    <li>✓ Identify tracking issues and data gaps</li>
-                    <li>✓ Discover missed revenue opportunities</li>
-                    <li>✓ Get actionable recommendations</li>
-                    <li>✓ 30-minute video call included</li>
-                    <li>✓ No obligations, completely free</li>
-                </ul>
-                <p style="margin-top: 1.5rem; color: var(--text-muted);">Average clients recover $50K+ in unattributed revenue.</p>
-            </div>
-            <form class="audit-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" name="name" placeholder="John Smith" required>
-                </div>
-                <div class="form-group">
-                    <label>Business Email</label>
-                    <input type="email" name="email" placeholder="john@company.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Website URL</label>
-                    <input type="url" name="website" placeholder="https://yourcompany.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Monthly Revenue</label>
-                    <select name="revenue" required>
-                        <option value="">Select range</option>
-                        <option value="0-50k">$0 - $50K</option>
-                        <option value="50k-100k">$50K - $100K</option>
-                        <option value="100k-500k">$100K - $500K</option>
-                        <option value="500k+">$500K+</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Request Free Audit</button>
-            </form>
-        </div>
-    </section>
-
-    <section class="cta" id="contact">
-        <div class="cta-box">
+        <section class="cta">
             <h2>Ready to grow with data?</h2>
-            <p>Let's discuss how I can help your business. Free consultation included.</p>
-            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
-                <a href="mailto:artem@reiterweb.com" class="btn btn-primary">Email Me</a>
-                <a href="https://t.me/artemreiter" class="btn btn-secondary">Telegram</a>
-            </div>
-        </div>
-    </section>
+            <p>Get a free analytics audit and discover opportunities you're missing.</p>
+            <a href="pages/contact.html" class="btn btn-primary">Start Free Audit</a>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
-        <p>Artem Reiter | Web Analytics Consultant</p>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <strong style="font-size: 1.25rem;">ReiterWeb</strong>
+                <p>Data-driven growth for e-commerce businesses. Analytics setup, reporting, and conversion optimization.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/about.html">About</a></li>
+                    <li><a href="pages/services.html">Services</a></li>
+                    <li><a href="pages/case-studies.html">Case Studies</a></li>
+                    <li><a href="blog/index.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="pages/services.html">Analytics Setup</a></li>
+                    <li><a href="pages/services.html">Data Analysis</a></li>
+                    <li><a href="pages/services.html">Reporting</a></li>
+                    <li><a href="pages/services.html">Consulting</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="mailto:hello@reiterweb.com">Email</a></li>
+                    <li><a href="https://linkedin.com">LinkedIn</a></li>
+                    <li><a href="https://twitter.com">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
+        </div>
     </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
