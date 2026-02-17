@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Get in Touch | ReiterWeb</title>
+    <meta name="description" content="Ready to make data-driven decisions? Get in touch for a free analytics audit.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --bg: #fafafa;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo svg {
+            width: 32px;
+            height: 32px;
+        }
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        main {
+            padding-top: 80px;
+        }
+        .page-header {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .page-header h1 span {
+            color: var(--primary);
+        }
+        .contact-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        .contact-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-white);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        .contact-method:hover {
+            border-color: var(--primary);
+        }
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(5,150,105,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .contact-form {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .contact-form h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="../blog/index.html">Blog</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1>Get in <span>Touch</span></h1>
+            <p style="color: var(--text-muted);">Ready to make data-driven decisions? Let's talk.</p>
+        </section>
+
+        <section class="contact-section">
+            <div class="contact-info">
+                <h2>Let's work together</h2>
+                <p>Whether you need a full analytics setup, an audit of your current tracking, or ongoing consulting, I'd love to hear from you.</p>
+                
+                <div class="contact-methods">
+                    <a href="mailto:artem@reiterweb.com" class="contact-method">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong>Email</strong>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">artem@reiterweb.com</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://t.me/artemreiter" class="contact-method">
+                        <div class="contact-icon">💬</div>
+                        <div>
+                            <strong>Telegram</strong>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">@artemreiter</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://linkedin.com" class="contact-method">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <strong>LinkedIn</strong>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Connect with me</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <h2>Send a message</h2>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Website</label>
+                    <input type="url" name="website" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>How can I help?</label>
+                    <textarea name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
+    </footer>
+</body>
+</html>

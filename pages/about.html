@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Artem Reiter | Web Analytics Consultant</title>
+    <meta name="description" content="Learn about Artem Reiter - web analytics expert with 8+ years of experience helping e-commerce businesses grow through data.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --bg: #fafafa;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo svg {
+            width: 32px;
+            height: 32px;
+        }
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #047857;
+        }
+        
+        /* Main Content */
+        main {
+            padding-top: 80px;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .page-header h1 span {
+            color: var(--primary);
+        }
+        .breadcrumbs {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .breadcrumbs a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* About Section */
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .about-photo {
+            position: relative;
+        }
+        .about-photo img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .about-photo::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        .about-text h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        .about-text h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        /* Experience */
+        .experience {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-top: 1px solid var(--border);
+        }
+        .experience-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .experience-card {
+            padding: 2rem;
+            background: var(--bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .experience-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        .experience-card ul {
+            list-style: none;
+        }
+        .experience-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-muted);
+        }
+        .experience-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(5,150,105,0.05) 0%, rgba(16,185,129,0.05) 100%);
+        }
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .cta-section p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 3rem 5%;
+        }
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .footer-links h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="../blog/index.html">Blog</a></li>
+                <li><a href="contact.html" class="btn btn-primary">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> / About
+            </div>
+            <h1>About <span>Me</span></h1>
+        </section>
+
+        <section class="about-content">
+            <div class="about-photo">
+                <img src="../images/artem-photo.jpg" alt="Artem Reiter - Web Analytics Consultant">
+            </div>
+            <div class="about-text">
+                <h2>Hi, I'm Artem Reiter</h2>
+                <p>I'm a web analytics consultant with over 8 years of experience helping e-commerce businesses make data-driven decisions. Based in Europe, I work with clients worldwide, from fast-growing startups to established enterprises.</p>
+                
+                <p>My journey in analytics started when I realized that most businesses were making marketing decisions based on gut feeling rather than data. I made it my mission to change that.</p>
+                
+                <h3>My Approach</h3>
+                <p>I believe that analytics should be actionable, not just decorative. Every dashboard I create, every report I build, is designed to answer specific business questions and drive growth.</p>
+                
+                <p>My clients see an average of 34% improvement in marketing ROI within the first 3 months of working together. But more importantly, they gain confidence in their decision-making.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">8+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">$2M+</span>
+                        <span class="stat-label">Revenue Generated</span>
+                    </div>
+                </div>
+                
+                <h3>Certifications</h3>
+                <p>Google Analytics Certified, Google Ads Certified, and continuously learning to stay ahead of the rapidly evolving analytics landscape.</p>
+            </div>
+        </section>
+
+        <section class="experience">
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <h3>Industries I've Worked With</h3>
+                    <ul>
+                        <li>E-commerce & Retail</li>
+                        <li>SaaS & Technology</li>
+                        <li>Fashion & Apparel</li>
+                        <li>Health & Wellness</li>
+                        <li>Education & EdTech</li>
+                    </ul>
+                </div>
+                <div class="experience-card">
+                    <h3>Tools & Platforms</h3>
+                    <ul>
+                        <li>Google Analytics 4</li>
+                        <li>Google Tag Manager</li>
+                        <li>Google Ads & Facebook Ads</li>
+                        <li>Looker Studio & Tableau</li>
+                        <li>Shopify, WooCommerce, Magento</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Let's Work Together</h2>
+            <p>Have a project in mind? I'd love to hear about it. Let's discuss how I can help you make better decisions with data.</p>
+            <a href="contact.html" class="btn btn-primary">Get in Touch</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <strong style="font-size: 1.25rem;">ReiterWeb</strong>
+                <p>Helping businesses make data-driven decisions. Analytics setup, reporting, and growth strategies.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="../blog/index.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">Analytics Setup</a></li>
+                    <li><a href="services.html">Data Analysis</a></li>
+                    <li><a href="services.html">Reporting</a></li>
+                    <li><a href="services.html">Consulting</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="mailto:artem@reiterweb.com">Email</a></li>
+                    <li><a href="https://linkedin.com">LinkedIn</a></li>
+                    <li><a href="https://twitter.com">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

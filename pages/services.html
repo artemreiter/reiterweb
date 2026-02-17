@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Web Analytics Consulting | ReiterWeb</title>
+    <meta name="description" content="Professional web analytics services: GA4 setup, data analysis, reporting automation, and growth strategy.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --bg: #fafafa;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo svg {
+            width: 32px;
+            height: 32px;
+        }
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #047857;
+        }
+        
+        main {
+            padding-top: 80px;
+        }
+        
+        .page-header {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .page-header h1 span {
+            color: var(--primary);
+        }
+        .page-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Services Grid */
+        .services-section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .service-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(5,150,105,0.08);
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(5,150,105,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        .service-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        .service-features li {
+            padding: 0.4rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Process */
+        .process-section {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-top: 1px solid var(--border);
+        }
+        .process-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+        .process-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -1.5rem;
+            top: 2rem;
+            color: var(--border);
+            font-size: 1.5rem;
+        }
+        .process-step:last-child::after {
+            display: none;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+        .process-step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .process-step p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        /* Pricing */
+        .pricing-section {
+            padding: 4rem 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .pricing-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .pricing-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .pricing-card.featured {
+            border-color: var(--primary);
+            position: relative;
+        }
+        .pricing-card.featured::before {
+            content: 'Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .pricing-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+        .price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            .process-step::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="../blog/index.html">Blog</a></li>
+                <li><a href="contact.html" class="btn btn-primary">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1>My <span>Services</span></h1>
+            <p>Everything you need to turn data into growth. From setup to strategy, I help you make better decisions.</p>
+        </section>
+
+        <section class="services-section">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Analytics Setup</h3>
+                    <p>Complete Google Analytics 4 and Google Tag Manager implementation for your e-commerce store.</p>
+                    <ul class="service-features">
+                        <li>GA4 property configuration</li>
+                        <li>E-commerce tracking setup</li>
+                        <li>Custom events & conversions</li>
+                        <li>Cross-domain tracking</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📈</div>
+                    <h3>Data Analysis</h3>
+                    <p>Deep dive into your data to uncover insights and opportunities for growth.</p>
+                    <ul class="service-features">
+                        <li>Sales funnel analysis</li>
+                        <li>Customer behavior insights</li>
+                        <li>Channel performance review</li>
+                        <li>Attribution modeling</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>Reporting Automation</h3>
+                    <p>Automated dashboards and reports that save you time and keep everyone aligned.</p>
+                    <ul class="service-features">
+                        <li>Looker Studio dashboards</li>
+                        <li>Automated email reports</li>
+                        <li>Executive summaries</li>
+                        <li>Real-time monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Ad Optimization</h3>
+                    <p>Optimize your Google and Facebook Ads with better tracking and attribution.</p>
+                    <ul class="service-features">
+                        <li>Conversion tracking setup</li>
+                        <li>Audience optimization</li>
+                        <li>ROAS improvement</li>
+                        <li>Attribution analysis</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>A/B Testing</h3>
+                    <p>Data-driven website optimization through proper experimentation.</p>
+                    <ul class="service-features">
+                        <li>Test strategy development</li>
+                        <li>Statistical analysis</li>
+                        <li>Implementation guidance</li>
+                        <li>Results interpretation</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3>Growth Strategy</h3>
+                    <p>Comprehensive data strategy to scale your business sustainably.</p>
+                    <ul class="service-features">
+                        <li>Data infrastructure planning</li>
+                        <li>KPI framework development</li>
+                        <li>Growth opportunity analysis</li>
+                        <li>Team training & enablement</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="process-section">
+            <h2>How We Work Together</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Discovery</h3>
+                    <p>Understanding your business, goals, and current setup</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Audit</h3>
+                    <p>Analyzing your data and identifying opportunities</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Implementation</h3>
+                    <p>Setting up tracking and creating dashboards</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Optimization</h3>
+                    <p>Continuous improvement and support</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; opacity: 0.7;">Artem Reiter | Web Analytics Consultant</p>
+    </footer>
+</body>
+</html>
