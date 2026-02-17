@@ -11,6 +11,7 @@
         :root {
             --primary: #059669;
             --primary-light: #10b981;
+            --primary-dark: #047857;
             --bg: #fafafa;
             --bg-white: #ffffff;
             --text: #111827;
@@ -89,20 +90,27 @@
             display: inline-block;
             border: none;
             cursor: pointer;
+            transition: all 0.2s;
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: #047857; }
+        .btn-primary { 
+            background: var(--primary); 
+            color: white; 
+        }
+        .btn-primary:hover { 
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
         
         main { padding-top: 80px; }
         
         .page-header {
-            background: var(--bg-white);
-            padding: 4rem 5%;
+            background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg) 100%);
+            padding: 5rem 5% 4rem;
             border-bottom: 1px solid var(--border);
             text-align: center;
         }
         .page-header h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
@@ -111,88 +119,216 @@
             color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto;
+            font-size: 1.125rem;
         }
         
-        .case-studies {
-            padding: 4rem 5%;
+        /* Industry Filter */
+        .industry-filter {
+            padding: 2rem 5%;
             max-width: 1000px;
             margin: 0 auto;
-        }
-        .case-detail {
-            background: var(--bg-white);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-        .case-header {
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(16,185,129,0.02));
-            border-bottom: 1px solid var(--border);
-        }
-        .case-company {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .case-meta {
-            color: var(--text-muted);
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
-        .case-body {
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .case-studies {
+            padding: 2rem 5% 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        /* Enhanced Case Cards */
+        .case-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(5,150,105,0.1);
+        }
+        
+        /* Case Sidebar with Icon */
+        .case-sidebar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
-        .case-challenge, .case-solution, .case-results {
+        .case-sidebar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .industry-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .case-sidebar h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .case-sidebar .location {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Case Content */
+        .case-content {
+            padding: 2.5rem;
+        }
+        .case-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .case-tag {
+            padding: 0.35rem 0.75rem;
+            background: rgba(5,150,105,0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .case-section {
             margin-bottom: 1.5rem;
         }
-        .case-challenge h3, .case-solution h3, .case-results h3 {
+        .case-section h4 {
             color: var(--primary);
-            font-size: 1rem;
+            font-size: 0.875rem;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .case-challenge p, .case-solution p {
+        .case-section p {
             color: var(--text-muted);
+            line-height: 1.7;
         }
+        
+        /* Results Grid */
         .case-results {
-            background: var(--bg);
+            background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(16,185,129,0.02));
             padding: 1.5rem;
-            border-radius: 8px;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(5,150,105,0.1);
         }
         .results-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1.5rem;
         }
         .result-item {
             text-align: center;
+            padding: 1rem;
+            background: var(--bg-white);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .result-value {
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 700;
             color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.25rem;
         }
         .result-label {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
         }
         
+        /* Featured Quote */
+        .case-quote {
+            background: var(--bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        .case-quote p {
+            font-style: italic;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+        .case-quote cite {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 500;
+        }
+        
         .cta-section {
-            padding: 4rem 5%;
+            padding: 5rem 5%;
             text-align: center;
-            background: linear-gradient(135deg, rgba(5,150,105,0.05) 0%, rgba(16,185,129,0.05) 100%);
+            background: linear-gradient(135deg, rgba(5,150,105,0.08) 0%, rgba(16,185,129,0.03) 100%);
         }
         .cta-section h2 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
         .cta-section p {
             color: var(--text-muted);
-            margin-bottom: 1.5rem;
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+            font-size: 1.125rem;
         }
         
         footer {
@@ -200,6 +336,27 @@
             color: white;
             padding: 2rem;
             text-align: center;
+        }
+        
+        @media (max-width: 900px) {
+            .case-card {
+                grid-template-columns: 1fr;
+            }
+            .case-sidebar {
+                padding: 1.5rem;
+                flex-direction: row;
+                gap: 1rem;
+                text-align: left;
+            }
+            .industry-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.75rem;
+                margin-bottom: 0;
+            }
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 768px) {
@@ -218,7 +375,8 @@
                 transition: right 0.3s ease;
             }
             nav ul.active { right: 0; }
-            .results-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2rem; }
+            .case-content { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -252,31 +410,49 @@
 
     <main>
         <section class="page-header">
-            <h1>Case <span>Studies</span></h1>
-            <p>See how we've helped businesses grow with data-driven strategies.</p>
+            <h1>Success <span>Stories</span></h1>
+            <p>See how we've helped businesses across industries grow with data-driven strategies.</p>
         </section>
 
+        <div class="industry-filter">
+            <button class="filter-btn active"><span>🌟</span> All Industries</button>
+            <button class="filter-btn"><span>📱</span> Electronics</button>
+            <button class="filter-btn"><span>👗</span> Fashion</button>
+            <button class="filter-btn"><span>🏠</span> Home & Furniture</button>
+            <button class="filter-btn"><span>💪</span> Health</button>
+            <button class="filter-btn"><span>🎓</span> Education</button>
+        </div>
+
         <section class="case-studies">
-            <article class="case-detail">
-                <div class="case-header">
-                    <div class="case-company">TechGadgets Pro</div>
-                    <div class="case-meta">
-                        <span>📍 Los Angeles, CA</span>
-                        <span>🏷️ Consumer Electronics</span>
-                        <span>📅 2023</span>
+            <!-- TechGadgets Pro -->
+            <article class="case-card">
+                <div class="case-sidebar">
+                    <div class="industry-icon">📱</div>
+                    <div>
+                        <h3>TechGadgets Pro</h3>
+                        <div class="location">📍 Los Angeles, CA</div>
                     </div>
                 </div>
-                <div class="case-body">
-                    <div class="case-challenge">
-                        <h3>The Challenge</h3>
-                        <p>TechGadgets Pro was spending $50K/month on Google Ads but had no clear attribution model. They couldn't tell which campaigns were actually driving revenue versus just consuming budget.</p>
+                <div class="case-content">
+                    <div class="case-tags">
+                        <span class="case-tag">GA4 Setup</span>
+                        <span class="case-tag">Attribution</span>
+                        <span class="case-tag">Google Ads</span>
+                        <span class="case-tag">Dashboard</span>
                     </div>
-                    <div class="case-solution">
-                        <h3>Our Solution</h3>
-                        <p>We implemented full-funnel GA4 tracking with enhanced e-commerce, set up proper UTM taxonomy, and created a data-driven attribution model. We also built automated Looker Studio dashboards for real-time campaign monitoring.</p>
+                    
+                    <div class="case-section">
+                        <h4>⚡ The Challenge</h4>
+                        <p>TechGadgets Pro was spending $50K/month on Google Ads but had no clear attribution model. They couldn't tell which campaigns were actually driving revenue versus just consuming budget. Marketing decisions were based on gut feeling rather than data.</p>
                     </div>
+                    
+                    <div class="case-section">
+                        <h4>✅ Our Solution</h4>
+                        <p>We implemented full-funnel GA4 tracking with enhanced e-commerce, set up proper UTM taxonomy, and created a data-driven attribution model. We also built automated Looker Studio dashboards for real-time campaign monitoring and weekly optimization.</p>
+                    </div>
+                    
                     <div class="case-results">
-                        <h3>Results</h3>
+                        <h4 style="color: var(--primary); margin-bottom: 1rem; text-transform: uppercase; font-size: 0.875rem;">📊 Results After 6 Months</h4>
                         <div class="results-grid">
                             <div class="result-item">
                                 <div class="result-value">+156%</div>
@@ -292,29 +468,43 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="case-quote">
+                        <p>"ReiterWeb completely transformed how we approach marketing. We now know exactly which campaigns work and can optimize in real-time. The ROI improvement paid for their services in the first month."</p>
+                        <cite>— James Mitchell, CEO</cite>
+                    </div>
                 </div>
             </article>
 
-            <article class="case-detail">
-                <div class="case-header">
-                    <div class="case-company">Luxe Fashion Co</div>
-                    <div class="case-meta">
-                        <span>📍 New York, NY</span>
-                        <span>🏷️ Premium Fashion</span>
-                        <span>📅 2023</span>
+            <!-- Luxe Fashion Co -->
+            <article class="case-card">
+                <div class="case-sidebar">
+                    <div class="industry-icon">👗</div>
+                    <div>
+                        <h3>Luxe Fashion Co</h3>
+                        <div class="location">📍 New York, NY</div>
                     </div>
                 </div>
-                <div class="case-body">
-                    <div class="case-challenge">
-                        <h3>The Challenge</h3>
-                        <p>Luxe Fashion Co was manually creating reports every week, spending 15+ hours on data compilation. They lacked customer segmentation insights and couldn't identify their most valuable customer cohorts.</p>
+                <div class="case-content">
+                    <div class="case-tags">
+                        <span class="case-tag">Automation</span>
+                        <span class="case-tag">Segmentation</span>
+                        <span class="case-tag">LTV</span>
+                        <span class="case-tag">Reporting</span>
                     </div>
-                    <div class="case-solution">
-                        <h3>Our Solution</h3>
-                        <p>We automated their entire reporting workflow with Looker Studio, implemented RFM customer segmentation in GA4, and built predictive models for customer lifetime value.</p>
+                    
+                    <div class="case-section">
+                        <h4>⚡ The Challenge</h4>
+                        <p>Luxe Fashion Co's marketing team was manually creating reports every week, spending 15+ hours on data compilation. They lacked customer segmentation insights and couldn't identify their most valuable customer cohorts or optimize email campaigns.</p>
                     </div>
+                    
+                    <div class="case-section">
+                        <h4>✅ Our Solution</h4>
+                        <p>We automated their entire reporting workflow with Looker Studio, implemented RFM customer segmentation in GA4, and built predictive models for customer lifetime value. Created automated email triggers based on customer behavior.</p>
+                    </div>
+                    
                     <div class="case-results">
-                        <h3>Results</h3>
+                        <h4 style="color: var(--primary); margin-bottom: 1rem; text-transform: uppercase; font-size: 0.875rem;">📊 Results After 4 Months</h4>
                         <div class="results-grid">
                             <div class="result-item">
                                 <div class="result-value">+203%</div>
@@ -330,29 +520,43 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="case-quote">
+                        <p>"The dashboards save us 15 hours weekly and uncovered customer segments we didn't even know existed. Our email revenue has more than tripled since implementing their recommendations."</p>
+                        <cite>— Sarah Chen, CMO</cite>
+                    </div>
                 </div>
             </article>
 
-            <article class="case-detail">
-                <div class="case-header">
-                    <div class="case-company">ModernHome Direct</div>
-                    <div class="case-meta">
-                        <span>📍 Austin, TX</span>
-                        <span>🏷️ Furniture & Home</span>
-                        <span>📅 2024</span>
+            <!-- ModernHome Direct -->
+            <article class="case-card">
+                <div class="case-sidebar">
+                    <div class="industry-icon">🏠</div>
+                    <div>
+                        <h3>ModernHome Direct</h3>
+                        <div class="location">📍 Austin, TX</div>
                     </div>
                 </div>
-                <div class="case-body">
-                    <div class="case-challenge">
-                        <h3>The Challenge</h3>
-                        <p>ModernHome Direct had a 68% cart abandonment rate and didn't understand why customers were dropping off at checkout. Their mobile conversion rate was significantly lower than desktop.</p>
+                <div class="case-content">
+                    <div class="case-tags">
+                        <span class="case-tag">CRO</span>
+                        <span class="case-tag">Funnel Analysis</span>
+                        <span class="case-tag">A/B Testing</span>
+                        <span class="case-tag">Mobile</span>
                     </div>
-                    <div class="case-solution">
-                        <h3>Our Solution</h3>
-                        <p>We conducted a comprehensive funnel analysis, identified key drop-off points, and implemented enhanced e-commerce tracking. We also set up A/B testing infrastructure and ran experiments on checkout flow.</p>
+                    
+                    <div class="case-section">
+                        <h4>⚡ The Challenge</h4>
+                        <p>ModernHome Direct had a 68% cart abandonment rate and didn't understand why customers were dropping off at checkout. Their mobile conversion rate was 40% lower than desktop, significantly impacting overall revenue.</p>
                     </div>
+                    
+                    <div class="case-section">
+                        <h4>✅ Our Solution</h4>
+                        <p>We conducted a comprehensive funnel analysis, identified key drop-off points, and implemented enhanced e-commerce tracking. We set up A/B testing infrastructure and ran experiments on checkout flow and mobile experience.</p>
+                    </div>
+                    
                     <div class="case-results">
-                        <h3>Results</h3>
+                        <h4 style="color: var(--primary); margin-bottom: 1rem; text-transform: uppercase; font-size: 0.875rem;">📊 Results After 3 Months</h4>
                         <div class="results-grid">
                             <div class="result-item">
                                 <div class="result-value">+78%</div>
@@ -368,14 +572,70 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="case-quote">
+                        <p>"They found $200K in unattributed revenue and fixed our mobile checkout. Best investment we've made for our analytics. Our conversion rate has never been higher."</p>
+                        <cite>— Michael Rodriguez, Founder</cite>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Peak Performance -->
+            <article class="case-card">
+                <div class="case-sidebar">
+                    <div class="industry-icon">💪</div>
+                    <div>
+                        <h3>Peak Performance</h3>
+                        <div class="location">📍 Denver, CO</div>
+                    </div>
+                </div>
+                <div class="case-content">
+                    <div class="case-tags">
+                        <span class="case-tag">Subscription</span>
+                        <span class="case-tag">Retention</span>
+                        <span class="case-tag">Cohort Analysis</span>
+                    </div>
+                    
+                    <div class="case-section">
+                        <h4>⚡ The Challenge</h4>
+                        <p>Peak Performance, a fitness supplements subscription business, struggled with high churn rates and couldn't identify which subscribers were at risk of canceling. They lacked visibility into subscription lifetime value.</p>
+                    </div>
+                    
+                    <div class="case-section">
+                        <h4>✅ Our Solution</h4>
+                        <p>We implemented subscription-specific tracking in GA4, built cohort analysis dashboards, and created automated alerts for at-risk subscribers. Developed retention email sequences based on usage patterns.</p>
+                    </div>
+                    
+                    <div class="case-results">
+                        <h4 style="color: var(--primary); margin-bottom: 1rem; text-transform: uppercase; font-size: 0.875rem;">📊 Results After 5 Months</h4>
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-value">+52%</div>
+                                <div class="result-label">Retention Rate</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-value">-35%</div>
+                                <div class="result-label">Churn Rate</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-value">+89%</div>
+                                <div class="result-label">Subscription LTV</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="case-quote">
+                        <p>"Understanding our cohorts changed everything. We now know exactly when to engage customers to prevent churn. Our subscription business has never been healthier."</p>
+                        <cite>— Emily Watson, Head of Growth</cite>
+                    </div>
                 </div>
             </article>
         </section>
 
         <section class="cta-section">
-            <h2>Want similar results?</h2>
-            <p>Let's discuss how we can help your business grow with data.</p>
-            <a href="contact.html" class="btn btn-primary">Start Free Audit</a>
+            <h2>Ready for similar results?</h2>
+            <p>Let's discuss how we can help your business grow with data-driven strategies tailored to your industry.</p>
+            <a href="contact.html" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">Start Free Audit</a>
         </section>
     </main>
 

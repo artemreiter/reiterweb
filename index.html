@@ -336,41 +336,116 @@
             color: var(--text-muted);
         }
         
-        /* Testimonials */
+        /* Testimonials Carousel */
         .testimonials {
-            padding: 4rem 5%;
-            background: var(--bg-white);
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg) 100%);
             border-top: 1px solid var(--border);
+            overflow: hidden;
         }
-        .testimonials-grid {
-            max-width: 1200px;
+        .testimonials-container {
+            max-width: 900px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            position: relative;
         }
-        .testimonial-card {
-            background: var(--bg);
-            padding: 1.5rem;
-            border-radius: 8px;
+        .testimonials-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 0 1rem;
+        }
+        .testimonial-card-large {
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 20px;
             border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(5,150,105,0.08);
+            text-align: center;
         }
-        .testimonial-rating {
+        .testimonial-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 4px solid rgba(5,150,105,0.1);
+            object-fit: cover;
+        }
+        .testimonial-rating-large {
             color: #f59e0b;
-            margin-bottom: 0.75rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
         }
-        .testimonial-text {
-            font-size: 0.95rem;
+        .testimonial-text-large {
+            font-size: 1.25rem;
             color: var(--text);
-            margin-bottom: 1rem;
-            line-height: 1.6;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-style: italic;
         }
-        .testimonial-author h4 {
-            font-size: 0.9rem;
+        .testimonial-author-large h4 {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 0.25rem;
         }
-        .testimonial-author p {
-            font-size: 0.8rem;
+        .testimonial-author-large p {
+            font-size: 0.95rem;
             color: var(--text-muted);
+        }
+        .testimonial-logo {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(5,150,105,0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+        
+        /* Carousel Controls */
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.2s;
+        }
+        .carousel-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
         }
         
         /* CTA */
@@ -498,10 +573,27 @@
                 font-size: 1.75rem;
             }
             .services-grid,
-            .cases-grid,
-            .testimonials-grid {
+            .cases-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
+            }
+            /* Testimonials Carousel Mobile */
+            .testimonial-card-large {
+                padding: 2rem 1.5rem;
+            }
+            .testimonial-photo {
+                width: 80px;
+                height: 80px;
+            }
+            .testimonial-text-large {
+                font-size: 1rem;
+            }
+            .testimonial-rating-large {
+                font-size: 1.25rem;
+            }
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
             }
             .cta h2 {
                 font-size: 1.75rem;
@@ -695,34 +787,94 @@
             </div>
         </section>
 
-        <section class="testimonials">
+        <section class="testimonials" id="testimonials">
             <div class="section-header">
-                <h2>Client <span>Feedback</span></h2>
+                <h2>What Our <span>Clients Say</span></h2>
+                <p>Trusted by e-commerce businesses across industries</p>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">★★★★★</div>
-                    <p class="testimonial-text">"ReiterWeb transformed our entire approach to data. Revenue jumped 156% in just 6 months."</p>
-                    <div class="testimonial-author">
-                        <h4>James Mitchell</h4>
-                        <p>CEO, TechGadgets Pro</p>
+            <div class="testimonials-container">
+                <div class="testimonials-carousel" id="testimonialsCarousel">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card-large">
+                            <div class="testimonial-rating-large">★★★★★</div>
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face" alt="James Mitchell" class="testimonial-photo">
+                            <p class="testimonial-text-large">"ReiterWeb completely transformed our approach to data. Revenue jumped 156% in just 6 months. Their team's expertise in GA4 and attribution modeling is unmatched."</p>
+                            <div class="testimonial-author-large">
+                                <h4>James Mitchell</h4>
+                                <p>Chief Executive Officer</p>
+                                <span class="testimonial-logo">📱 TechGadgets Pro</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card-large">
+                            <div class="testimonial-rating-large">★★★★★</div>
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face" alt="Sarah Chen" class="testimonial-photo">
+                            <p class="testimonial-text-large">"The automated dashboards save us 15 hours every week. They uncovered customer segments we didn't even know existed. Our email revenue has tripled since implementation."</p>
+                            <div class="testimonial-author-large">
+                                <h4>Sarah Chen</h4>
+                                <p>Chief Marketing Officer</p>
+                                <span class="testimonial-logo">👗 Luxe Fashion Co</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card-large">
+                            <div class="testimonial-rating-large">★★★★★</div>
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" alt="Michael Rodriguez" class="testimonial-photo">
+                            <p class="testimonial-text-large">"They found $200K in unattributed revenue and fixed our mobile checkout flow. Best investment we've made for our analytics. I only wish we had found them sooner."</p>
+                            <div class="testimonial-author-large">
+                                <h4>Michael Rodriguez</h4>
+                                <p>Founder & CEO</p>
+                                <span class="testimonial-logo">🏠 ModernHome Direct</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 4 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card-large">
+                            <div class="testimonial-rating-large">★★★★★</div>
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face" alt="Emily Watson" class="testimonial-photo">
+                            <p class="testimonial-text-large">"Understanding our cohorts changed everything. We now know exactly when to engage customers to prevent churn. Our subscription retention has never been higher."</p>
+                            <div class="testimonial-author-large">
+                                <h4>Emily Watson</h4>
+                                <p>Head of Growth</p>
+                                <span class="testimonial-logo">💪 Peak Performance</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 5 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card-large">
+                            <div class="testimonial-rating-large">★★★★★</div>
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=face" alt="David Kim" class="testimonial-photo">
+                            <p class="testimonial-text-large">"The insights we get now are incredible. We can see exactly which products drive repeat purchases and optimize our inventory accordingly. Game changer for our business."</p>
+                            <div class="testimonial-author-large">
+                                <h4>David Kim</h4>
+                                <p>E-commerce Director</p>
+                                <span class="testimonial-logo">🌿 Organic Beauty Box</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">★★★★★</div>
-                    <p class="testimonial-text">"The dashboards save us 15 hours weekly. They uncovered customer segments we didn't know existed."</p>
-                    <div class="testimonial-author">
-                        <h4>Sarah Chen</h4>
-                        <p>CMO, Luxe Fashion Co</p>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn">←</button>
+                    <div class="carousel-dots" id="carouselDots">
+                        <button class="carousel-dot active" data-index="0"></button>
+                        <button class="carousel-dot" data-index="1"></button>
+                        <button class="carousel-dot" data-index="2"></button>
+                        <button class="carousel-dot" data-index="3"></button>
+                        <button class="carousel-dot" data-index="4"></button>
                     </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">★★★★★</div>
-                    <p class="testimonial-text">"Found $200K in unattributed revenue. Best investment we've made for our analytics."</p>
-                    <div class="testimonial-author">
-                        <h4>Michael Rodriguez</h4>
-                        <p>Founder, ModernHome Direct</p>
-                    </div>
+                    <button class="carousel-btn" id="nextBtn">→</button>
                 </div>
             </div>
         </section>
@@ -774,14 +926,15 @@
     </footer>
 
     <script>
+        // Hamburger menu
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
-        
+
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             navLinks.classList.toggle('active');
         });
-        
+
         // Close menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
@@ -789,6 +942,99 @@
                 navLinks.classList.remove('active');
             });
         });
+
+        // Testimonials Carousel
+        const carousel = document.getElementById('testimonialsCarousel');
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let autoPlayInterval;
+
+        function goToSlide(index) {
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+
+            currentSlide = index;
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoPlay();
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+                resetAutoPlay();
+            });
+        });
+
+        // Auto-play
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        // Start auto-play
+        startAutoPlay();
+
+        // Pause on hover
+        carousel.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+        carousel.addEventListener('mouseleave', startAutoPlay);
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        carousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+                resetAutoPlay();
+            }
+        }
     </script>
 </body>
 </html>
