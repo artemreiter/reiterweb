@@ -3,387 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Google Analytics 4 Setup Guide for E-commerce | ReiterWeb</title>
-    <meta name="description" content="Step-by-step guide to configure GA4 for your online store. Learn enhanced e-commerce tracking, conversion setup, and common pitfalls to avoid.">
-    <meta name="keywords" content="Google Analytics 4, GA4 setup, e-commerce tracking, enhanced ecommerce, GA4 tutorial">
+    <title>Complete GA4 Setup Guide for E-commerce | ReiterWeb</title>
+    <meta name="description" content="Step-by-step guide to setting up Google Analytics 4 for your online store with proper e-commerce tracking.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --accent: #8b5cf6;
-            --dark: #0a0a0f;
-            --dark-light: #12121a;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --primary: #059669;
+            --primary-light: #10b981;
+            --bg: #fafafa;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
         }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark);
+            background: var(--bg);
             color: var(--text);
             line-height: 1.8;
         }
-
-        nav {
+        
+        header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
         }
-
-        .logo img {
-            height: 40px;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
         }
-
-        .nav-links {
+        .logo svg { width: 32px; height: 32px; }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        
+        nav ul {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-
-        .nav-links a {
+        nav a {
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
         }
-
-        article {
+        nav a:hover { color: var(--primary); }
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #047857; }
+        
+        main { padding-top: 80px; }
+        
+        .article-header {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--border);
+        }
+        .article-meta {
             max-width: 800px;
             margin: 0 auto;
-            padding: 8rem 2rem 4rem;
-        }
-
-        .breadcrumb {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-
-        .breadcrumb a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .meta {
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-            display: flex;
-            gap: 2rem;
-        }
-
-        h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 3rem 0 1.5rem;
-            color: var(--primary);
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 2rem 0 1rem;
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-        }
-
-        .highlight-box {
-            background: rgba(99, 102, 241, 0.1);
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 12px 12px 0;
-        }
-
-        .checklist {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-
-        .checklist li {
-            padding: 0.75rem 0;
-            padding-left: 2rem;
-            position: relative;
-            color: var(--text-muted);
-        }
-
-        .checklist li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #22c55e;
-            font-weight: bold;
-        }
-
-        code {
-            background: rgba(255,255,255,0.05);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-
-        pre {
-            background: rgba(255,255,255,0.03);
-            padding: 1.5rem;
-            border-radius: 12px;
-            overflow-x: auto;
-            margin: 1.5rem 0;
-        }
-
-        pre code {
-            background: none;
-            padding: 0;
-        }
-
-        .cta-box {
-            background: var(--gradient);
-            padding: 2rem;
-            border-radius: 16px;
             text-align: center;
-            margin: 3rem 0;
         }
-
-        .cta-box h3 {
-            color: white;
+        .category {
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
             margin-bottom: 1rem;
         }
-
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .article-header .excerpt {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .article-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+        .article-content h2 {
+            font-size: 1.75rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--text);
+        }
+        .article-content h3 {
+            font-size: 1.25rem;
+            margin: 2rem 0 0.75rem;
+            color: var(--primary);
+        }
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        .article-content strong {
+            color: var(--text);
+        }
+        .article-content code {
+            background: rgba(5,150,105,0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .article-content pre {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        .article-content pre code {
+            background: none;
+            color: var(--text);
+            padding: 0;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(16,185,129,0.05));
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .cta-box h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
         .cta-box p {
-            color: rgba(255,255,255,0.9);
             margin-bottom: 1.5rem;
         }
-
-        .btn {
-            display: inline-block;
-            background: white;
-            color: var(--primary);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
+        
         footer {
+            background: var(--text);
+            color: white;
+            padding: 2rem;
             text-align: center;
-            padding: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+            }
+            nav ul.active { right: 0; }
+            .article-header h1 {
+                font-size: 1.75rem;
+            }
+            .article-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
+    <header>
         <a href="../../index.html" class="logo">
-            <img src="../../images/logo.svg" alt="ReiterWeb">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
         </a>
-        <ul class="nav-links">
-            <li><a href="../../index.html">Home</a></li>
-            <li><a href="../index.html">Blog</a></li>
-            <li><a href="../../index.html#audit" style="background: var(--gradient); color: white; padding: 0.5rem 1.5rem; border-radius: 50px;">Free Audit</a></li>
-        </ul>
-    </nav>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav>
+            <ul id="navLinks">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../pages/about.html">About</a></li>
+                <li><a href="../../pages/services.html">Services</a></li>
+                <li><a href="../../pages/case-studies.html">Case Studies</a></li>
+                <li><a href="../index.html">Blog</a></li>
+                <li><a href="../../pages/contact.html" class="btn btn-primary">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <article>
-        <div class="breadcrumb">
-            <a href="../index.html">Blog</a> / <a href="../index.html">GA4</a> / Complete Setup Guide
-        </div>
+    <main>
+        <article>
+            <header class="article-header">
+                <div class="article-meta">
+                    <div class="category">GA4 Setup</div>
+                    <h1>Complete GA4 Setup Guide for E-commerce</h1>
+                    <p class="excerpt">Step-by-step guide to setting up Google Analytics 4 for your online store with proper e-commerce tracking.</p>
+                    <div class="article-info">
+                        <span>📅 Feb 16, 2024</span>
+                        <span>⏱️ 12 min read</span>
+                        <span>✍️ ReiterWeb Team</span>
+                    </div>
+                </div>
+            </header>
 
-        <h1>Complete Google Analytics 4 Setup Guide for E-commerce</h1>
+            <div class="article-content">
+                <p>Google Analytics 4 (GA4) is the future of analytics, but setting it up correctly for e-commerce requires attention to detail. In this guide, we'll walk through the complete setup process.</p>
 
-        <div class="meta">
-            <span>📅 January 15, 2024</span>
-            <span>⏱️ 12 min read</span>
-            <span>👤 Artem Reiter</span>
-        </div>
+                <h2>Why GA4 Matters for E-commerce</h2>
+                <p>GA4 offers event-based tracking, cross-platform measurement, and predictive analytics — essential features for modern e-commerce businesses. Unlike Universal Analytics, GA4 tracks user interactions as events, giving you more flexibility and deeper insights.</p>
 
-        <p><strong>Google Analytics 4 (GA4)</strong> is the future of analytics, but most e-commerce stores are tracking it wrong. In this comprehensive guide, I'll show you exactly how to set up GA4 for your online store to get accurate data that drives real business decisions.</p>
+                <h2>Step 1: Create Your GA4 Property</h2>
+                <ol>
+                    <li>Go to Google Analytics and click "Admin"</li>
+                    <li>Select "Create Property"</li>
+                    <li>Choose "Google Analytics 4"</li>
+                    <li>Enter your property name and timezone</li>
+                    <li>Select your industry and business size</li>
+                </ol>
 
-        <div class="highlight-box">
-            <strong>Why this matters:</strong> Stores with properly configured GA4 see an average of 34% improvement in marketing ROI within 3 months. Bad data leads to bad decisions.
-        </div>
-
-        <h2>Table of Contents</h2>
-        <ol>
-            <li><a href="#basics">GA4 Basics for E-commerce</a></li>
-            <li><a href="#setup">Step-by-Step Setup Process</a></li>
-            <li><a href="#enhanced">Enhanced E-commerce Configuration</a></li>
-            <li><a href="#conversions">Conversion Tracking Setup</a></li>
-            <li><a href="#testing">Testing & Validation</a></li>
-            <li><a href="#mistakes">Common Mistakes to Avoid</a></li>
-        </ol>
-
-        <h2 id="basics">1. GA4 Basics for E-commerce</h2>
-
-        <p>Unlike Universal Analytics, GA4 uses an <strong>event-based model</strong>. Everything is an event: page views, button clicks, purchases, scrolls. This gives you much more flexibility but requires a different mindset.</p>
-
-        <h3>Key Differences for E-commerce:</h3>
-        <ul class="checklist">
-            <li>No more "sessions" as the primary metric</li>
-            <li>Enhanced measurement tracks scrolls, outbound clicks, site search automatically</li>
-            <li>User-centric reporting (tracks users across devices)</li>
-            <li>Built-in machine learning for predictive metrics</li>
-            <li>Better privacy controls for cookie-less tracking</li>
-        </ul>
-
-        <h2 id="setup">2. Step-by-Step Setup Process</h2>
-
-        <h3>Step 1: Create Your GA4 Property</h3>
-        <ol>
-            <li>Go to <a href="https://analytics.google.com">analytics.google.com</a></li>
-            <li>Click "Create Property"</li>
-            <li>Name: Your Store Name</li>
-            <li>Reporting time zone: Your business timezone</li>
-            <li>Currency: USD (or your store currency)</li>
-        </ol>
-
-        <h3>Step 2: Set Up Data Streams</h3>
-        <p>For e-commerce, you need a <strong>Web</strong> data stream:</p>
-        <ol>
-            <li>Choose "Web" as your platform</li>
-            <li>Enter your website URL</li>
-            <li>Stream name: "Website"</li>
-            <li>Enable "Enhanced measurement"</li>
-        </ol>
-
-        <h3>Step 3: Install the Tracking Code</h3>
-        <p>Option A: Direct gtag.js installation:</p>
-        <pre><code>&lt;!-- Google tag (gtag.js) --&gt;
-&lt;script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"&gt;&lt;/script&gt;
+                <h2>Step 2: Install the GA4 Tracking Code</h2>
+                <p>Add the gtag.js code to the &lt;head&gt; section of every page:</p>
+                <pre><code>&lt;!-- Google tag (gtag.js) --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"&gt;&lt;/script&gt;
 &lt;script&gt;
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  gtag('config', 'GA_MEASUREMENT_ID');
 &lt;/script&gt;</code></pre>
 
-        <p>Option B: Google Tag Manager (recommended for e-commerce)</p>
-
-        <h2 id="enhanced">3. Enhanced E-commerce Configuration</h2>
-
-        <p>This is where most stores fail. You need to send specific events with the right parameters:</p>
-
-        <h3>Required E-commerce Events:</h3>
-        <ul class="checklist">
-            <li><code>view_item</code> - Product page views</li>
-            <li><code>add_to_cart</code> - Add to cart actions</li>
-            <li><code>begin_checkout</code> - Checkout initiation</li>
-            <li><code>purchase</code> - Completed transactions</li>
-            <li><code>view_cart</code> - Cart page views</li>
-        </ul>
-
-        <h3>Purchase Event Example:</h3>
-        <pre><code>gtag('event', 'purchase', {
-  transaction_id: 'T_12345',
-  value: 25.42,
-  tax: 4.90,
-  shipping: 5.99,
-  currency: 'USD',
-  items: [{
-    item_id: 'SKU_12345',
-    item_name: 'Stan and Friends Tee',
-    item_category: 'Apparel',
-    price: 9.99,
-    quantity: 1
-  }]
-});</code></pre>
-
-        <h2 id="conversions">4. Conversion Tracking Setup</h2>
-
-        <p>In GA4, any event can be a conversion. Mark these as conversions:</p>
-        <ol>
-            <li>Go to Admin → Events</li>
-            <li>Toggle "Mark as conversion" for:
+                <h2>Step 3: Enable E-commerce Tracking</h2>
+                <p>In GA4, go to Admin → Data Streams → Web Stream → Enhanced Measurement. Enable the following:</p>
                 <ul>
-                    <li>purchase</li>
-                    <li>add_to_cart (optional)</li>
-                    <li>begin_checkout (optional)</li>
+                    <li>Page views</li>
+                    <li>Scrolls</li>
+                    <li>Outbound clicks</li>
+                    <li>Site search</li>
+                    <li>Video engagement</li>
+                    <li>File downloads</li>
                 </ul>
-            </li>
-        </ol>
 
-        <h2 id="testing">5. Testing & Validation</h2>
+                <h2>Step 4: Set Up E-commerce Events</h2>
+                <p>For proper e-commerce tracking, implement these essential events:</p>
+                <ul>
+                    <li><code>view_item</code> - When a user views a product</li>
+                    <li><code>add_to_cart</code> - When a product is added to cart</li>
+                    <li><code>begin_checkout</code> - When checkout starts</li>
+                    <li><code>purchase</code> - When a purchase is completed</li>
+                </ul>
 
-        <p>Before going live, verify everything works:</p>
+                <h2>Common Mistakes to Avoid</h2>
+                <ul>
+                    <li>Not setting up currency properly</li>
+                    <li>Missing transaction_id for purchases</li>
+                    <li>Double-tracking page views</li>
+                    <li>Ignoring consent mode for GDPR</li>
+                </ul>
 
-        <div class="highlight-box">
-            <strong>Testing Checklist:</strong>
-            <ul class="checklist">
-                <li>Real-time reports show your activity</li>
-                <li>DebugView shows events firing correctly</li>
-                <li>Purchase events include transaction_id</li>
-                <li>Revenue matches your store backend</li>
-                <li>Product names appear correctly in reports</li>
-            </ul>
-        </div>
-
-        <h2 id="mistakes">6. Common Mistakes to Avoid</h2>
-
-        <h3>❌ Mistake #1: Duplicate Tracking</h3>
-        <p>Having both Universal Analytics and GA4 firing on the same events causes data inflation. Migrate completely or use separate testing environments.</p>
-
-        <h3>❌ Mistake #2: Missing Transaction IDs</h3>
-        <p>Without unique transaction IDs, GA4 can't deduplicate purchases. Always include <code>transaction_id</code> in purchase events.</p>
-
-        <h3>❌ Mistake #3: Wrong Currency</h3>
-        <p>Set currency at the property level AND in every purchase event. Mismatched currencies destroy revenue reporting.</p>
-
-        <h3>❌ Mistake #4: Not Testing on Mobile</h3>
-        <p>50%+ of e-commerce traffic is mobile. Always test your tracking on actual mobile devices, not just desktop browsers.</p>
-
-        <h2>Next Steps</h2>
-
-        <p>Now that you have GA4 properly set up:</p>
-        <ol>
-            <li>Set up <strong>Google Ads conversion tracking</strong> using the same events</li>
-            <li>Create <strong>custom audiences</strong> for remarketing</li>
-            <li>Build an <strong>e-commerce dashboard</strong> in Looker Studio</li>
-            <li>Set up <strong>automated alerts</strong> for tracking issues</li>
-        </ol>
-
-        <div class="cta-box">
-            <h3>Need Help With Your GA4 Setup?</h3>
-            <p>I offer a comprehensive GA4 audit that identifies tracking issues and provides a step-by-step fix plan. Average clients recover $50K+ in unattributed revenue.</p>
-            <a href="../../index.html#audit" class="btn">Get Free Analytics Audit</a>
-        </div>
-
-        <h2>Related Articles</h2>
-        <ul>
-            <li><a href="common-ga4-mistakes.html">15 Common GA4 Mistakes That Are Ruining Your Data</a></li>
-            <li><a href="shopify-ga4-integration.html">Shopify + GA4 Integration: Complete Setup</a></li>
-            <li><a href="enhanced-ecommerce.html">Enhanced E-commerce: Advanced Configuration</a></li>
-        </ul>
-    </article>
+                <div class="cta-box">
+                    <h3>Need help with GA4 setup?</h3>
+                    <p>Our team can handle the complete setup for you, including custom events and reporting.</p>
+                    <a href="../../pages/contact.html" class="btn btn-primary">Get Free Audit</a>
+                </div>
+            </div>
+        </article>
+    </main>
 
     <footer>
         <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
-        <p>Artem Reiter | Web Analytics Consultant</p>
     </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

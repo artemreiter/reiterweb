@@ -3,219 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Calculate Customer Lifetime Value (LTV) | ReiterWeb</title>
-    <meta name="description" content="Learn why Customer Lifetime Value is the most important metric for your business and how to calculate it accurately.">
+    <title>Customer Lifetime Value in GA4 | ReiterWeb</title>
+    <meta name="description" content="Learn how to measure and optimize the most important metric for your business.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #6366f1;
-            --dark: #0a0a0f;
-            --dark-light: #12121a;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --primary: #059669;
+            --primary-light: #10b981;
+            --bg: #fafafa;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark);
+            background: var(--bg);
             color: var(--text);
             line-height: 1.8;
         }
-        nav {
+        
+        header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
         }
-        .logo img { height: 40px; }
-        .nav-links {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo svg { width: 32px; height: 32px; }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        
+        nav ul {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-        .nav-links a {
+        nav a {
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
         }
-        article {
+        nav a:hover { color: var(--primary); }
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #047857; }
+        
+        main { padding-top: 80px; }
+        
+        .article-header {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--border);
+        }
+        .article-meta {
             max-width: 800px;
             margin: 0 auto;
-            padding: 8rem 2rem 4rem;
-        }
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .meta {
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-        }
-        h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 3rem 0 1rem;
-            color: var(--primary);
-        }
-        p { margin-bottom: 1.5rem; color: var(--text-muted); }
-        .formula-box {
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px solid var(--primary);
-            padding: 2rem;
-            border-radius: 16px;
             text-align: center;
-            margin: 2rem 0;
         }
-        .formula {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            font-family: 'Courier New', monospace;
-        }
-        .highlight-box {
-            background: rgba(34, 197, 94, 0.1);
-            border-left: 4px solid #22c55e;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 12px 12px 0;
-        }
-        .cta-box {
-            background: var(--gradient);
-            padding: 2rem;
-            border-radius: 16px;
-            text-align: center;
-            margin: 3rem 0;
-        }
-        .btn {
-            display: inline-block;
-            background: white;
+        .category {
             color: var(--primary);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
             font-weight: 600;
-            margin-top: 1rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
         }
-        footer {
-            text-align: center;
-            padding: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .article-header .excerpt {
             color: var(--text-muted);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .article-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+        .article-content h2 {
+            font-size: 1.75rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--text);
+        }
+        .article-content h3 {
+            font-size: 1.25rem;
+            margin: 2rem 0 0.75rem;
+            color: var(--primary);
+        }
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .formula-box {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .formula-box code {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(16,185,129,0.05));
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .cta-box h3 {
+            margin-bottom: 0.5rem;
+        }
+        .cta-box p {
+            margin-bottom: 1.5rem;
+        }
+        
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+            }
+            nav ul.active { right: 0; }
+            .article-header h1 {
+                font-size: 1.75rem;
+            }
+            .article-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="../../index.html" class="logo"><img src="../../images/logo.svg" alt="ReiterWeb"></a>
-        <ul class="nav-links">
-            <li><a href="../../index.html">Home</a></li>
-            <li><a href="../index.html">Blog</a></li>
-            <li><a href="../../index.html#audit" style="background: var(--gradient); color: white; padding: 0.5rem 1.5rem; border-radius: 50px;">Free Audit</a></li>
-        </ul>
-    </nav>
+    <header>
+        <a href="../../index.html" class="logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
+        </a>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav>
+            <ul id="navLinks">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../pages/about.html">About</a></li>
+                <li><a href="../../pages/services.html">Services</a></li>
+                <li><a href="../../pages/case-studies.html">Case Studies</a></li>
+                <li><a href="../index.html">Blog</a></li>
+                <li><a href="../../pages/contact.html" class="btn btn-primary">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <article>
-        <div style="color: var(--text-muted); margin-bottom: 2rem;">
-            <a href="../index.html" style="color: var(--primary);">Blog</a> / <a href="../index.html" style="color: var(--primary);">CLV</a> / Customer Lifetime Value
-        </div>
+    <main>
+        <article>
+            <header class="article-header">
+                <div class="article-meta">
+                    <div class="category">Analytics</div>
+                    <h1>How to Calculate Customer Lifetime Value in GA4</h1>
+                    <p class="excerpt">Learn how to measure and optimize the most important metric for your business.</p>
+                    <div class="article-info">
+                        <span>📅 Feb 14, 2024</span>
+                        <span>⏱️ 10 min read</span>
+                        <span>✍️ ReiterWeb Team</span>
+                    </div>
+                </div>
+            </header>
 
-        <h1>Customer Lifetime Value: The Metric That Changes Everything</h1>
-        <div class="meta">📅 December 28, 2023 · ⏱️ 13 min read</div>
+            <div class="article-content">
+                <p>Customer Lifetime Value (LTV) is arguably the most important metric for any e-commerce business. It tells you how much revenue you can expect from each customer over their entire relationship with your brand.</p>
 
-        <p><strong>Stop obsessing over conversion rate.</strong> Start focusing on Customer Lifetime Value (LTV). It's the single most important metric for sustainable business growth—and most businesses are calculating it wrong.</p>
+                <h2>What is Customer Lifetime Value?</h2>
+                <p>LTV represents the total revenue a business can reasonably expect from a single customer account. It considers a customer's revenue value and compares that to the company's predicted customer lifespan.</p>
 
-        <h2>What is Customer Lifetime Value?</h2>
-        <p>Customer Lifetime Value is the total revenue you can expect from a single customer throughout your relationship. It shifts your focus from one-time transactions to long-term relationships.</p>
+                <h2>The Simple LTV Formula</h2>
+                <div class="formula-box">
+                    <code>LTV = Average Order Value × Purchase Frequency × Customer Lifespan</code>
+                </div>
 
-        <div class="formula-box">
-            <div class="formula">LTV = Average Order Value × Purchase Frequency × Customer Lifespan</div>
-        </div>
+                <h3>Breaking Down Each Component</h3>
+                <ul>
+                    <li><strong>Average Order Value (AOV):</strong> Total revenue divided by number of orders</li>
+                    <li><strong>Purchase Frequency:</strong> How often a customer buys (orders per year)</li>
+                    <li><strong>Customer Lifespan:</strong> Average years a customer remains active</li>
+                </ul>
 
-        <h2>Why LTV Matters More Than Conversion Rate</h2>
-        <p>Imagine two customers:</p>
-        <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
-            <li><strong>Customer A:</strong> Converts at 2% CAC, spends $50, never returns (LTV = $50)</li>
-            <li><strong>Customer B:</strong> Converts at 5% CAC, spends $30/month for 2 years (LTV = $720)</li>
-        </ul>
-        <p>Customer B has a lower conversion rate but is <strong>14x more valuable</strong>. This is why LTV should drive your strategy.</p>
+                <h2>Calculating LTV in GA4</h2>
+                <p>Google Analytics 4 doesn't have a built-in LTV report, but you can calculate it using custom explorations:</p>
 
-        <h2>How to Calculate LTV Accurately</h2>
+                <h3>Step 1: Create a User Lifetime Exploration</h3>
+                <ol>
+                    <li>Go to Explore → User Lifetime</li>
+                    <li>Set your date range (recommend 12+ months)</li>
+                    <li>Add dimensions: First user medium, First user campaign</li>
+                </ol>
 
-        <h3>Step 1: Calculate Average Order Value (AOV)</h3>
-        <div class="formula-box">
-            <div class="formula">AOV = Total Revenue ÷ Number of Orders</div>
-        </div>
-        <p>Exclude outliers (orders 3x above average) to get a realistic number.</p>
+                <h3>Step 2: Add Revenue Metrics</h3>
+                <p>Include these metrics in your exploration:</p>
+                <ul>
+                    <li>Lifetime revenue per user</li>
+                    <li>Purchase revenue</li>
+                    <li>Purchases per user</li>
+                </ul>
 
-        <h3>Step 2: Calculate Purchase Frequency</h3>
-        <div class="formula-box">
-            <div class="formula">Purchase Frequency = Total Orders ÷ Unique Customers</div>
-        </div>
-        <p>Look at this over a specific time period—usually 12 months.</p>
+                <h2>Why LTV Matters</h2>
+                <p>Understanding LTV helps you:</p>
+                <ul>
+                    <li>Set appropriate customer acquisition budgets</li>
+                    <li>Identify your most valuable customer segments</li>
+                    <li>Optimize marketing spend across channels</li>
+                    <li>Make better decisions about retention vs. acquisition</li>
+                </ul>
 
-        <h3>Step 3: Determine Customer Lifespan</h3>
-        <p>Calculate the average time between first and last purchase. For subscription businesses, this is straightforward. For e-commerce, look at historical data.</p>
+                <h2>Improving Your LTV</h2>
+                <p>Once you know your LTV, focus on these strategies to improve it:</p>
+                <ol>
+                    <li><strong>Increase AOV</strong> through bundling and upsells</li>
+                    <li><strong>Boost frequency</strong> with email marketing and loyalty programs</li>
+                    <li><strong>Extend lifespan</strong> through exceptional customer service</li>
+                    <li><strong>Reduce churn</strong> by identifying at-risk customers early</li>
+                </ol>
 
-        <div class="highlight-box">
-            <strong>Pro Tip:</strong> If you don't have enough historical data, use the inverse of your churn rate. If monthly churn is 5%, average lifespan = 20 months.
-        </div>
-
-        <h2>Advanced LTV Calculation (With Profit)</h2>
-        <p>Revenue LTV is misleading. Use <strong>Profit LTV</strong> instead:</p>
-        <div class="formula-box">
-            <div class="formula">Profit LTV = (AOV × Gross Margin) × Frequency × Lifespan</div>
-        </div>
-        <p>This shows you exactly how much you can afford to spend on acquisition.</p>
-
-        <h2>The LTV:CAC Ratio</h2>
-        <p>The golden rule: <strong>LTV should be at least 3x your Customer Acquisition Cost (CAC).</strong></p>
-        <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
-            <li>LTV:CAC = 1:1 — You're losing money on every customer</li>
-            <li>LTV:CAC = 3:1 — Healthy, sustainable growth</li>
-            <li>LTV:CAC = 5:1+ — You're under-investing in growth</li>
-        </ul>
-
-        <h2>How to Increase Customer LTV</h2>
-
-        <h3>1. Increase Average Order Value</h3>
-        <p>Bundle products, offer free shipping thresholds, and use post-purchase upsells. Even a 10% increase in AOV compounds dramatically over time.</p>
-
-        <h3>2. Increase Purchase Frequency</h3>
-        <p>Email marketing, loyalty programs, and subscription options keep customers coming back. The goal is to become a habit, not just a one-time purchase.</p>
-
-        <h3>3. Extend Customer Lifespan</h3>
-        <p>Exceptional customer service, personalized experiences, and community building create emotional connections that last years, not months.</p>
-
-        <h2>Tracking LTV in Google Analytics 4</h2>
-        <p>GA4 doesn't calculate LTV out of the box, but you can build it:</p>
-        <ol style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
-            <li>Create a custom metric for purchase value</li>
-            <li>Build an exploration with user ID and cumulative revenue</li>
-            <li>Export to BigQuery for advanced LTV cohort analysis</li>
-            <li>Use predictive metrics like "Purchase probability"</li>
-        </ol>
-
-        <div class="cta-box">
-            <h3>Calculate Your True LTV</h3>
-            <p>Most businesses underestimate their LTV by 40%+. My analytics audit reveals your true customer value and identifies opportunities to increase it.</p>
-            <a href="../../index.html#audit" class="btn">Get Your LTV Analysis</a>
-        </div>
-    </article>
+                <div class="cta-box">
+                    <h3>Need help calculating your LTV?</h3>
+                    <p>Our team can set up automated LTV reporting in your analytics dashboard.</p>
+                    <a href="../../pages/contact.html" class="btn btn-primary">Get Free Audit</a>
+                </div>
+            </div>
+        </article>
+    </main>
 
     <footer>
         <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

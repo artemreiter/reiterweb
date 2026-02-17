@@ -4,175 +4,346 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopify GA4 Integration Guide | ReiterWeb</title>
-    <meta name="description" content="Step-by-step guide to connect Shopify with Google Analytics 4. Track every purchase, product view, and cart action accurately.">
+    <meta name="description" content="Everything you need to know about connecting Shopify to Google Analytics 4.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #6366f1;
-            --dark: #0a0a0f;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --primary: #059669;
+            --primary-light: #10b981;
+            --bg: #fafafa;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark);
+            background: var(--bg);
             color: var(--text);
             line-height: 1.8;
         }
-        nav {
+        
+        header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
         }
-        .logo img { height: 40px; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; }
-        article {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo svg { width: 32px; height: 32px; }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        nav a:hover { color: var(--primary); }
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #047857; }
+        
+        main { padding-top: 80px; }
+        
+        .article-header {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--border);
+        }
+        .article-meta {
             max-width: 800px;
             margin: 0 auto;
-            padding: 8rem 2rem 4rem;
+            text-align: center;
         }
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
+        .category {
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
             line-height: 1.2;
-            margin-bottom: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
-        .meta { color: var(--text-muted); margin-bottom: 3rem; }
-        h2 { font-size: 1.8rem; font-weight: 700; margin: 3rem 0 1rem; color: var(--primary); }
-        p { margin-bottom: 1.5rem; color: var(--text-muted); }
-        pre {
-            background: rgba(255,255,255,0.05);
+        .article-header .excerpt {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .article-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+        .article-content h2 {
+            font-size: 1.75rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--text);
+        }
+        .article-content h3 {
+            font-size: 1.25rem;
+            margin: 2rem 0 0.75rem;
+            color: var(--primary);
+        }
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        .article-content pre {
+            background: var(--bg-white);
             padding: 1.5rem;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow-x: auto;
             margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        .article-content code {
             font-family: monospace;
+            font-size: 0.9em;
         }
+        
         .cta-box {
-            background: var(--gradient);
+            background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(16,185,129,0.05));
             padding: 2rem;
-            border-radius: 16px;
-            text-align: center;
+            border-radius: 12px;
             margin: 3rem 0;
-        }
-        .btn {
-            display: inline-block;
-            background: white;
-            color: var(--primary);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 1rem;
-        }
-        footer {
             text-align: center;
-            padding: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+        .cta-box h3 {
+            margin-bottom: 0.5rem;
+        }
+        .cta-box p {
+            margin-bottom: 1.5rem;
+        }
+        
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+            }
+            nav ul.active { right: 0; }
+            .article-header h1 {
+                font-size: 1.75rem;
+            }
+            .article-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="../../index.html" class="logo"><img src="../../images/logo.svg" alt="ReiterWeb"></a>
-        <ul class="nav-links">
-            <li><a href="../../index.html">Home</a></li>
-            <li><a href="../index.html">Blog</a></li>
-            <li><a href="../../index.html#audit" style="background: var(--gradient); color: white; padding: 0.5rem 1.5rem; border-radius: 50px;">Free Audit</a></li>
-        </ul>
-    </nav>
+    <header>
+        <a href="../../index.html" class="logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
+        </a>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav>
+            <ul id="navLinks">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../pages/about.html">About</a></li>
+                <li><a href="../../pages/services.html">Services</a></li>
+                <li><a href="../../pages/case-studies.html">Case Studies</a></li>
+                <li><a href="../index.html">Blog</a></li>
+                <li><a href="../../pages/contact.html" class="btn btn-primary">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <article>
-        <div style="color: var(--text-muted); margin-bottom: 2rem;">
-            <a href="../index.html" style="color: var(--primary);">Blog</a> / <a href="../index.html" style="color: var(--primary);">Shopify</a> / GA4 Integration
-        </div>
+    <main>
+        <article>
+            <header class="article-header">
+                <div class="article-meta">
+                    <div class="category">Shopify</div>
+                    <h1>Shopify GA4 Integration: The Complete Guide</h1>
+                    <p class="excerpt">Everything you need to know about connecting Shopify to Google Analytics 4.</p>
+                    <div class="article-info">
+                        <span>📅 Feb 13, 2024</span>
+                        <span>⏱️ 15 min read</span>
+                        <span>✍️ ReiterWeb Team</span>
+                    </div>
+                </div>
+            </header>
 
-        <h1>Shopify + GA4 Integration: Complete Setup Guide</h1>
-        <div class="meta">📅 December 15, 2023 · ⏱️ 11 min read</div>
+            <div class="article-content">
+                <p>Connecting Shopify to Google Analytics 4 is essential for understanding your store's performance. This guide covers everything from basic setup to advanced e-commerce tracking.</p>
 
-        <p><strong>Shopify's native GA4 integration is broken.</strong> It misses 30-40% of transactions and doesn't track the customer journey properly. Here's how to fix it with a proper server-side setup.</p>
+                <h2>Why GA4 is Essential for Shopify</h2>
+                <p>While Shopify provides basic analytics, GA4 offers deeper insights into customer behavior, attribution, and conversion paths. It helps you understand:</p>
+                <ul>
+                    <li>Where your customers come from</li>
+                    <li>How they navigate your store</li>
+                    <li>Which products drive the most revenue</li>
+                    <li>Where you're losing customers in the funnel</li>
+                </ul>
 
-        <h2>The Problem with Shopify's Native Integration</h2>
-        <p>Shopify's built-in Google channel has serious limitations:</p>
-        <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
-            <li>Doesn't track checkout steps (critical for funnel analysis)</li>
-            <li>Misses refunds and order updates</li>
-            <li>No server-side tracking (blocked by iOS 14+)</li>
-            <li>Limited product data in purchase events</li>
-        </ul>
+                <h2>Method 1: Shopify's Built-in GA4 Integration</h2>
+                <p>The easiest way to connect GA4 to Shopify:</p>
+                <ol>
+                    <li>Go to Shopify Admin → Online Store → Preferences</li>
+                    <li>Scroll to "Google Analytics"</li>
+                    <li>Enter your GA4 Measurement ID (G-XXXXXXXX)</li>
+                    <li>Save changes</li>
+                </ol>
+                <p><strong>Pros:</strong> Simple, no coding required<br>
+                <strong>Cons:</strong> Limited e-commerce tracking</p>
 
-        <h2>The Solution: Server-Side GTM</h2>
-        <p>For accurate tracking, you need Google Tag Manager Server-Side. Here's the complete setup:</p>
+                <h2>Method 2: Google Tag Manager (Recommended)</h2>
+                <p>For complete e-commerce tracking, use Google Tag Manager:</p>
 
-        <h2>Step 1: Create GTM Server Container</h2>
-        <ol style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
-            <li>Go to tagmanager.google.com</li>
-            <li>Create new account → Server container</li>
-            <li>Choose "Manually provision tagging server"</li>
-            <li>Deploy to Google Cloud (or use Stape for easier setup)</li>
-        </ol>
-
-        <h2>Step 2: Install GTM on Shopify</h2>
-        <p>Add this to your theme.liquid in the &lt;head&gt;:</p>
-        <pre>&lt;!-- Google Tag Manager --&gt;
+                <h3>Step 1: Install GTM on Shopify</h3>
+                <p>Add GTM container code to your theme.liquid file before the closing &lt;/head&gt; tag:</p>
+                <pre><code>&lt;!-- Google Tag Manager --&gt;
 &lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-XXXXXXX');&lt;/script&gt;</pre>
+})(window,document,'script','dataLayer','GTM-XXXXXX');&lt;/script&gt;
+&lt;!-- End Google Tag Manager --&gt;</code></pre>
 
-        <h2>Step 3: Configure Data Layer</h2>
-        <p>Create a custom pixel or use an app like Elevar to push e-commerce data:</p>
-        <pre>window.dataLayer = window.dataLayer || [];
-window.dataLayer.push({
-  event: 'purchase',
-  ecommerce: {
-    transaction_id: '{{ order.order_number }}',
-    value: {{ order.total_price | money_without_currency }},
-    tax: {{ order.tax_price | money_without_currency }},
-    shipping: {{ order.shipping_price | money_without_currency }},
-    currency: '{{ order.currency }}',
-    items: [{% for line_item in order.line_items %}{
-      item_id: '{{ line_item.product_id }}',
-      item_name: '{{ line_item.title | escape }}',
-      item_category: '{{ line_item.product.type | escape }}',
-      price: {{ line_item.price | money_without_currency }},
-      quantity: {{ line_item.quantity }}
-    }{% unless forloop.last %},{% endunless %}{% endfor %}]
-  }
-});</pre>
+                <h3>Step 2: Configure E-commerce Events</h3>
+                <p>Set up triggers and tags in GTM for these essential events:</p>
+                <ul>
+                    <li>view_item - Product page views</li>
+                    <li>add_to_cart - Add to cart actions</li>
+                    <li>begin_checkout - Checkout start</li>
+                    <li>purchase - Completed orders</li>
+                </ul>
 
-        <h2>Step 4: Test Everything</h2>
-        <p>Before going live:</p>
-        <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
-            <li>Place a test order</li>
-            <li>Check Real-time reports in GA4</li>
-            <li>Verify transaction_id is unique</li>
-            <li>Confirm revenue matches Shopify admin</li>
-        </ul>
+                <h2>Verifying Your Setup</h2>
+                <p>After implementation, verify tracking is working:</p>
+                <ol>
+                    <li>Install the GA Debugger Chrome extension</li>
+                    <li>Browse your store and complete a test purchase</li>
+                    <li>Check the browser console for events firing</li>
+                    <li>Wait 24-48 hours for data to appear in GA4</li>
+                </ol>
 
-        <div class="cta-box">
-            <h3>Need Help With Shopify GA4?</h3>
-            <p>I've set up server-side tracking for 50+ Shopify stores. Average result: 40% more accurate conversion data and $50K+ recovered in unattributed revenue.</p>
-            <a href="../../index.html#audit" class="btn">Get Shopify GA4 Setup</a>
-        </div>
-    </article>
+                <h2>Common Issues & Solutions</h2>
+                <ul>
+                    <li><strong>Duplicate transactions:</strong> Check for multiple GTM containers or conflicting apps</li>
+                    <li><strong>Missing revenue data:</strong> Ensure value and currency parameters are passed</li>
+                    <li><strong>Cross-domain issues:</strong> Configure domain linking if using checkout subdomains</li>
+                </ul>
+
+                <div class="cta-box">
+                    <h3>Need help with your Shopify GA4 setup?</h3>
+                    <p>Our team specializes in Shopify analytics and can handle the complete integration for you.</p>
+                    <a href="../../pages/contact.html" class="btn btn-primary">Get Free Audit</a>
+                </div>
+            </div>
+        </article>
+    </main>
 
     <footer>
         <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

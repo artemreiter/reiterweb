@@ -5,484 +5,433 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Web Analytics Insights | ReiterWeb</title>
     <meta name="description" content="Expert insights on Google Analytics 4, conversion tracking, e-commerce analytics, and data-driven growth strategies.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --accent: #8b5cf6;
-            --dark: #0a0a0f;
-            --dark-light: #12121a;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --primary: #059669;
+            --primary-light: #10b981;
+            --bg: #fafafa;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
         }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark);
+            background: var(--bg);
             color: var(--text);
             line-height: 1.6;
         }
-
+        
         /* Navigation */
-        nav {
+        header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-
-        .logo img {
-            height: 40px;
-        }
-
-        .nav-links {
+        .logo {
             display: flex;
-            gap: 2.5rem;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo svg { width: 32px; height: 32px; }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        
+        nav ul {
+            display: flex;
+            gap: 2rem;
             list-style: none;
         }
-
-        .nav-links a {
+        nav a {
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s;
+            font-size: 0.95rem;
+            transition: color 0.2s;
         }
-
-        .nav-links a:hover {
-            color: var(--text);
+        nav a:hover, nav a.active { color: var(--primary); }
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
         }
-
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #047857; }
+        
+        main { padding-top: 80px; }
+        
         /* Blog Header */
         .blog-header {
-            padding: 10rem 5% 5rem;
+            background: var(--bg-white);
+            padding: 6rem 5% 4rem;
             text-align: center;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-bottom: 1px solid var(--border);
         }
-
         .blog-header h1 {
-            font-size: 4rem;
-            font-weight: 800;
+            font-size: 3rem;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
-
-        .blog-header h1 span {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
+        .blog-header h1 span { color: var(--primary); }
         .blog-header p {
-            font-size: 1.25rem;
             color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto;
+            font-size: 1.125rem;
         }
-
+        
         /* Blog Grid */
         .blog-section {
-            padding: 5rem;
+            padding: 4rem 5%;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
-
         .blog-card {
-            background: var(--dark-light);
-            border-radius: 20px;
+            background: var(--bg-white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
+            transition: all 0.3s;
         }
-
         .blog-card:hover {
-            transform: translateY(-10px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(5,150,105,0.08);
         }
-
-        .blog-card-image {
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        .blog-image {
+            height: 180px;
+            background: linear-gradient(135deg, rgba(5,150,105,0.1), rgba(16,185,129,0.05));
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
         }
-
-        .blog-card-content {
+        .blog-content {
             padding: 1.5rem;
         }
-
         .blog-category {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(99, 102, 241, 0.2);
             color: var(--primary);
-            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
-
-        .blog-card h3 {
-            font-size: 1.3rem;
+        .blog-card h2 {
+            font-size: 1.1rem;
             margin-bottom: 0.75rem;
             line-height: 1.4;
         }
-
-        .blog-card p {
+        .blog-card h2 a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        .blog-card h2 a:hover {
+            color: var(--primary);
+        }
+        .blog-excerpt {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
             line-height: 1.6;
         }
-
         .blog-meta {
             display: flex;
             justify-content: space-between;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.85rem;
+            align-items: center;
+            font-size: 0.8rem;
             color: var(--text-muted);
         }
-
+        .read-time {
+            background: rgba(5,150,105,0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .newsletter-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .newsletter h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .newsletter p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
         /* Footer */
         footer {
-            padding: 3rem 5%;
+            background: var(--text);
+            color: white;
+            padding: 2rem;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+            }
+            nav ul.active { right: 0; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .newsletter-form { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <nav>
+    <header>
         <a href="../index.html" class="logo">
-            <img src="../images/logo.svg" alt="ReiterWeb">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
         </a>
-        <ul class="nav-links">
-            <li><a href="../index.html#about">About</a></li>
-            <li><a href="../index.html#services">Services</a></li>
-            <li><a href="index.html">Blog</a></li>
-            <li><a href="../index.html#audit" class="btn" style="background: var(--gradient); color: white; padding: 0.5rem 1.5rem; border-radius: 50px;">Free Audit</a></li>
-        </ul>
-    </nav>
-
-    <header class="blog-header">
-        <h1>Web Analytics <span>Blog</span></h1>
-        <p>Expert insights on Google Analytics 4, conversion tracking, e-commerce analytics, and data-driven growth strategies.</p>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav>
+            <ul id="navLinks">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/about.html">About</a></li>
+                <li><a href="../pages/services.html">Services</a></li>
+                <li><a href="../pages/case-studies.html">Case Studies</a></li>
+                <li><a href="index.html" class="active">Blog</a></li>
+                <li><a href="../pages/contact.html" class="btn btn-primary">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section class="blog-section">
-        <div class="blog-grid">
-            <!-- Post 1 -->
-            <a href="posts/ga4-setup-guide.html" class="blog-card">
-                <div class="blog-card-image">📊</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">GA4</span>
-                    <h3>Complete Google Analytics 4 Setup Guide for E-commerce</h3>
-                    <p>Step-by-step instructions to properly configure GA4 for your online store, including enhanced e-commerce tracking.</p>
-                    <div class="blog-meta">
-                        <span>12 min read</span>
-                        <span>Jan 15, 2024</span>
-                    </div>
-                </div>
-            </a>
+    <main>
+        <section class="blog-header">
+            <h1>Analytics <span>Insights</span></h1>
+            <p>Expert guides on Google Analytics 4, conversion tracking, and data-driven growth strategies for e-commerce.</p>
+        </section>
 
-            <!-- Post 2 -->
-            <a href="posts/common-ga4-mistakes.html" class="blog-card">
-                <div class="blog-card-image">⚠️</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Mistakes</span>
-                    <h3>15 Common GA4 Mistakes That Are Ruining Your Data</h3>
-                    <p>Are you making these critical errors? Learn what to avoid and how to fix your analytics setup.</p>
-                    <div class="blog-meta">
-                        <span>10 min read</span>
-                        <span>Jan 12, 2024</span>
+        <section class="blog-section">
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">📊</div>
+                    <div class="blog-content">
+                        <div class="blog-category">GA4 Setup</div>
+                        <h2><a href="posts/ga4-setup-guide.html">Complete GA4 Setup Guide for E-commerce</a></h2>
+                        <p class="blog-excerpt">Step-by-step guide to setting up Google Analytics 4 for your online store with proper e-commerce tracking.</p>
+                        <div class="blog-meta">
+                            <span>Feb 16, 2024</span>
+                            <span class="read-time">12 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
 
-            <!-- Post 3 -->
-            <a href="posts/conversion-tracking.html" class="blog-card">
-                <div class="blog-card-image">🎯</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Conversions</span>
-                    <h3>How to Track Conversions Like a Pro</h3>
-                    <p>Master conversion tracking across all platforms. From pixel implementation to attribution modeling.</p>
-                    <div class="blog-meta">
-                        <span>15 min read</span>
-                        <span>Jan 10, 2024</span>
+                <article class="blog-card">
+                    <div class="blog-image">⚠️</div>
+                    <div class="blog-content">
+                        <div class="blog-category">GA4 Mistakes</div>
+                        <h2><a href="posts/common-ga4-mistakes.html">15 Common GA4 Mistakes (And How to Fix Them)</a></h2>
+                        <p class="blog-excerpt">Avoid these pitfalls that are costing you accurate data and insights.</p>
+                        <div class="blog-meta">
+                            <span>Feb 15, 2024</span>
+                            <span class="read-time">8 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
 
-            <!-- Post 4 -->
-            <a href="posts/ecommerce-analytics.html" class="blog-card">
-                <div class="blog-card-image">🛒</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">E-commerce</span>
-                    <h3>E-commerce Analytics: Metrics That Actually Matter</h3>
-                    <p>Focus on these 10 KPIs to drive real growth. Stop drowning in vanity metrics.</p>
-                    <div class="blog-meta">
-                        <span>8 min read</span>
-                        <span>Jan 8, 2024</span>
+                <article class="blog-card">
+                    <div class="blog-image">💰</div>
+                    <div class="blog-content">
+                        <div class="blog-category">Analytics</div>
+                        <h2><a href="posts/customer-lifetime-value.html">How to Calculate Customer Lifetime Value in GA4</a></h2>
+                        <p class="blog-excerpt">Learn how to measure and optimize the most important metric for your business.</p>
+                        <div class="blog-meta">
+                            <span>Feb 14, 2024</span>
+                            <span class="read-time">10 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
 
-            <!-- Post 5 -->
-            <a href="posts/data-driven-decisions.html" class="blog-card">
-                <div class="blog-card-image">🧠</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Strategy</span>
-                    <h3>Building a Data-Driven Decision Making Framework</h3>
-                    <p>Transform your business culture with actionable insights. From gut feeling to data-backed choices.</p>
-                    <div class="blog-meta">
-                        <span>11 min read</span>
-                        <span>Jan 5, 2024</span>
+                <article class="blog-card">
+                    <div class="blog-image">🛍️</div>
+                    <div class="blog-content">
+                        <div class="blog-category">Shopify</div>
+                        <h2><a href="posts/shopify-ga4-integration.html">Shopify GA4 Integration: The Complete Guide</a></h2>
+                        <p class="blog-excerpt">Everything you need to know about connecting Shopify to Google Analytics 4.</p>
+                        <div class="blog-meta">
+                            <span>Feb 13, 2024</span>
+                            <span class="read-time">15 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
 
-            <!-- Post 6 -->
-            <a href="posts/roi-tracking.html" class="blog-card">
-                <div class="blog-card-image">💰</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">ROI</span>
-                    <h3>ROI Tracking: Prove Your Marketing Works</h3>
-                    <p>Calculate true marketing ROI with our proven framework. Impress your CFO with real numbers.</p>
-                    <div class="blog-meta">
-                        <span>9 min read</span>
-                        <span>Jan 3, 2024</span>
+                <article class="blog-card">
+                    <div class="blog-image">🎯</div>
+                    <div class="blog-content">
+                        <div class="blog-category">CRO</div>
+                        <h2><a href="#">E-commerce Conversion Rate Optimization Guide</a></h2>
+                        <p class="blog-excerpt">Proven strategies to increase your store's conversion rate by 20-40%.</p>
+                        <div class="blog-meta">
+                            <span>Feb 12, 2024</span>
+                            <span class="read-time">11 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
 
-            <!-- Post 7 -->
-            <a href="posts/customer-lifetime-value.html" class="blog-card">
-                <div class="blog-card-image">💎</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">CLV</span>
-                    <h3>Customer Lifetime Value: The Metric That Changes Everything</h3>
-                    <p>Why LTV is more important than conversion rate. Learn to calculate and optimize it.</p>
-                    <div class="blog-meta">
-                        <span>13 min read</span>
-                        <span>Dec 28, 2023</span>
+                <article class="blog-card">
+                    <div class="blog-image">📈</div>
+                    <div class="blog-content">
+                        <div class="blog-category">Attribution</div>
+                        <h2><a href="#">Multi-Touch Attribution Models Explained</a></h2>
+                        <p class="blog-excerpt">Understanding which marketing channels actually drive your sales.</p>
+                        <div class="blog-meta">
+                            <span>Feb 11, 2024</span>
+                            <span class="read-time">9 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
 
-            <!-- Post 8 -->
-            <a href="posts/attribution-modeling.html" class="blog-card">
-                <div class="blog-card-image">🔀</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Attribution</span>
-                    <h3>Attribution Modeling: Who Gets the Credit?</h3>
-                    <p>First-click vs last-click vs data-driven attribution. Choose the right model for your business.</p>
-                    <div class="blog-meta">
-                        <span>10 min read</span>
-                        <span>Dec 25, 2023</span>
+                <article class="blog-card">
+                    <div class="blog-image">🛒</div>
+                    <div class="blog-content">
+                        <div class="blog-category">Tracking</div>
+                        <h2><a href="#">Fixing Cart Abandonment Tracking in GA4</a></h2>
+                        <p class="blog-excerpt">How to properly track and analyze cart abandonment for better recovery.</p>
+                        <div class="blog-meta">
+                            <span>Feb 10, 2024</span>
+                            <span class="read-time">7 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
 
-            <!-- Post 9 -->
-            <a href="posts/ab-testing-guide.html" class="blog-card">
-                <div class="blog-card-image">🧪</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">CRO</span>
-                    <h3>A/B Testing Guide: From Hypothesis to Results</h3>
-                    <p>Run experiments that actually move the needle. Statistical significance made simple.</p>
-                    <div class="blog-meta">
-                        <span>14 min read</span>
-                        <span>Dec 20, 2023</span>
+                <article class="blog-card">
+                    <div class="blog-image">📊</div>
+                    <div class="blog-content">
+                        <div class="blog-category">Reporting</div>
+                        <h2><a href="#">Building Executive Dashboards in Looker Studio</a></h2>
+                        <p class="blog-excerpt">Create beautiful, automated reports that executives actually want to read.</p>
+                        <div class="blog-meta">
+                            <span>Feb 9, 2024</span>
+                            <span class="read-time">14 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
 
-            <!-- Post 10 -->
-            <a href="posts/dashboard-looker-studio.html" class="blog-card">
-                <div class="blog-card-image">📈</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Dashboards</span>
-                    <h3>Building Executive Dashboards in Looker Studio</h3>
-                    <p>Create beautiful, automated dashboards that tell the story behind your data.</p>
-                    <div class="blog-meta">
-                        <span>12 min read</span>
-                        <span>Dec 18, 2023</span>
+                <article class="blog-card">
+                    <div class="blog-image">🔍</div>
+                    <div class="blog-content">
+                        <div class="blog-category">Events</div>
+                        <h2><a href="#">Custom Events in GA4: A Practical Guide</a></h2>
+                        <p class="blog-excerpt">When and how to use custom events for better tracking.</p>
+                        <div class="blog-meta">
+                            <span>Feb 8, 2024</span>
+                            <span class="read-time">10 min read</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </article>
+            </div>
+        </section>
 
-            <!-- Post 11 -->
-            <a href="posts/shopify-ga4-integration.html" class="blog-card">
-                <div class="blog-card-image">🔗</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Shopify</span>
-                    <h3>Shopify + GA4 Integration: Complete Setup</h3>
-                    <p>Step-by-step guide to connect Shopify with Google Analytics 4. Track every purchase accurately.</p>
-                    <div class="blog-meta">
-                        <span>11 min read</span>
-                        <span>Dec 15, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 12 -->
-            <a href="posts/facebook-pixel-setup.html" class="blog-card">
-                <div class="blog-card-image">📱</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Facebook</span>
-                    <h3>Facebook Pixel Setup for E-commerce</h3>
-                    <p>Track conversions, build audiences, and optimize your Facebook Ads with proper pixel implementation.</p>
-                    <div class="blog-meta">
-                        <span>9 min read</span>
-                        <span>Dec 12, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 13 -->
-            <a href="posts/utm-parameters.html" class="blog-card">
-                <div class="blog-card-image">🏷️</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Tracking</span>
-                    <h3>UTM Parameters: The Complete Guide</h3>
-                    <p>Track every campaign with precision. Best practices and common mistakes to avoid.</p>
-                    <div class="blog-meta">
-                        <span>8 min read</span>
-                        <span>Dec 10, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 14 -->
-            <a href="posts/google-ads-tracking.html" class="blog-card">
-                <div class="blog-card-image">🎯</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Google Ads</span>
-                    <h3>Google Ads Conversion Tracking Setup</h3>
-                    <p>Connect your ads to actual sales. Measure true ROAS and optimize for profit, not clicks.</p>
-                    <div class="blog-meta">
-                        <span>10 min read</span>
-                        <span>Dec 8, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 15 -->
-            <a href="posts/cart-abandonment.html" class="blog-card">
-                <div class="blog-card-image">🛒</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">E-commerce</span>
-                    <h3>Reducing Cart Abandonment with Analytics</h3>
-                    <p>Use data to identify why shoppers leave and fix those leaks in your funnel.</p>
-                    <div class="blog-meta">
-                        <span>9 min read</span>
-                        <span>Dec 5, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 16 -->
-            <a href="posts/server-side-tracking.html" class="blog-card">
-                <div class="blog-card-image">🔒</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Advanced</span>
-                    <h3>Server-Side Tracking: The Future of Analytics</h3>
-                    <p>Beat iOS 14+ restrictions with server-side tagging. More accurate, more privacy-compliant.</p>
-                    <div class="blog-meta">
-                        <span>16 min read</span>
-                        <span>Dec 1, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 17 -->
-            <a href="posts/cross-domain-tracking.html" class="blog-card">
-                <div class="blog-card-image">🌐</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Technical</span>
-                    <h3>Cross-Domain Tracking Made Simple</h3>
-                    <p>Track users across multiple domains without losing data. Complete implementation guide.</p>
-                    <div class="blog-meta">
-                        <span>11 min read</span>
-                        <span>Nov 28, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 18 -->
-            <a href="posts/analytics-audit-checklist.html" class="blog-card">
-                <div class="blog-card-image">✅</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Audit</span>
-                    <h3>Complete Analytics Audit Checklist</h3>
-                    <p>50-point checklist to verify your analytics setup. Find and fix issues before they cost you money.</p>
-                    <div class="blog-meta">
-                        <span>15 min read</span>
-                        <span>Nov 25, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 19 -->
-            <a href="posts/seasonal-trends.html" class="blog-card">
-                <div class="blog-card-image">📅</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Analysis</span>
-                    <h3>Analyzing Seasonal Trends in E-commerce</h3>
-                    <p>Prepare for Black Friday, Christmas, and Q4. Use historical data to forecast and plan.</p>
-                    <div class="blog-meta">
-                        <span>10 min read</span>
-                        <span>Nov 22, 2023</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Post 20 -->
-            <a href="posts/competitor-analysis.html" class="blog-card">
-                <div class="blog-card-image">🔍</div>
-                <div class="blog-card-content">
-                    <span class="blog-category">Strategy</span>
-                    <h3>Competitor Analysis Using Public Data</h3>
-                    <p>Learn what your competitors are doing right. Tools and techniques for ethical competitive intelligence.</p>
-                    <div class="blog-meta">
-                        <span>12 min read</span>
-                        <span>Nov 20, 2023</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
+        <section class="newsletter">
+            <div class="newsletter-content">
+                <h2>Get analytics tips in your inbox</h2>
+                <p>Weekly insights on GA4, conversion tracking, and e-commerce analytics.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <footer>
         <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
-        <p style="margin-top: 0.5rem;">Artem Reiter | Web Analytics Consultant</p>
     </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

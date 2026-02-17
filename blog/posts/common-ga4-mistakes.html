@@ -3,293 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15 Common GA4 Mistakes That Are Ruining Your Data | ReiterWeb</title>
-    <meta name="description" content="Are you making these critical GA4 errors? Learn the 15 most common mistakes and how to fix them to get accurate analytics data.">
+    <title>15 Common GA4 Mistakes | ReiterWeb</title>
+    <meta name="description" content="Avoid these pitfalls that are costing you accurate data and insights in Google Analytics 4.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #6366f1;
-            --dark: #0a0a0f;
-            --dark-light: #12121a;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --primary: #059669;
+            --primary-light: #10b981;
+            --bg: #fafafa;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark);
+            background: var(--bg);
             color: var(--text);
             line-height: 1.8;
         }
-        nav {
+        
+        header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
         }
-        .logo img { height: 40px; }
-        .nav-links {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo svg { width: 32px; height: 32px; }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        
+        nav ul {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-        .nav-links a {
+        nav a {
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
         }
-        article {
+        nav a:hover { color: var(--primary); }
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #047857; }
+        
+        main { padding-top: 80px; }
+        
+        .article-header {
+            background: var(--bg-white);
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--border);
+        }
+        .article-meta {
             max-width: 800px;
             margin: 0 auto;
-            padding: 8rem 2rem 4rem;
-        }
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .meta {
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-        }
-        h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 3rem 0 1rem;
-            color: var(--primary);
-        }
-        .mistake {
-            background: rgba(255,255,255,0.03);
-            border-left: 4px solid #ef4444;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 12px 12px 0;
-        }
-        .mistake h3 {
-            color: #ef4444;
-            margin-bottom: 0.5rem;
-        }
-        .solution {
-            background: rgba(34, 197, 94, 0.1);
-            border-left: 4px solid #22c55e;
-            padding: 1.5rem;
-            margin: 1rem 0 1.5rem;
-            border-radius: 0 12px 12px 0;
-        }
-        .solution h4 {
-            color: #22c55e;
-            margin-bottom: 0.5rem;
-        }
-        p { margin-bottom: 1.5rem; color: var(--text-muted); }
-        code {
-            background: rgba(255,255,255,0.05);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-        .cta-box {
-            background: var(--gradient);
-            padding: 2rem;
-            border-radius: 16px;
             text-align: center;
-            margin: 3rem 0;
         }
-        .btn {
-            display: inline-block;
-            background: white;
+        .category {
             color: var(--primary);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
             font-weight: 600;
-            margin-top: 1rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
         }
-        footer {
-            text-align: center;
-            padding: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .article-header .excerpt {
             color: var(--text-muted);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .article-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+        .article-content h2 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--primary);
+        }
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+        .mistake-box {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+        }
+        .mistake-box h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        .mistake-box p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        .mistake-box .solution {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(16,185,129,0.05));
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .cta-box h3 {
+            margin-bottom: 0.5rem;
+        }
+        .cta-box p {
+            margin-bottom: 1.5rem;
+        }
+        
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+            }
+            nav ul.active { right: 0; }
+            .article-header h1 {
+                font-size: 1.75rem;
+            }
+            .article-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="../../index.html" class="logo"><img src="../../images/logo.svg" alt="ReiterWeb"></a>
-        <ul class="nav-links">
-            <li><a href="../../index.html">Home</a></li>
-            <li><a href="../index.html">Blog</a></li>
-            <li><a href="../../index.html#audit" style="background: var(--gradient); color: white; padding: 0.5rem 1.5rem; border-radius: 50px;">Free Audit</a></li>
-        </ul>
-    </nav>
+    <header>
+        <a href="../../index.html" class="logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V8H10C12.2091 8 14 9.79086 14 12C14 14.2091 12.2091 16 10 16H6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="12" r="2" fill="#059669"/>
+                <circle cx="24" cy="8" r="2" fill="#10b981"/>
+                <path d="M22 20L26 16" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            ReiterWeb
+        </a>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav>
+            <ul id="navLinks">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../pages/about.html">About</a></li>
+                <li><a href="../../pages/services.html">Services</a></li>
+                <li><a href="../../pages/case-studies.html">Case Studies</a></li>
+                <li><a href="../index.html">Blog</a></li>
+                <li><a href="../../pages/contact.html" class="btn btn-primary">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <article>
-        <div style="color: var(--text-muted); margin-bottom: 2rem;">
-            <a href="../index.html" style="color: var(--primary);">Blog</a> / <a href="../index.html" style="color: var(--primary);">Mistakes</a> / GA4 Mistakes
-        </div>
+    <main>
+        <article>
+            <header class="article-header">
+                <div class="article-meta">
+                    <div class="category">GA4 Mistakes</div>
+                    <h1>15 Common GA4 Mistakes (And How to Fix Them)</h1>
+                    <p class="excerpt">Avoid these pitfalls that are costing you accurate data and insights.</p>
+                    <div class="article-info">
+                        <span>📅 Feb 15, 2024</span>
+                        <span>⏱️ 8 min read</span>
+                        <span>✍️ ReiterWeb Team</span>
+                    </div>
+                </div>
+            </header>
 
-        <h1>15 Common GA4 Mistakes That Are Ruining Your Data</h1>
-        <div class="meta">📅 January 12, 2024 · ⏱️ 10 min read</div>
+            <div class="article-content">
+                <p>Google Analytics 4 is powerful, but it's easy to make mistakes that compromise your data quality. Here are the most common errors we see and how to fix them.</p>
 
-        <p><strong>Bad data is worse than no data.</strong> It gives you false confidence and leads to expensive mistakes. After auditing 150+ GA4 setups, I've identified the same errors again and again. Here are the 15 most common mistakes—and how to fix them.</p>
+                <div class="mistake-box">
+                    <h3>1. Not Setting Up Enhanced E-commerce</h3>
+                    <p>Many businesses install the basic GA4 code but miss the enhanced e-commerce events that track the full customer journey.</p>
+                    <p class="solution">✓ Solution: Implement view_item, add_to_cart, begin_checkout, and purchase events.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #1: Not Setting Up Data Retention</h3>
-            <p>By default, GA4 only keeps user-level data for 2 months. If you're not careful, your year-over-year comparisons become impossible.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Go to Admin → Data Settings → Data Retention. Change from "2 months" to "14 months" immediately. This is a one-time setting that can't be retroactively applied.</p>
-        </div>
+                <div class="mistake-box">
+                    <h3>2. Ignoring Data Retention Settings</h3>
+                    <p>GA4 defaults to 2 months of data retention for user-level data, which limits your ability to analyze long-term trends.</p>
+                    <p class="solution">✓ Solution: Go to Admin → Data Settings → Data Retention and change to 14 months.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #2: Ignoring Data Filters</h3>
-            <p>Your internal traffic (you, your team, developers) is polluting your data. I've seen companies where 40% of "traffic" was internal.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Create an internal traffic filter: Admin → Data Settings → Data Filters. Add your office IP addresses and mark as "Internal". Then create a filter to exclude internal traffic from reports.</p>
-        </div>
+                <div class="mistake-box">
+                    <h3>3. Not Using Custom Dimensions</h3>
+                    <p>Without custom dimensions, you're missing crucial context like customer tier, product category performance, or campaign types.</p>
+                    <p class="solution">✓ Solution: Define and implement custom dimensions for your key business segments.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #3: Wrong Currency Configuration</h3>
-            <p>Setting USD at property level but sending EUR in purchase events creates nonsensical revenue reports.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Always include <code>currency</code> parameter in every purchase event. Match it with your store's displayed currency. If you sell in multiple currencies, normalize to one for reporting.</p>
-        </div>
+                <div class="mistake-box">
+                    <h3>4. Double-Tracking Page Views</h3>
+                    <p>When using both GTAG and GTM, page views can fire twice, inflating your metrics.</p>
+                    <p class="solution">✓ Solution: Use only one implementation method and disable automatic page views in GTM if using GTAG.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #4: Missing Transaction IDs</h3>
-            <p>Without unique transaction IDs, GA4 can't deduplicate purchases. One customer refreshing the confirmation page becomes 5 purchases.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Always include <code>transaction_id</code> in purchase events. Use your order ID from your e-commerce platform. Never use the same ID twice.</p>
-        </div>
+                <div class="mistake-box">
+                    <h3>5. Missing Cross-Domain Tracking</h3>
+                    <p>If you use a separate checkout domain or subdomain, sessions break and attribution fails.</p>
+                    <p class="solution">✓ Solution: Configure cross-domain tracking in GA4 data stream settings.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #5: Not Testing Cross-Domain</h3>
-            <p>If you use separate domains for checkout (common with Shopify Plus, custom carts), you're losing the customer journey.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Configure cross-domain tracking in Admin → Data Streams → More Tagging Settings → Configure Your Domains. Add all domains used in your funnel.</p>
-        </div>
+                <h2>More Mistakes to Avoid</h2>
+                
+                <div class="mistake-box">
+                    <h3>6. Not Setting Up Conversions</h3>
+                    <p>Events alone don't tell you what's working. You need to mark key events as conversions.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #6: Overlooking Enhanced Measurement</h3>
-            <p>GA4 can automatically track scrolls, outbound clicks, site search, and more—but many don't enable it.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Go to Data Streams → Web Stream → Enhanced Measurement. Enable all relevant options: Page views, Scrolls, Outbound clicks, Site search, Video engagement, File downloads.</p>
-        </div>
+                <div class="mistake-box">
+                    <h3>7. Ignoring Internal Traffic</h3>
+                    <p>Your team's activity skews data, especially for low-traffic sites.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #7: Not Setting Up Custom Dimensions</h3>
-            <p>GA4 limits you to 50 custom dimensions, but most businesses don't use even 10. You're missing critical segmentation.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Set up custom dimensions for: Customer tier (VIP, regular), Acquisition source (organic, paid), Product category, Content type. Use them for meaningful segmentation.</p>
-        </div>
+                <div class="mistake-box">
+                    <h3>8. Not Using Filters</h3>
+                    <p>Development and staging environments should be excluded from production data.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #8: Wrong Event Naming</h3>
-            <p>Using <code>purchase_made</code> instead of <code>purchase</code> means your reports won't show revenue. GA4 has reserved event names for a reason.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Use GA4's recommended event names exactly as documented: <code>purchase</code>, <code>add_to_cart</code>, <code>begin_checkout</code>, <code>view_item</code>. Don't get creative with naming.</p>
-        </div>
+                <div class="mistake-box">
+                    <h3>9. Forgetting Currency Settings</h3>
+                    <p>Revenue reports are wrong if currency isn't properly set for each transaction.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #9: Ignoring DebugView</h3>
-            <p>Testing in real-time reports is too slow. DebugView shows events instantly, but most people don't know it exists.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Go to Configure → DebugView. Install GA Debugger Chrome extension. Test every event before deploying to production. Check parameters are correct.</p>
-        </div>
+                <div class="mistake-box">
+                    <h3>10. Not Implementing Consent Mode</h3>
+                    <p>For GDPR compliance, you need proper consent handling before tracking.</p>
+                </div>
 
-        <div class="mistake">
-            <h3>❌ Mistake #10: No Conversion Events</h3>
-            <p>Any event can be a conversion in GA4, but many setups mark nothing as a conversion except purchase.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Mark these as conversions: <code>purchase</code> (obviously), <code>add_to_cart</code> (intent signal), <code>begin_checkout</code> (funnel step), newsletter signups, account creation. Monitor micro-conversions.</p>
-        </div>
-
-        <div class="mistake">
-            <h3>❌ Mistake #11: Forgetting Mobile Testing</h3>
-            <p>60%+ of e-commerce is mobile, but most tracking is tested only on desktop. iOS and Android behave differently.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Test on real devices: iPhone Safari, Android Chrome, iPad. Use BrowserStack if you don't have physical devices. Check that purchase events fire on mobile checkout.</p>
-        </div>
-
-        <div class="mistake">
-            <h3>❌ Mistake #12: No Data Backup</h3>
-            <p>GA4 can change, data can be lost, accounts can be suspended. No backup = no historical data.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Export key reports monthly. Use BigQuery integration (free for GA4) to store raw data permanently. Set up automated backups through Google Cloud.</p>
-        </div>
-
-        <div class="mistake">
-            <h3>❌ Mistake #13: Ignoring Data Thresholding</h3>
-            <p>When reports say "(other)" or hide data for "privacy reasons," you're making decisions on incomplete information.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Use Explorations for detailed analysis—they have higher thresholds. Increase your data volume (more traffic). Accept that some user-level data will always be thresholded for privacy.</p>
-        </div>
-
-        <div class="mistake">
-            <h3>❌ Mistake #14: Wrong Time Zone</h3>
-            <p>If your store is PST but GA4 is UTC, your "today" reports are always wrong. Daily comparisons become meaningless.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Set property timezone to match your business operations. Go to Admin → Property Settings → Time Zone. For e-commerce, use your primary market's timezone.</p>
-        </div>
-
-        <div class="mistake">
-            <h3>❌ Mistake #15: Not Auditing Regularly</h3>
-            <p>Tracking breaks. Developers deploy code that interferes. Tags stop firing. Without regular audits, you're flying blind.</p>
-        </div>
-        <div class="solution">
-            <h4>✅ Fix:</h4>
-            <p>Monthly audit checklist: Check Real-time reports work, verify purchase events fire, test on mobile, compare GA4 revenue with store backend (should match within 5%), review error logs.</p>
-        </div>
-
-        <h2>The Cost of Bad Data</h2>
-        <p>Average e-commerce store loses <strong>$50,000+ annually</strong> due to bad analytics data. Wrong attribution leads to overspending on underperforming channels. Missing conversions mean missed optimization opportunities.</p>
-
-        <div class="cta-box">
-            <h3>Get a Professional GA4 Audit</h3>
-            <p>I've audited 150+ GA4 setups and recovered millions in unattributed revenue. My comprehensive audit identifies all 15 mistakes (and more) with specific fix instructions.</p>
-            <a href="../../index.html#audit" class="btn">Request Free Audit</a>
-        </div>
-    </article>
+                <div class="cta-box">
+                    <h3>Need a GA4 audit?</h3>
+                    <p>We'll review your setup and identify all issues holding back your analytics.</p>
+                    <a href="../../pages/contact.html" class="btn btn-primary">Get Free Audit</a>
+                </div>
+            </div>
+        </article>
+    </main>
 
     <footer>
         <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
