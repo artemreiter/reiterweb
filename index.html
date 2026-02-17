@@ -278,16 +278,31 @@
             color: var(--text-muted);
         }
         
-        /* Case Studies */
+        /* Case Studies with Graphic */
         .cases {
             padding: 4rem 5%;
             background: var(--bg);
         }
-        .cases-grid {
+        .cases-container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .cases-graphic {
+            position: sticky;
+            top: 100px;
+        }
+        .cases-graphic img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
         }
         .case-card {
@@ -336,16 +351,32 @@
             color: var(--text-muted);
         }
         
-        /* Testimonials Carousel */
+        /* Testimonials Carousel with Graphic */
         .testimonials {
             padding: 5rem 5%;
             background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg) 100%);
             border-top: 1px solid var(--border);
             overflow: hidden;
         }
-        .testimonials-container {
-            max-width: 900px;
+        .testimonials-wrapper {
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .testimonials-graphic-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .testimonials-graphic-side img {
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+        }
+        .testimonials-container {
             position: relative;
         }
         .testimonials-carousel {
@@ -577,6 +608,28 @@
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
+            .cases-container {
+                grid-template-columns: 1fr;
+            }
+            .cases-graphic {
+                position: relative;
+                top: 0;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            .cases-graphic img {
+                max-width: 300px;
+            }
+            .testimonials-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .testimonials-graphic-side {
+                order: -1;
+            }
+            .testimonials-graphic-side img {
+                max-width: 120px;
+            }
             /* Testimonials Carousel Mobile */
             .testimonial-card-large {
                 padding: 2rem 1.5rem;
@@ -709,12 +762,16 @@
             </div>
         </section>
 
-        <section class="cases">
+        <section class="cases" id="cases">
             <div class="section-header">
                 <h2>Success <span>Stories</span></h2>
                 <p>Real results from real clients</p>
             </div>
-            <div class="cases-grid">
+            <div class="cases-container">
+                <div class="cases-graphic">
+                    <img src="images/case-studies-graphic.svg" alt="E-commerce Analytics Results">
+                </div>
+                <div class="cases-grid">
                 <div class="case-card">
                     <div class="case-header">
                         <div class="case-company">TechGadgets Pro</div>
@@ -785,6 +842,7 @@
                     </div>
                 </div>
             </div>
+            </div>
         </section>
 
         <section class="testimonials" id="testimonials">
@@ -792,7 +850,11 @@
                 <h2>What Our <span>Clients Say</span></h2>
                 <p>Trusted by e-commerce businesses across industries</p>
             </div>
-            <div class="testimonials-container">
+            <div class="testimonials-wrapper">
+                <div class="testimonials-graphic-side">
+                    <img src="images/testimonials-graphic.svg" alt="Client Testimonials">
+                </div>
+                <div class="testimonials-container">
                 <div class="testimonials-carousel" id="testimonialsCarousel">
                     <!-- Testimonial 1 -->
                     <div class="testimonial-slide">
@@ -876,6 +938,7 @@
                     </div>
                     <button class="carousel-btn" id="nextBtn">→</button>
                 </div>
+            </div>
             </div>
         </section>
 

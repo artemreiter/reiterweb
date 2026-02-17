@@ -1,0 +1,65 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#fafafa"/>
+  
+  <!-- Abstract decorative shapes -->
+  <circle cx="350" cy="50" r="80" fill="#059669" opacity="0.05"/>
+  <circle cx="50" cy="250" r="60" fill="#10b981" opacity="0.05"/>
+  
+  <!-- Main illustration group -->
+  <g transform="translate(100, 60)">
+    <!-- E-commerce icons floating -->
+    <g transform="translate(0, 0)">
+      <!-- Shopping cart -->
+      <rect x="0" y="0" width="60" height="50" rx="8" fill="white" stroke="#059669" stroke-width="2"/>
+      <text x="30" y="32" font-family="Inter" font-size="20" text-anchor="middle">🛒</text>
+    </g>
+    
+    <g transform="translate(80, 20)">
+      <!-- Chart -->
+      <rect x="0" y="0" width="60" height="50" rx="8" fill="#059669" opacity="0.1" stroke="#059669" stroke-width="2"/>
+      <path d="M15 35 L25 25 L35 30 L45 15" stroke="#059669" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
+    
+    <g transform="translate(40, 80)">
+      <!-- Analytics -->
+      <rect x="0" y="0" width="60" height="50" rx="8" fill="white" stroke="#10b981" stroke-width="2"/>
+      <rect x="12" y="30" width="8" height="12" rx="2" fill="#10b981"/>
+      <rect x="26" y="20" width="8" height="22" rx="2" fill="#059669"/>
+      <rect x="40" y="10" width="8" height="32" rx="2" fill="#059669" opacity="0.5"/>
+    </g>
+    
+    <!-- Connection lines -->
+    <path d="M30 50 L80 70" stroke="#059669" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+    <path d="M110 70 L70 100" stroke="#10b981" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+  </g>
+  
+  <!-- Growth arrow -->
+  <g transform="translate(280, 120)">
+    <path d="M0 60 L40 20 L80 0" stroke="url(#growthGrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <polygon points="80,0 70,15 75,5 65,10" fill="url(#growthGrad)"/>
+  </g>
+  
+  <!-- Metrics floating -->
+  <g transform="translate(50, 120)">
+    <rect x="0" y="0" width="70" height="30" rx="15" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="35" y="20" font-family="Inter" font-size="12" font-weight="600" fill="#059669" text-anchor="middle">+156% ROI</text>
+  </g>
+  
+  <g transform="translate(280, 200)">
+    <rect x="0" y="0" width="80" height="30" rx="15" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="40" y="20" font-family="Inter" font-size="12" font-weight="600" fill="#059669" text-anchor="middle">$1.2M Revenue</text>
+  </g>
+  
+  <!-- Small decorative dots -->
+  <circle cx="30" cy="30" r="4" fill="#059669" opacity="0.3"/>
+  <circle cx="370" cy="80" r="6" fill="#10b981" opacity="0.2"/>
+  <circle cx="320" cy="260" r="5" fill="#059669" opacity="0.25"/>
+  
+  <defs>
+    <linearGradient id="growthGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#059669"/>
+      <stop offset="100%" style="stop-color:#10b981"/>
+    </linearGradient>
+  </defs>
+</svg>
