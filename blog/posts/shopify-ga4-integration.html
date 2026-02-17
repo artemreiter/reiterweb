@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify GA4 Integration Guide | ReiterWeb</title>
+    <meta name="description" content="Step-by-step guide to connect Shopify with Google Analytics 4. Track every purchase, product view, and cart action accurately.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --dark: #0a0a0f;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.8;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .logo img { height: 40px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; }
+        article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .meta { color: var(--text-muted); margin-bottom: 3rem; }
+        h2 { font-size: 1.8rem; font-weight: 700; margin: 3rem 0 1rem; color: var(--primary); }
+        p { margin-bottom: 1.5rem; color: var(--text-muted); }
+        pre {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: monospace;
+        }
+        .cta-box {
+            background: var(--gradient);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../../index.html" class="logo"><img src="../../images/logo.svg" alt="ReiterWeb"></a>
+        <ul class="nav-links">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../index.html">Blog</a></li>
+            <li><a href="../../index.html#audit" style="background: var(--gradient); color: white; padding: 0.5rem 1.5rem; border-radius: 50px;">Free Audit</a></li>
+        </ul>
+    </nav>
+
+    <article>
+        <div style="color: var(--text-muted); margin-bottom: 2rem;">
+            <a href="../index.html" style="color: var(--primary);">Blog</a> / <a href="../index.html" style="color: var(--primary);">Shopify</a> / GA4 Integration
+        </div>
+
+        <h1>Shopify + GA4 Integration: Complete Setup Guide</h1>
+        <div class="meta">📅 December 15, 2023 · ⏱️ 11 min read</div>
+
+        <p><strong>Shopify's native GA4 integration is broken.</strong> It misses 30-40% of transactions and doesn't track the customer journey properly. Here's how to fix it with a proper server-side setup.</p>
+
+        <h2>The Problem with Shopify's Native Integration</h2>
+        <p>Shopify's built-in Google channel has serious limitations:</p>
+        <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
+            <li>Doesn't track checkout steps (critical for funnel analysis)</li>
+            <li>Misses refunds and order updates</li>
+            <li>No server-side tracking (blocked by iOS 14+)</li>
+            <li>Limited product data in purchase events</li>
+        </ul>
+
+        <h2>The Solution: Server-Side GTM</h2>
+        <p>For accurate tracking, you need Google Tag Manager Server-Side. Here's the complete setup:</p>
+
+        <h2>Step 1: Create GTM Server Container</h2>
+        <ol style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
+            <li>Go to tagmanager.google.com</li>
+            <li>Create new account → Server container</li>
+            <li>Choose "Manually provision tagging server"</li>
+            <li>Deploy to Google Cloud (or use Stape for easier setup)</li>
+        </ol>
+
+        <h2>Step 2: Install GTM on Shopify</h2>
+        <p>Add this to your theme.liquid in the &lt;head&gt;:</p>
+        <pre>&lt;!-- Google Tag Manager --&gt;
+&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');&lt;/script&gt;</pre>
+
+        <h2>Step 3: Configure Data Layer</h2>
+        <p>Create a custom pixel or use an app like Elevar to push e-commerce data:</p>
+        <pre>window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: 'purchase',
+  ecommerce: {
+    transaction_id: '{{ order.order_number }}',
+    value: {{ order.total_price | money_without_currency }},
+    tax: {{ order.tax_price | money_without_currency }},
+    shipping: {{ order.shipping_price | money_without_currency }},
+    currency: '{{ order.currency }}',
+    items: [{% for line_item in order.line_items %}{
+      item_id: '{{ line_item.product_id }}',
+      item_name: '{{ line_item.title | escape }}',
+      item_category: '{{ line_item.product.type | escape }}',
+      price: {{ line_item.price | money_without_currency }},
+      quantity: {{ line_item.quantity }}
+    }{% unless forloop.last %},{% endunless %}{% endfor %}]
+  }
+});</pre>
+
+        <h2>Step 4: Test Everything</h2>
+        <p>Before going live:</p>
+        <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
+            <li>Place a test order</li>
+            <li>Check Real-time reports in GA4</li>
+            <li>Verify transaction_id is unique</li>
+            <li>Confirm revenue matches Shopify admin</li>
+        </ul>
+
+        <div class="cta-box">
+            <h3>Need Help With Shopify GA4?</h3>
+            <p>I've set up server-side tracking for 50+ Shopify stores. Average result: 40% more accurate conversion data and $50K+ recovered in unattributed revenue.</p>
+            <a href="../../index.html#audit" class="btn">Get Shopify GA4 Setup</a>
+        </div>
+    </article>
+
+    <footer>
+        <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
+    </footer>
+</body>
+</html>

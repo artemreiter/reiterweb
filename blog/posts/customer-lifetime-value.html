@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Calculate Customer Lifetime Value (LTV) | ReiterWeb</title>
+    <meta name="description" content="Learn why Customer Lifetime Value is the most important metric for your business and how to calculate it accurately.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --dark: #0a0a0f;
+            --dark-light: #12121a;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.8;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .logo img { height: 40px; }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .meta {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 3rem 0 1rem;
+            color: var(--primary);
+        }
+        p { margin-bottom: 1.5rem; color: var(--text-muted); }
+        .formula-box {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .formula {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .cta-box {
+            background: var(--gradient);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../../index.html" class="logo"><img src="../../images/logo.svg" alt="ReiterWeb"></a>
+        <ul class="nav-links">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../index.html">Blog</a></li>
+            <li><a href="../../index.html#audit" style="background: var(--gradient); color: white; padding: 0.5rem 1.5rem; border-radius: 50px;">Free Audit</a></li>
+        </ul>
+    </nav>
+
+    <article>
+        <div style="color: var(--text-muted); margin-bottom: 2rem;">
+            <a href="../index.html" style="color: var(--primary);">Blog</a> / <a href="../index.html" style="color: var(--primary);">CLV</a> / Customer Lifetime Value
+        </div>
+
+        <h1>Customer Lifetime Value: The Metric That Changes Everything</h1>
+        <div class="meta">📅 December 28, 2023 · ⏱️ 13 min read</div>
+
+        <p><strong>Stop obsessing over conversion rate.</strong> Start focusing on Customer Lifetime Value (LTV). It's the single most important metric for sustainable business growth—and most businesses are calculating it wrong.</p>
+
+        <h2>What is Customer Lifetime Value?</h2>
+        <p>Customer Lifetime Value is the total revenue you can expect from a single customer throughout your relationship. It shifts your focus from one-time transactions to long-term relationships.</p>
+
+        <div class="formula-box">
+            <div class="formula">LTV = Average Order Value × Purchase Frequency × Customer Lifespan</div>
+        </div>
+
+        <h2>Why LTV Matters More Than Conversion Rate</h2>
+        <p>Imagine two customers:</p>
+        <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
+            <li><strong>Customer A:</strong> Converts at 2% CAC, spends $50, never returns (LTV = $50)</li>
+            <li><strong>Customer B:</strong> Converts at 5% CAC, spends $30/month for 2 years (LTV = $720)</li>
+        </ul>
+        <p>Customer B has a lower conversion rate but is <strong>14x more valuable</strong>. This is why LTV should drive your strategy.</p>
+
+        <h2>How to Calculate LTV Accurately</h2>
+
+        <h3>Step 1: Calculate Average Order Value (AOV)</h3>
+        <div class="formula-box">
+            <div class="formula">AOV = Total Revenue ÷ Number of Orders</div>
+        </div>
+        <p>Exclude outliers (orders 3x above average) to get a realistic number.</p>
+
+        <h3>Step 2: Calculate Purchase Frequency</h3>
+        <div class="formula-box">
+            <div class="formula">Purchase Frequency = Total Orders ÷ Unique Customers</div>
+        </div>
+        <p>Look at this over a specific time period—usually 12 months.</p>
+
+        <h3>Step 3: Determine Customer Lifespan</h3>
+        <p>Calculate the average time between first and last purchase. For subscription businesses, this is straightforward. For e-commerce, look at historical data.</p>
+
+        <div class="highlight-box">
+            <strong>Pro Tip:</strong> If you don't have enough historical data, use the inverse of your churn rate. If monthly churn is 5%, average lifespan = 20 months.
+        </div>
+
+        <h2>Advanced LTV Calculation (With Profit)</h2>
+        <p>Revenue LTV is misleading. Use <strong>Profit LTV</strong> instead:</p>
+        <div class="formula-box">
+            <div class="formula">Profit LTV = (AOV × Gross Margin) × Frequency × Lifespan</div>
+        </div>
+        <p>This shows you exactly how much you can afford to spend on acquisition.</p>
+
+        <h2>The LTV:CAC Ratio</h2>
+        <p>The golden rule: <strong>LTV should be at least 3x your Customer Acquisition Cost (CAC).</strong></p>
+        <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
+            <li>LTV:CAC = 1:1 — You're losing money on every customer</li>
+            <li>LTV:CAC = 3:1 — Healthy, sustainable growth</li>
+            <li>LTV:CAC = 5:1+ — You're under-investing in growth</li>
+        </ul>
+
+        <h2>How to Increase Customer LTV</h2>
+
+        <h3>1. Increase Average Order Value</h3>
+        <p>Bundle products, offer free shipping thresholds, and use post-purchase upsells. Even a 10% increase in AOV compounds dramatically over time.</p>
+
+        <h3>2. Increase Purchase Frequency</h3>
+        <p>Email marketing, loyalty programs, and subscription options keep customers coming back. The goal is to become a habit, not just a one-time purchase.</p>
+
+        <h3>3. Extend Customer Lifespan</h3>
+        <p>Exceptional customer service, personalized experiences, and community building create emotional connections that last years, not months.</p>
+
+        <h2>Tracking LTV in Google Analytics 4</h2>
+        <p>GA4 doesn't calculate LTV out of the box, but you can build it:</p>
+        <ol style="margin: 1rem 0; padding-left: 2rem; color: var(--text-muted);">
+            <li>Create a custom metric for purchase value</li>
+            <li>Build an exploration with user ID and cumulative revenue</li>
+            <li>Export to BigQuery for advanced LTV cohort analysis</li>
+            <li>Use predictive metrics like "Purchase probability"</li>
+        </ol>
+
+        <div class="cta-box">
+            <h3>Calculate Your True LTV</h3>
+            <p>Most businesses underestimate their LTV by 40%+. My analytics audit reveals your true customer value and identifies opportunities to increase it.</p>
+            <a href="../../index.html#audit" class="btn">Get Your LTV Analysis</a>
+        </div>
+    </article>
+
+    <footer>
+        <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
+    </footer>
+</body>
+</html>
