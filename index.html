@@ -776,6 +776,103 @@
             color: var(--text-muted);
         }
 
+        /* Abstract Data Visualization */
+        .abstract-data-viz {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .data-particle {
+            position: absolute;
+            left: var(--x);
+            top: var(--y);
+            background: rgba(18, 18, 26, 0.9);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            backdrop-filter: blur(10px);
+            animation: floatParticle 6s ease-in-out infinite;
+            animation-delay: var(--delay);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        .particle-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .particle-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .data-streams {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .data-stream {
+            filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+        }
+
+        .floating-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .float-num {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: rgba(99, 102, 241, 0.4);
+            animation: floatNumber var(--duration) linear infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes floatNumber {
+            0% { transform: translateY(420px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-50px) rotate(360deg); opacity: 0; }
+        }
+
+        .center-glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
         .audit-form {
             background: var(--dark-light);
             padding: 2.5rem;
@@ -1062,107 +1159,75 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="analytics-dashboard">
-                    <!-- Metric Cards -->
-                    <div class="metric-row">
-                        <div class="metric-card">
-                            <div class="metric-label">Conversion Rate</div>
-                            <div class="metric-value">+127%</div>
-                            <div class="metric-trend">↑ +23% vs last month</div>
-                        </div>
-                        <div class="metric-card highlight">
-                            <div class="metric-label">Revenue</div>
-                            <div class="metric-value">$892K</div>
-                            <div class="metric-trend">↑ +45% growth</div>
-                        </div>
+                <div class="abstract-data-viz">
+                    <!-- Floating Data Points -->
+                    <div class="data-particle" style="--delay:0s;--x:20%;--y:30%">
+                        <span class="particle-value">+127%</span>
+                        <span class="particle-label">Growth</span>
+                    </div>
+                    <div class="data-particle" style="--delay:0.5s;--x:70%;--y:20%">
+                        <span class="particle-value">$892K</span>
+                        <span class="particle-label">Revenue</span>
+                    </div>
+                    <div class="data-particle" style="--delay:1s;--x:60%;--y:60%">
+                        <span class="particle-value">+45%</span>
+                        <span class="particle-label">Conversion</span>
+                    </div>
+                    <div class="data-particle" style="--delay:1.5s;--x:15%;--y:70%">
+                        <span class="particle-value">2.3x</span>
+                        <span class="particle-label">ROAS</span>
                     </div>
                     
-                    <!-- Line Chart -->
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <span>Sales Dynamics</span>
-                            <div class="chart-legend">
-                                <span class="legend-item"><span class="dot" style="background:#6366f1"></span>Current Year</span>
-                                <span class="legend-item"><span class="dot" style="background:#334155"></span>Previous Year</span>
-                            </div>
-                        </div>
-                        <svg class="line-chart" viewBox="0 0 300 100">
-                            <defs>
-                                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.3"/>
-                                    <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- Grid lines -->
-                            <line x1="0" y1="25" x2="300" y2="25" stroke="#334155" stroke-width="0.5"/>
-                            <line x1="0" y1="50" x2="300" y2="50" stroke="#334155" stroke-width="0.5"/>
-                            <line x1="0" y1="75" x2="300" y2="75" stroke="#334155" stroke-width="0.5"/>
-                            
-                            <!-- Last year line -->
-                            <polyline fill="none" stroke="#334155" stroke-width="2" 
-                                points="0,80 50,75 100,70 150,72 200,68 250,65 300,60"/>
-                            
-                            <!-- Current year area -->
-                            <path fill="url(#lineGrad)" 
-                                d="M0,85 L50,70 L100,55 L150,45 L200,35 L250,25 L300,15 L300,100 L0,100 Z">
-                                <animate attributeName="d" 
-                                    values="M0,100 L50,100 L100,100 L150,100 L200,100 L250,100 L300,100 L300,100 L0,100 Z;
-                                            M0,85 L50,70 L100,55 L150,45 L200,35 L250,25 L300,15 L300,100 L0,100 Z"
-                                    dur="1.5s" fill="freeze"/>
-                            </path>
-                            
-                            <!-- Current year line -->
-                            <polyline fill="none" stroke="#6366f1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                                points="0,85 50,70 100,55 150,45 200,35 250,25 300,15">
-                                <animate attributeName="points" 
-                                    values="0,100 50,100 100,100 150,100 200,100 250,100 300,100;
-                                            0,85 50,70 100,55 150,45 200,35 250,25 300,15"
-                                    dur="1.5s" fill="freeze"/>
-                            </polyline>
-                            
-                            <!-- Data points -->
-                            <circle cx="50" cy="70" r="4" fill="#6366f1"/>
-                            <circle cx="100" cy="55" r="4" fill="#6366f1"/>
-                            <circle cx="150" cy="45" r="4" fill="#6366f1"/>
-                            <circle cx="200" cy="35" r="4" fill="#6366f1"/>
-                            <circle cx="250" cy="25" r="5" fill="#ec4899"/>
-                            <circle cx="300" cy="15" r="5" fill="#22c55e"/>
-                        </svg>
+                    <!-- Animated Data Streams -->
+                    <svg class="data-streams" viewBox="0 0 400 400">
+                        <defs>
+                            <linearGradient id="streamGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0"/>
+                                <stop offset="50%" style="stop-color:#6366f1;stop-opacity:0.8"/>
+                                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0"/>
+                            </linearGradient>
+                            <linearGradient id="streamGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0"/>
+                                <stop offset="50%" style="stop-color:#ec4899;stop-opacity:0.8"/>
+                                <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0"/>
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Animated flowing lines -->
+                        <path class="data-stream" d="M0,200 Q100,100 200,200 T400,200" stroke="url(#streamGrad1)" stroke-width="2" fill="none">
+                            <animate attributeName="d" 
+                                values="M0,200 Q100,100 200,200 T400,200;
+                                        M0,200 Q100,300 200,200 T400,200;
+                                        M0,200 Q100,100 200,200 T400,200"
+                                dur="8s" repeatCount="indefinite"/>
+                        </path>
+                        <path class="data-stream" d="M0,150 Q150,50 300,150 T400,100" stroke="url(#streamGrad2)" stroke-width="2" fill="none" opacity="0.6">
+                            <animate attributeName="d" 
+                                values="M0,150 Q150,50 300,150 T400,100;
+                                        M0,150 Q150,250 300,150 T400,200;
+                                        M0,150 Q150,50 300,150 T400,100"
+                                dur="10s" repeatCount="indefinite"/>
+                        </path>
+                        <path class="data-stream" d="M0,300 Q200,200 400,300" stroke="url(#streamGrad1)" stroke-width="1.5" fill="none" opacity="0.4">
+                            <animate attributeName="d" 
+                                values="M0,300 Q200,200 400,300;
+                                        M0,300 Q200,400 400,300;
+                                        M0,300 Q200,200 400,300"
+                                dur="6s" repeatCount="indefinite"/>
+                        </path>
+                    </svg>
+                    
+                    <!-- Floating Numbers -->
+                    <div class="floating-numbers">
+                        <span class="float-num" style="--delay:0s;--duration:12s">10110</span>
+                        <span class="float-num" style="--delay:2s;--duration:15s">Data</span>
+                        <span class="float-num" style="--delay:4s;--duration:10s">+47%</span>
+                        <span class="float-num" style="--delay:6s;--duration:13s">Growth</span>
+                        <span class="float-num" style="--delay:8s;--duration:11s">Analytics</span>
                     </div>
                     
-                    <!-- Bottom Charts -->
-                    <div class="bottom-charts">
-                        <div class="donut-chart">
-                            <svg viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="12"/>
-                                <circle cx="50" cy="50" r="40" fill="none" stroke="#6366f1" stroke-width="12" 
-                                    stroke-dasharray="175 251" stroke-dashoffset="0" stroke-linecap="round"
-                                    transform="rotate(-90 50 50)">
-                                    <animate attributeName="stroke-dasharray" values="0 251;175 251" dur="1s" fill="freeze"/>
-                                </circle>
-                                <text x="50" y="48" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">70%</text>
-                                <text x="50" y="62" text-anchor="middle" fill="#94a3b8" font-size="8">Organic</text>
-                            </svg>
-                        </div>
-                        <div class="mini-bars">
-                            <div class="mini-bar-group">
-                                <div class="mini-bar" style="height:60%"></div>
-                                <div class="mini-bar active" style="height:85%"></div>
-                            </div>
-                            <div class="mini-bar-group">
-                                <div class="mini-bar" style="height:45%"></div>
-                                <div class="mini-bar active" style="height:92%"></div>
-                            </div>
-                            <div class="mini-bar-group">
-                                <div class="mini-bar" style="height:70%"></div>
-                                <div class="mini-bar active" style="height:78%"></div>
-                            </div>
-                            <div class="mini-bar-group">
-                                <div class="mini-bar" style="height:55%"></div>
-                                <div class="mini-bar active" style="height:95%"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Central Glow -->
+                    <div class="center-glow"></div>
                 </div>
             </div>
         </div>
