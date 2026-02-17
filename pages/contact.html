@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Get in Touch | ReiterWeb</title>
+    <title>Contact - ReiterWeb Analytics Agency</title>
     <meta name="description" content="Ready to make data-driven decisions? Get in touch for a free analytics audit.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -45,10 +45,29 @@
             font-weight: 700;
             font-size: 1.25rem;
         }
-        .logo svg {
-            width: 32px;
-            height: 32px;
+        .logo svg { width: 32px; height: 32px; }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
         }
+        .menu-toggle span {
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        
         nav ul {
             display: flex;
             gap: 2rem;
@@ -59,11 +78,8 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            transition: color 0.2s;
         }
-        nav a:hover, nav a.active {
-            color: var(--primary);
-        }
+        nav a:hover, nav a.active { color: var(--primary); }
         .btn {
             padding: 0.625rem 1.25rem;
             border-radius: 6px;
@@ -74,13 +90,11 @@
             border: none;
             cursor: pointer;
         }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        main {
-            padding-top: 80px;
-        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #047857; }
+        
+        main { padding-top: 80px; }
+        
         .page-header {
             background: var(--bg-white);
             padding: 4rem 5%;
@@ -92,9 +106,13 @@
             font-weight: 700;
             margin-bottom: 1rem;
         }
-        .page-header h1 span {
-            color: var(--primary);
+        .page-header h1 span { color: var(--primary); }
+        .page-header p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto;
         }
+        
         .contact-section {
             max-width: 1000px;
             margin: 0 auto;
@@ -114,7 +132,7 @@
         .contact-methods {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
         }
         .contact-method {
             display: flex;
@@ -126,7 +144,6 @@
             border: 1px solid var(--border);
             text-decoration: none;
             color: var(--text);
-            transition: all 0.2s;
         }
         .contact-method:hover {
             border-color: var(--primary);
@@ -180,13 +197,30 @@
             resize: vertical;
             min-height: 120px;
         }
+        
         footer {
             background: var(--text);
             color: white;
             padding: 2rem;
             text-align: center;
         }
+        
         @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+            }
+            nav ul.active { right: 0; }
             .contact-section {
                 grid-template-columns: 1fr;
             }
@@ -204,11 +238,17 @@
             </svg>
             ReiterWeb
         </a>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <nav>
-            <ul>
+            <ul id="navLinks">
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case Studies</a></li>
                 <li><a href="../blog/index.html">Blog</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
@@ -218,28 +258,20 @@
     <main>
         <section class="page-header">
             <h1>Get in <span>Touch</span></h1>
-            <p style="color: var(--text-muted);">Ready to make data-driven decisions? Let's talk.</p>
+            <p>Ready to make data-driven decisions? Let's talk.</p>
         </section>
 
         <section class="contact-section">
             <div class="contact-info">
                 <h2>Let's work together</h2>
-                <p>Whether you need a full analytics setup, an audit of your current tracking, or ongoing consulting, I'd love to hear from you.</p>
+                <p>Whether you need a full analytics setup, an audit of your current tracking, or ongoing consulting, we'd love to hear from you.</p>
                 
                 <div class="contact-methods">
-                    <a href="mailto:artem@reiterweb.com" class="contact-method">
+                    <a href="mailto:hello@reiterweb.com" class="contact-method">
                         <div class="contact-icon">✉️</div>
                         <div>
                             <strong>Email</strong>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">artem@reiterweb.com</p>
-                        </div>
-                    </a>
-                    
-                    <a href="https://t.me/artemreiter" class="contact-method">
-                        <div class="contact-icon">💬</div>
-                        <div>
-                            <strong>Telegram</strong>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">@artemreiter</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">hello@reiterweb.com</p>
                         </div>
                     </a>
                     
@@ -247,7 +279,7 @@
                         <div class="contact-icon">💼</div>
                         <div>
                             <strong>LinkedIn</strong>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Connect with me</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Connect with us</p>
                         </div>
                     </a>
                 </div>
@@ -268,7 +300,7 @@
                     <input type="url" name="website" placeholder="https://...">
                 </div>
                 <div class="form-group">
-                    <label>How can I help?</label>
+                    <label>How can we help?</label>
                     <textarea name="message" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
@@ -279,5 +311,12 @@
     <footer>
         <p>&copy; 2024 ReiterWeb. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
