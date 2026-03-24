@@ -67,9 +67,9 @@ export function HeroChart() {
 
     const handleScroll = () => {
       const scrollH = document.documentElement.scrollHeight - window.innerHeight;
-      // Map first 50% of page scroll to chart progress
-      const scrollRange = scrollH * 0.5;
-      const raw = window.scrollY / scrollRange;
+      // Map hero sticky scroll (~100vh) to full chart progress
+      const heroHeight = window.innerHeight;
+      const raw = window.scrollY / heroHeight;
       // Always show at least the first milestone so something is visible
       setProgress(Math.max(0.08, Math.min(1, raw)));
     };
@@ -108,7 +108,8 @@ export function HeroChart() {
       >
         <defs>
           <linearGradient id="hero-area" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#00E5A0" stopOpacity="0.1" />
+            <stop offset="0%" stopColor="#00E5A0" stopOpacity="0.25" />
+            <stop offset="60%" stopColor="#00E5A0" stopOpacity="0.08" />
             <stop offset="100%" stopColor="#00E5A0" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="hero-line" x1="0" x2="1" y1="0" y2="0">
@@ -118,7 +119,7 @@ export function HeroChart() {
             <stop offset="100%" stopColor="#00E5A0" />
           </linearGradient>
           <filter id="hero-glow">
-            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feGaussianBlur stdDeviation="10" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -140,8 +141,8 @@ export function HeroChart() {
         {/* Glow line */}
         {linePath && (
           <>
-            <path d={linePath} fill="none" stroke="url(#hero-line)" strokeWidth="4" strokeLinecap="round" filter="url(#hero-glow)" opacity="0.6" />
-            <path d={linePath} fill="none" stroke="url(#hero-line)" strokeWidth="2.5" strokeLinecap="round" />
+            <path d={linePath} fill="none" stroke="url(#hero-line)" strokeWidth="8" strokeLinecap="round" filter="url(#hero-glow)" opacity="0.5" />
+            <path d={linePath} fill="none" stroke="url(#hero-line)" strokeWidth="3.5" strokeLinecap="round" />
           </>
         )}
 
@@ -150,9 +151,9 @@ export function HeroChart() {
           const pos = getMilestonePos(m);
           return (
             <g key={i}>
-              <line x1={pos.x} y1={pos.y} x2={pos.x} y2={h} stroke={m.color} strokeWidth="0.5" strokeDasharray="4 8" opacity="0.25" />
-              <circle cx={pos.x} cy={pos.y} r="10" fill={m.color} opacity="0.08" />
-              <circle cx={pos.x} cy={pos.y} r="5" fill="#0A0A0F" stroke={m.color} strokeWidth="1.5" />
+              <line x1={pos.x} y1={pos.y} x2={pos.x} y2={h} stroke={m.color} strokeWidth="1" strokeDasharray="4 8" opacity="0.35" />
+              <circle cx={pos.x} cy={pos.y} r="16" fill={m.color} opacity="0.1" />
+              <circle cx={pos.x} cy={pos.y} r="7" fill="#0A0A0F" stroke={m.color} strokeWidth="2" />
             </g>
           );
         })}
@@ -177,9 +178,9 @@ export function HeroChart() {
               opacity: progress >= m.progress ? 0.9 : 0,
             }}
           >
-            <div className="glass rounded-lg px-2.5 py-1 text-center whitespace-nowrap">
-              <span className="font-mono text-[11px] font-bold" style={{ color: m.color }}>{m.value}</span>
-              <span className="block text-[8px] font-mono text-[#6B6B80] uppercase tracking-wider">{m.label}</span>
+            <div className="glass rounded-lg px-3 py-1.5 text-center whitespace-nowrap">
+              <span className="font-mono text-xs font-bold" style={{ color: m.color }}>{m.value}</span>
+              <span className="block text-[11px] font-mono text-[#6B6B80] uppercase tracking-wider">{m.label}</span>
             </div>
           </div>
         );

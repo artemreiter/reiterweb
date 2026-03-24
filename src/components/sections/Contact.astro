@@ -2,13 +2,13 @@
 
 ---
 
-<section id="contact" class="relative py-28 md:py-40 overflow-hidden">
+<section id="contact" class="relative py-20 md:py-28 overflow-hidden">
   <div class="absolute inset-0 grid-bg pointer-events-none"></div>
   <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] glow-orb-green pointer-events-none opacity-40"></div>
 
   <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section header -->
-    <div class="mb-20 text-center reveal">
+    <div class="mb-16 text-center reveal">
       <div class="flex items-center justify-center gap-3 mb-6">
         <div class="h-px w-12 bg-accent"></div>
         <span class="font-mono text-xs text-accent uppercase tracking-[0.25em]">Contact</span>
@@ -50,7 +50,7 @@
 
         <div class="mt-12 pt-8 section-divider">
           <div class="pt-8">
-            <p class="font-mono text-[10px] text-muted uppercase tracking-[0.25em] mb-3">Or reach out directly</p>
+            <p class="font-mono text-[11px] text-muted uppercase tracking-[0.2em] mb-3">Or reach out directly</p>
             <a href="mailto:artem@reiterweb.com" class="text-accent hover:text-accent-hover transition-colors font-medium text-lg">
               artem@reiterweb.com
             </a>
@@ -62,39 +62,47 @@
       <div class="reveal reveal-delay-2">
         <form class="glass rounded-2xl p-8 space-y-6" action="#" method="POST">
           <div>
-            <label class="block text-[10px] font-mono text-muted uppercase tracking-[0.25em] mb-2.5">Name</label>
+            <label for="contact-name" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Name</label>
             <input
               type="text"
+              id="contact-name"
               name="name"
               required
+              aria-label="Your name"
               class="w-full bg-void/50 border border-border/50 rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/40"
               placeholder="Your name"
             />
           </div>
           <div>
-            <label class="block text-[10px] font-mono text-muted uppercase tracking-[0.25em] mb-2.5">Company</label>
+            <label for="contact-company" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Company</label>
             <input
               type="text"
+              id="contact-company"
               name="company"
+              aria-label="Company name"
               class="w-full bg-void/50 border border-border/50 rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/40"
               placeholder="Company name"
             />
           </div>
           <div>
-            <label class="block text-[10px] font-mono text-muted uppercase tracking-[0.25em] mb-2.5">Email</label>
+            <label for="contact-email" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Email</label>
             <input
               type="email"
+              id="contact-email"
               name="email"
               required
+              aria-label="Your email address"
               class="w-full bg-void/50 border border-border/50 rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/40"
               placeholder="you@company.com"
             />
           </div>
           <div>
-            <label class="block text-[10px] font-mono text-muted uppercase tracking-[0.25em] mb-2.5">Your biggest analytics challenge</label>
+            <label for="contact-message" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Your biggest analytics challenge</label>
             <textarea
+              id="contact-message"
               name="message"
               rows={4}
+              aria-label="Your biggest analytics challenge"
               class="w-full bg-void/50 border border-border/50 rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/40 resize-none"
               placeholder="Tell us what you're struggling with..."
             ></textarea>

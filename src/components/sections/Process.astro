@@ -37,7 +37,7 @@ const accentMap = {
 };
 ---
 
-<section id="process" class="relative py-28 md:py-40">
+<section id="process" class="relative py-20 md:py-28">
   <div class="absolute top-0 right-0 w-[800px] h-[600px] glow-orb-green pointer-events-none opacity-30"></div>
 
   <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
@@ -58,8 +58,12 @@ const accentMap = {
     <!-- Steps with connecting line -->
     <div class="relative">
       <!-- Connecting line (desktop) -->
-      <div class="hidden md:block absolute top-[4.5rem] left-0 right-0 h-px">
-        <div class="h-full bg-gradient-to-r from-accent/30 via-blue/30 to-amber/30"></div>
+      <div class="hidden md:block absolute top-[4.5rem] left-[3.5rem] right-[3.5rem] h-px">
+        <div class="h-full bg-gradient-to-r from-accent/40 via-blue/40 to-amber/40 line-draw"></div>
+        <!-- Animated dots on the line -->
+        <div class="absolute top-1/2 -translate-y-1/2 left-[25%] w-1.5 h-1.5 rounded-full bg-accent/60 animate-pulse"></div>
+        <div class="absolute top-1/2 -translate-y-1/2 left-[50%] w-1.5 h-1.5 rounded-full bg-blue/60 animate-pulse" style="animation-delay: 0.5s"></div>
+        <div class="absolute top-1/2 -translate-y-1/2 left-[75%] w-1.5 h-1.5 rounded-full bg-amber/60 animate-pulse" style="animation-delay: 1s"></div>
       </div>
 
       <div class="grid md:grid-cols-4 gap-8">
@@ -69,8 +73,8 @@ const accentMap = {
             <div class={`reveal reveal-delay-${i + 1} relative group`}>
               {/* Step indicator dot */}
               <div class="relative z-10 flex items-center gap-4 mb-6">
-                <div class={`w-14 h-14 rounded-2xl ${colors.bg} border ${colors.border} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class={colors.text}>
+                <div class={`w-16 h-16 rounded-2xl ${colors.bg} border ${colors.border} flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-500`}>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class={colors.text}>
                     <path d={step.icon} />
                   </svg>
                 </div>
