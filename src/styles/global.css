@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand: Observatory palette */
   --color-void: #0A0A0F;
   --color-surface: #12121A;
   --color-surface-alt: #1A1A26;
@@ -11,26 +10,21 @@
   --color-heading: #EAEAF0;
   --color-white: #F5F5FA;
 
-  /* Accent: Signal Green */
   --color-accent: #00E5A0;
   --color-accent-dim: #00E5A033;
   --color-accent-hover: #33FFBD;
 
-  /* Secondary: Insight Blue */
   --color-blue: #4C8CFF;
   --color-blue-dim: #4C8CFF22;
 
-  /* Tertiary: Alert Amber */
   --color-amber: #FFB84C;
   --color-amber-dim: #FFB84C22;
 
-  /* Fonts */
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* Font faces - self hosted from Google Fonts CDN */
 @font-face {
   font-family: 'Space Grotesk';
   font-style: normal;
@@ -55,7 +49,6 @@
   src: url('https://fonts.gstatic.com/s/jetbrainsmono/v21/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
 }
 
-/* Base styles */
 html {
   background-color: var(--color-void);
   color: var(--color-body);
@@ -86,12 +79,20 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
 }
 
-/* Lenis smooth scroll */
-html.lenis, html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+/* ═══════════════════════════════════════
+   PREMIUM EFFECTS
+   ═══════════════════════════════════════ */
+
+/* Film grain overlay */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
 }
 
 /* Grid overlay */
@@ -100,12 +101,166 @@ html.lenis, html.lenis body {
     linear-gradient(var(--color-border) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
   background-size: 60px 60px;
-  opacity: 0.15;
+  opacity: 0.12;
 }
 
-/* Glow effects */
-.glow-accent {
-  box-shadow: 0 0 30px var(--color-accent-dim), 0 0 60px var(--color-accent-dim);
+/* Animated gradient border card */
+.gradient-border {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    transparent 40%,
+    transparent 60%,
+    var(--color-blue) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* Rotating gradient border (premium cards) */
+.rotating-border {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: 1.5rem;
+}
+.rotating-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--rotate, 0deg),
+    var(--color-accent),
+    var(--color-blue),
+    var(--color-accent-dim),
+    var(--color-accent)
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  animation: rotateGradient 4s linear infinite;
+}
+.rotating-border:hover::before {
+  opacity: 1;
+}
+.rotating-border::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: var(--color-surface);
+  z-index: -1;
+}
+
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rotateGradient {
+  to { --rotate: 360deg; }
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(18, 18, 26, 0.6);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Radial glow behind sections */
+.glow-orb-green {
+  background: radial-gradient(ellipse at center, rgba(0, 229, 160, 0.08) 0%, transparent 70%);
+}
+.glow-orb-blue {
+  background: radial-gradient(ellipse at center, rgba(76, 140, 255, 0.06) 0%, transparent 70%);
+}
+
+/* Scroll reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Horizontal line draw animation */
+.line-draw {
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.line-draw.visible {
+  width: 100%;
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer effect on buttons */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 100%
+  );
+  transform: rotate(30deg) translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.shimmer:hover::after {
+  transform: rotate(30deg) translateX(50%);
+}
+
+/* Pulse ring animation */
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Section divider gradient */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-border) 20%, var(--color-accent-dim) 50%, var(--color-border) 80%, transparent 100%);
 }
 
 /* Reduced motion */
@@ -116,4 +271,5 @@ html.lenis, html.lenis body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .reveal { opacity: 1; transform: none; }
 }

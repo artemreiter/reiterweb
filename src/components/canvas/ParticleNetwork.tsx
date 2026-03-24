@@ -7,7 +7,18 @@ interface Particle {
   vy: number;
   radius: number;
   opacity: number;
+  color: [number, number, number]; // RGB
+  pulseSpeed: number;
+  pulseOffset: number;
 }
+
+const COLORS: [number, number, number][] = [
+  [0, 229, 160],   // accent green
+  [76, 140, 255],  // blue
+  [0, 229, 160],   // green again (more green bias)
+  [0, 229, 160],
+  [255, 184, 76],  // amber (rare)
+];
 
 export function ParticleNetwork() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -15,6 +26,7 @@ export function ParticleNetwork() {
   const particlesRef = useRef<Particle[]>([]);
   const rafRef = useRef<number>(0);
   const fadeRef = useRef(0);
+  const timeRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,9 +37,9 @@ export function ParticleNetwork() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let width = 0;
     let height = 0;
-    const PARTICLE_COUNT = 90;
-    const CONNECTION_DIST = 150;
-    const MOUSE_RADIUS = 200;
+    const PARTICLE_COUNT = 120;
+    const CONNECTION_DIST = 160;
+    const MOUSE_RADIUS = 250;
 
     function resize() {
       width = window.innerWidth;
@@ -36,66 +48,36 @@ export function ParticleNetwork() {
       canvas!.height = height * dpr;
       canvas!.style.width = `${width}px`;
       canvas!.style.height = `${height}px`;
-      ctx!.scale(dpr, dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function initParticles() {
       particlesRef.current = Array.from({ length: PARTICLE_COUNT }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.5 + 0.2,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        radius: Math.random() * 2.5 + 0.5,
+        opacity: Math.random() * 0.6 + 0.15,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        pulseSpeed: Math.random() * 0.02 + 0.005,
+        pulseOffset: Math.random() * Math.PI * 2,
       }));
     }
 
     function draw() {
       ctx!.clearRect(0, 0, width, height);
+      timeRef.current += 1;
 
-      // Fade in
-      if (fadeRef.current < 1) fadeRef.current = Math.min(1, fadeRef.current + 0.008);
+      if (fadeRef.current < 1) fadeRef.current = Math.min(1, fadeRef.current + 0.006);
       const globalAlpha = fadeRef.current;
+      const time = timeRef.current;
 
       const particles = particlesRef.current;
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
 
-      // Update & draw particles
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        // Mouse repulsion
-        const dx = p.x - mx;
-        const dy = p.y - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_RADIUS && dist > 0) {
-          const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.02;
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
-        }
-
-        // Damping
-        p.vx *= 0.99;
-        p.vy *= 0.99;
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap edges
-        if (p.x < -10) p.x = width + 10;
-        if (p.x > width + 10) p.x = -10;
-        if (p.y < -10) p.y = height + 10;
-        if (p.y > height + 10) p.y = -10;
-
-        // Draw particle
-        ctx!.beginPath();
-        ctx!.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(0, 229, 160, ${p.opacity * globalAlpha})`;
-        ctx!.fill();
-      }
-
-      // Draw connections
+      // Draw connections first (behind particles)
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const a = particles[i];
@@ -105,15 +87,65 @@ export function ParticleNetwork() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < CONNECTION_DIST) {
-            const opacity = (1 - dist / CONNECTION_DIST) * 0.15 * globalAlpha;
+            const opacity = (1 - dist / CONNECTION_DIST) * 0.12 * globalAlpha;
+            const r = Math.round((a.color[0] + b.color[0]) / 2);
+            const g = Math.round((a.color[1] + b.color[1]) / 2);
+            const bl = Math.round((a.color[2] + b.color[2]) / 2);
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
             ctx!.lineTo(b.x, b.y);
-            ctx!.strokeStyle = `rgba(0, 229, 160, ${opacity})`;
-            ctx!.lineWidth = 0.8;
+            ctx!.strokeStyle = `rgba(${r}, ${g}, ${bl}, ${opacity})`;
+            ctx!.lineWidth = 0.6;
             ctx!.stroke();
           }
         }
+      }
+
+      // Update & draw particles
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Mouse interaction — gentle attraction
+        const dx = mx - p.x;
+        const dy = my - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_RADIUS && dist > 0) {
+          const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.008;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+        }
+
+        p.vx *= 0.995;
+        p.vy *= 0.995;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < -20) p.x = width + 20;
+        if (p.x > width + 20) p.x = -20;
+        if (p.y < -20) p.y = height + 20;
+        if (p.y > height + 20) p.y = -20;
+
+        // Pulsing opacity
+        const pulse = Math.sin(time * p.pulseSpeed + p.pulseOffset) * 0.3 + 0.7;
+        const finalOpacity = p.opacity * globalAlpha * pulse;
+        const [r, g, b] = p.color;
+
+        // Glow for larger particles
+        if (p.radius > 1.8) {
+          const grad = ctx!.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 6);
+          grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${finalOpacity * 0.3})`);
+          grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+          ctx!.beginPath();
+          ctx!.arc(p.x, p.y, p.radius * 6, 0, Math.PI * 2);
+          ctx!.fillStyle = grad;
+          ctx!.fill();
+        }
+
+        // Core particle
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${r}, ${g}, ${b}, ${finalOpacity})`;
+        ctx!.fill();
       }
 
       rafRef.current = requestAnimationFrame(draw);
@@ -123,7 +155,7 @@ export function ParticleNetwork() {
     initParticles();
     draw();
 
-    const handleResize = () => { resize(); };
+    const handleResize = () => resize();
     const handleMouse = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
@@ -146,7 +178,8 @@ export function ParticleNetwork() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="absolute inset-0 w-full h-full"
+      style={{ pointerEvents: 'none' }}
       aria-hidden="true"
     />
   );
