@@ -1,99 +1,100 @@
 ---
 import { GlowButton } from '../ui/GlowButton';
-import { ParticleNetwork } from '../canvas/ParticleNetwork';
+import { HeroChart } from '../canvas/HeroChart';
 ---
 
-<section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
-  <!-- Radial glow orbs -->
-  <div class="absolute top-1/4 -left-1/4 w-[800px] h-[800px] glow-orb-green pointer-events-none"></div>
-  <div class="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] glow-orb-blue pointer-events-none"></div>
+<!-- Sticky wrapper: hero stays pinned while chart grows -->
+<div class="relative" style="height: 250vh;">
+  <section id="hero" class="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+    <!-- Chart background (grows on scroll) -->
+    <HeroChart client:load />
 
-  <!-- Canvas background -->
-  <div class="absolute inset-0 pointer-events-auto">
-    <ParticleNetwork client:load />
-  </div>
+    <!-- Radial glow orbs -->
+    <div class="absolute top-1/4 -left-1/4 w-[800px] h-[800px] glow-orb-green pointer-events-none opacity-40"></div>
+    <div class="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] glow-orb-blue pointer-events-none opacity-30"></div>
 
-  <!-- Grid overlay -->
-  <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+    <!-- Grid overlay -->
+    <div class="absolute inset-0 grid-bg pointer-events-none opacity-60"></div>
 
-  <!-- Gradient overlays -->
-  <div class="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-void via-void/80 to-transparent pointer-events-none"></div>
-  <div class="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-void/50 to-transparent pointer-events-none"></div>
+    <!-- Gradient overlays for readability -->
+    <div class="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-void via-void/60 to-transparent pointer-events-none z-[1]"></div>
+    <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-void/40 to-transparent pointer-events-none z-[1]"></div>
 
-  <!-- Content -->
-  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-    <!-- Overline badge -->
-    <div class="mb-8 opacity-0 animate-[fadeUp_0.6s_ease-out_0.2s_forwards]">
-      <span class="glass inline-flex items-center gap-3 px-5 py-2 rounded-full">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+    <!-- Content (above chart) -->
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <!-- Overline badge -->
+      <div class="mb-8 opacity-0 animate-[fadeUp_0.6s_ease-out_0.2s_forwards]">
+        <span class="glass inline-flex items-center gap-3 px-5 py-2 rounded-full">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+          </span>
+          <span class="text-xs font-mono text-muted uppercase tracking-[0.2em]">Web Analytics Agency</span>
         </span>
-        <span class="text-xs font-mono text-muted uppercase tracking-[0.2em]">Web Analytics Agency</span>
-      </span>
-    </div>
+      </div>
 
-    <!-- Headline -->
-    <h1 class="opacity-0 animate-[fadeUp_0.8s_ease-out_0.4s_forwards]">
-      <span class="block text-[clamp(3rem,7vw,6.5rem)] font-display font-bold text-heading leading-[0.95] tracking-[-0.03em]">
-        Your Data Has
-      </span>
-      <span class="block text-[clamp(3rem,7vw,6.5rem)] font-display font-bold leading-[0.95] tracking-[-0.03em] mt-2">
-        <span class="text-heading">a </span><span class="text-gradient">Story.</span>
-      </span>
-      <span class="block text-[clamp(2rem,4.5vw,4rem)] font-display font-bold text-accent leading-[1.1] tracking-[-0.02em] mt-4 opacity-80">
-        We Read It.
-      </span>
-    </h1>
+      <!-- Headline -->
+      <h1 class="opacity-0 animate-[fadeUp_0.8s_ease-out_0.4s_forwards]">
+        <span class="block text-[clamp(3rem,7vw,6.5rem)] font-display font-bold text-heading leading-[0.95] tracking-[-0.03em]">
+          Your Data Has
+        </span>
+        <span class="block text-[clamp(3rem,7vw,6.5rem)] font-display font-bold leading-[0.95] tracking-[-0.03em] mt-2">
+          <span class="text-heading">a </span><span class="text-gradient">Story.</span>
+        </span>
+        <span class="block text-[clamp(2rem,4.5vw,4rem)] font-display font-bold text-accent leading-[1.1] tracking-[-0.02em] mt-4 opacity-80">
+          We Read It.
+        </span>
+      </h1>
 
-    <!-- Subtitle -->
-    <p class="mt-8 text-lg md:text-xl text-body/80 max-w-2xl mx-auto leading-relaxed opacity-0 animate-[fadeUp_0.8s_ease-out_0.7s_forwards]">
-      Web analytics consulting for businesses that want to<br class="hidden md:block" />
-      <span class="text-heading font-medium">stop guessing</span> and <span class="text-heading font-medium">start knowing.</span>
-    </p>
+      <!-- Subtitle -->
+      <p class="mt-8 text-lg md:text-xl text-body/80 max-w-2xl mx-auto leading-relaxed opacity-0 animate-[fadeUp_0.8s_ease-out_0.7s_forwards]">
+        Web analytics consulting for businesses that want to<br class="hidden md:block" />
+        <span class="text-heading font-medium">stop guessing</span> and <span class="text-heading font-medium">start knowing.</span>
+      </p>
 
-    <!-- CTAs -->
-    <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-[fadeUp_0.8s_ease-out_1s_forwards]">
-      <GlowButton href="#contact" variant="amber" className="shimmer" client:load>
-        Get a Free Audit
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="ml-1">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </GlowButton>
-      <GlowButton href="#results" variant="outline" client:load>
-        See Our Results
-      </GlowButton>
-    </div>
+      <!-- CTAs -->
+      <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-[fadeUp_0.8s_ease-out_1s_forwards]">
+        <GlowButton href="#contact" variant="amber" className="shimmer" client:load>
+          Get a Free Audit
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="ml-1">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </GlowButton>
+        <GlowButton href="#results" variant="outline" client:load>
+          See Our Results
+        </GlowButton>
+      </div>
 
-    <!-- Floating metrics with glassmorphism -->
-    <div class="mt-20 opacity-0 animate-[fadeUp_1s_ease-out_1.4s_forwards]">
-      <div class="inline-flex items-center gap-8 md:gap-14 glass rounded-2xl px-8 py-5">
-        <div class="text-center">
-          <span class="font-mono text-2xl md:text-3xl font-bold text-accent">147%</span>
-          <span class="block text-[10px] text-muted mt-1 font-mono uppercase tracking-[0.15em]">Avg. Conversion Lift</span>
-        </div>
-        <div class="w-px h-10 bg-border"></div>
-        <div class="text-center">
-          <span class="font-mono text-2xl md:text-3xl font-bold text-blue">50+</span>
-          <span class="block text-[10px] text-muted mt-1 font-mono uppercase tracking-[0.15em]">Clients Served</span>
-        </div>
-        <div class="w-px h-10 bg-border hidden sm:block"></div>
-        <div class="text-center hidden sm:block">
-          <span class="font-mono text-2xl md:text-3xl font-bold text-heading">8 yrs</span>
-          <span class="block text-[10px] text-muted mt-1 font-mono uppercase tracking-[0.15em]">Experience</span>
+      <!-- Floating metrics -->
+      <div class="mt-16 opacity-0 animate-[fadeUp_1s_ease-out_1.4s_forwards]">
+        <div class="inline-flex items-center gap-8 md:gap-14 glass rounded-2xl px-8 py-5">
+          <div class="text-center">
+            <span class="font-mono text-2xl md:text-3xl font-bold text-accent">147%</span>
+            <span class="block text-[10px] text-muted mt-1 font-mono uppercase tracking-[0.15em]">Avg. Conversion Lift</span>
+          </div>
+          <div class="w-px h-10 bg-border"></div>
+          <div class="text-center">
+            <span class="font-mono text-2xl md:text-3xl font-bold text-blue">50+</span>
+            <span class="block text-[10px] text-muted mt-1 font-mono uppercase tracking-[0.15em]">Clients Served</span>
+          </div>
+          <div class="w-px h-10 bg-border hidden sm:block"></div>
+          <div class="text-center hidden sm:block">
+            <span class="font-mono text-2xl md:text-3xl font-bold text-heading">8 yrs</span>
+            <span class="block text-[10px] text-muted mt-1 font-mono uppercase tracking-[0.15em]">Experience</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-0 animate-[fadeUp_0.6s_ease-out_2s_forwards]">
-    <span class="text-[10px] font-mono text-muted/60 uppercase tracking-[0.3em]">Scroll</span>
-    <div class="w-5 h-9 rounded-full border border-border/50 flex items-start justify-center p-1.5">
-      <div class="w-1 h-2.5 rounded-full bg-accent/60 animate-bounce"></div>
+    <!-- Scroll hint -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-0 animate-[fadeUp_0.6s_ease-out_2s_forwards]">
+      <span class="text-[10px] font-mono text-muted/60 uppercase tracking-[0.3em]">Scroll to see the data grow</span>
+      <div class="w-5 h-9 rounded-full border border-border/50 flex items-start justify-center p-1.5">
+        <div class="w-1 h-2.5 rounded-full bg-accent/60 animate-bounce"></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <style>
   @keyframes fadeUp {
