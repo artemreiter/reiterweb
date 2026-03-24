@@ -2,10 +2,7 @@
 
 ---
 
-<section id="contact" class="relative py-20 md:py-28 overflow-hidden">
-  <div class="absolute inset-0 grid-bg pointer-events-none"></div>
-  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] glow-orb-green pointer-events-none opacity-40"></div>
-
+<section id="contact" class="relative py-20 md:py-28">
   <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section header -->
     <div class="mb-16 text-center reveal">
@@ -14,10 +11,10 @@
         <span class="font-mono text-xs text-accent uppercase tracking-[0.25em]">Contact</span>
         <div class="h-px w-12 bg-accent"></div>
       </div>
-      <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-display font-bold text-heading leading-[1.05]">
+      <h2 class="text-[clamp(2.5rem,5vw,3.5rem)] font-display font-bold text-heading leading-[1.05]">
         Let's Talk <span class="text-gradient">Data</span>
       </h2>
-      <p class="mt-5 text-lg text-body/80 max-w-xl mx-auto leading-relaxed">
+      <p class="mt-5 text-lg text-body max-w-xl mx-auto leading-relaxed">
         Ready to turn your data into decisions? Tell us about your challenge.
       </p>
     </div>
@@ -60,7 +57,7 @@
 
       <!-- Right: form -->
       <div class="reveal reveal-delay-2">
-        <form class="glass rounded-2xl p-8 space-y-6" action="#" method="POST">
+        <form class="card-elevated rounded-2xl p-8 space-y-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_30px_rgba(0,0,0,0.06)]" action="#" method="POST">
           <div>
             <label for="contact-name" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Name</label>
             <input
@@ -69,7 +66,7 @@
               name="name"
               required
               aria-label="Your name"
-              class="w-full bg-void/50 border border-border/50 rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/40"
+              class="w-full bg-surface-alt border border-border rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/50"
               placeholder="Your name"
             />
           </div>
@@ -80,7 +77,7 @@
               id="contact-company"
               name="company"
               aria-label="Company name"
-              class="w-full bg-void/50 border border-border/50 rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/40"
+              class="w-full bg-surface-alt border border-border rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/50"
               placeholder="Company name"
             />
           </div>
@@ -92,7 +89,7 @@
               name="email"
               required
               aria-label="Your email address"
-              class="w-full bg-void/50 border border-border/50 rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/40"
+              class="w-full bg-surface-alt border border-border rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/50"
               placeholder="you@company.com"
             />
           </div>
@@ -103,13 +100,13 @@
               name="message"
               rows={4}
               aria-label="Your biggest analytics challenge"
-              class="w-full bg-void/50 border border-border/50 rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/40 resize-none"
+              class="w-full bg-surface-alt border border-border rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/50 resize-none"
               placeholder="Tell us what you're struggling with..."
             ></textarea>
           </div>
           <button
             type="submit"
-            class="shimmer w-full inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-accent text-void text-sm font-display font-bold hover:bg-accent-hover transition-all duration-300 shadow-[0_0_40px_var(--color-accent-dim)] hover:shadow-[0_0_60px_var(--color-accent-dim)] hover:scale-[1.02] active:scale-[0.98]"
+            class="w-full inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-accent text-white text-sm font-display font-bold hover:bg-accent-hover transition-all duration-300 shadow-[0_4px_14px_rgba(0,102,255,0.25)] hover:shadow-[0_6px_20px_rgba(0,102,255,0.3)] hover:-translate-y-0.5 active:translate-y-0"
           >
             Send Message
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

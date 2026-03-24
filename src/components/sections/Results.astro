@@ -1,14 +1,20 @@
 ---
 const colorMap = {
-  accent: 'text-accent',
-  blue: 'text-blue',
+  accent: 'text-success',
+  blue: 'text-accent',
   amber: 'text-amber',
 } as const;
 
-const bgGlow = {
-  accent: 'shadow-[0_0_80px_-20px_var(--color-accent-dim)]',
-  blue: 'shadow-[0_0_80px_-20px_var(--color-blue-dim)]',
-  amber: 'shadow-[0_0_80px_-20px_var(--color-amber-dim)]',
+const dotColor = {
+  accent: 'bg-success',
+  blue: 'bg-accent',
+  amber: 'bg-amber',
+} as const;
+
+const barColor = {
+  accent: '#10B981',
+  blue: '#0066FF',
+  amber: '#FF6B2C',
 } as const;
 
 type AccentKey = keyof typeof colorMap;
@@ -38,23 +44,19 @@ const cases = [
 ];
 ---
 
-<section id="results" class="relative py-20 md:py-28 overflow-hidden">
-  <!-- Background effects -->
-  <div class="absolute inset-0 grid-bg pointer-events-none"></div>
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] glow-orb-blue pointer-events-none"></div>
-
+<section id="results" class="relative py-20 md:py-28 bg-surface-alt">
   <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section header -->
-    <div class="mb-20 text-center reveal">
+    <div class="mb-16 text-center reveal">
       <div class="flex items-center justify-center gap-3 mb-6">
         <div class="h-px w-12 bg-accent"></div>
         <span class="font-mono text-xs text-accent uppercase tracking-[0.25em]">Results</span>
         <div class="h-px w-12 bg-accent"></div>
       </div>
-      <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-display font-bold text-heading leading-[1.05]">
+      <h2 class="text-[clamp(2.5rem,5vw,3.5rem)] font-display font-bold text-heading leading-[1.05]">
         Numbers That <span class="text-gradient">Matter</span>
       </h2>
-      <p class="mt-5 text-lg text-body/80 max-w-xl mx-auto leading-relaxed">
+      <p class="mt-5 text-lg text-body max-w-xl mx-auto leading-relaxed">
         Real outcomes from real engagements. No vanity metrics.
       </p>
     </div>
@@ -62,37 +64,45 @@ const cases = [
     <!-- Case study cards -->
     <div class="grid md:grid-cols-3 gap-8">
       {cases.map((c, i) => (
-        <div class={`reveal reveal-delay-${i + 1} gradient-border group p-8 transition-all duration-500 hover:${bgGlow[c.color as AccentKey]}`}>
-          <!-- Industry tag -->
+        <div
+          class={`reveal reveal-delay-${i + 1} card-elevated group p-8 relative overflow-hidden`}
+        >
+          {/* Left accent bar on hover */}
+          <div
+            class="absolute left-0 top-0 w-1 h-0 group-hover:h-full transition-all duration-500 rounded-l-lg"
+            style={`background-color: ${barColor[c.color as AccentKey]}`}
+          ></div>
+
+          {/* Industry tag */}
           <div class="flex items-center gap-2 mb-8">
-            <div class={`h-1.5 w-1.5 rounded-full bg-${c.color}`}></div>
+            <div class={`h-1.5 w-1.5 rounded-full ${dotColor[c.color as AccentKey]}`}></div>
             <span class={`text-[11px] font-mono uppercase tracking-[0.2em] ${colorMap[c.color as AccentKey]}`}>
               {c.industry}
             </span>
           </div>
 
-          <!-- Big metric -->
+          {/* Big metric */}
           <div class="mb-6">
             <span class={`font-mono text-[3.5rem] font-bold leading-none ${colorMap[c.color as AccentKey]}`}>{c.metric}</span>
             <span class="block text-xs font-mono text-muted uppercase tracking-[0.15em] mt-3">{c.metricLabel}</span>
           </div>
 
-          <!-- Divider -->
+          {/* Divider */}
           <div class="section-divider mb-6"></div>
 
-          <!-- Story -->
-          <p class="text-sm text-body/70 leading-relaxed">
+          {/* Story */}
+          <p class="text-sm text-body leading-relaxed">
             {c.story}
           </p>
 
-          <!-- Sparkline decoration -->
-          <div class="mt-8 h-10 opacity-40 group-hover:opacity-80 transition-opacity duration-500">
+          {/* Sparkline decoration */}
+          <div class="mt-8 h-10 opacity-20 group-hover:opacity-50 transition-opacity duration-500">
             <svg viewBox="0 0 200 30" class="w-full h-full" preserveAspectRatio="none">
               <defs>
                 <linearGradient id={`grad-${c.color}`} x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0%" stop-color={c.color === 'accent' ? '#00E5A0' : c.color === 'blue' ? '#4C8CFF' : '#FFB84C'} stop-opacity="0" />
-                  <stop offset="30%" stop-color={c.color === 'accent' ? '#00E5A0' : c.color === 'blue' ? '#4C8CFF' : '#FFB84C'} stop-opacity="1" />
-                  <stop offset="100%" stop-color={c.color === 'accent' ? '#00E5A0' : c.color === 'blue' ? '#4C8CFF' : '#FFB84C'} stop-opacity="1" />
+                  <stop offset="0%" stop-color={barColor[c.color as AccentKey]} stop-opacity="0" />
+                  <stop offset="30%" stop-color={barColor[c.color as AccentKey]} stop-opacity="1" />
+                  <stop offset="100%" stop-color={barColor[c.color as AccentKey]} stop-opacity="1" />
                 </linearGradient>
               </defs>
               <path

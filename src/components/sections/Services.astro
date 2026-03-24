@@ -7,6 +7,7 @@ const services = [
     metric: '99.7%',
     metricLabel: 'Data Accuracy',
     accentColor: 'accent',
+    hoverBorder: 'hover:border-t-accent',
   },
   {
     title: 'Attribution & Measurement',
@@ -15,6 +16,7 @@ const services = [
     metric: '3.2x',
     metricLabel: 'ROAS Improvement',
     accentColor: 'blue',
+    hoverBorder: 'hover:border-t-blue',
   },
   {
     title: 'Dashboards & Insights',
@@ -23,6 +25,7 @@ const services = [
     metric: '40hrs',
     metricLabel: 'Saved / Month',
     accentColor: 'amber',
+    hoverBorder: 'hover:border-t-amber',
   },
 ];
 
@@ -34,20 +37,17 @@ const metricColorMap = {
 ---
 
 <section id="services" class="relative py-20 md:py-28">
-  <!-- Glow orb -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] glow-orb-green pointer-events-none opacity-50"></div>
-
   <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section header -->
-    <div class="mb-20 reveal">
+    <div class="mb-16 reveal">
       <div class="flex items-center gap-3 mb-6">
         <div class="h-px w-12 bg-accent"></div>
         <span class="font-mono text-xs text-accent uppercase tracking-[0.25em]">Services</span>
       </div>
-      <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-display font-bold text-heading leading-[1.05]">
+      <h2 class="text-[clamp(2.5rem,5vw,3.5rem)] font-display font-bold text-heading leading-[1.05]">
         What We Do
       </h2>
-      <p class="mt-5 text-lg text-body/80 max-w-xl leading-relaxed">
+      <p class="mt-5 text-lg text-body max-w-xl leading-relaxed">
         End-to-end web analytics — from raw tracking implementation to actionable business insights.
       </p>
     </div>
@@ -55,46 +55,43 @@ const metricColorMap = {
     <!-- Cards grid -->
     <div class="grid md:grid-cols-3 gap-8">
       {services.map((service, i) => (
-        <div class={`reveal reveal-delay-${i + 1} rotating-border group p-8 transition-all duration-500`}>
-          <!-- Inner content -->
-          <div class="relative z-10">
-            <!-- Metric badge -->
-            <div class="mb-8">
-              <span class={`font-mono text-4xl font-bold ${metricColorMap[service.accentColor as keyof typeof metricColorMap]}`}>{service.metric}</span>
-              <span class="block text-[11px] font-mono text-muted uppercase tracking-[0.15em] mt-2">{service.metricLabel}</span>
-            </div>
+        <div class={`reveal reveal-delay-${i + 1} card-elevated group p-8 border-t-3 border-t-transparent ${service.hoverBorder} transition-all duration-500`}>
+          <!-- Metric badge -->
+          <div class="mb-8">
+            <span class={`font-mono text-4xl font-bold ${metricColorMap[service.accentColor as keyof typeof metricColorMap]}`}>{service.metric}</span>
+            <span class="block text-[11px] font-mono text-muted uppercase tracking-[0.15em] mt-2">{service.metricLabel}</span>
+          </div>
 
-            <!-- Title -->
-            <h3 class="text-xl font-display font-bold text-heading mb-4 group-hover:text-accent transition-colors duration-300">
-              {service.title}
-            </h3>
+          <!-- Title -->
+          <h3 class="text-xl font-display font-semibold text-heading mb-4 group-hover:text-accent transition-colors duration-300">
+            {service.title}
+          </h3>
 
-            <!-- Description -->
-            <p class="text-body/80 text-sm leading-relaxed mb-8">
-              {service.description}
-            </p>
+          <!-- Description -->
+          <p class="text-body text-sm leading-relaxed mb-8">
+            {service.description}
+          </p>
 
-            <!-- Tools -->
-            <div class="flex flex-wrap gap-2">
-              {service.tools.map((tool) => (
-                <span class="text-xs font-mono text-muted/70 px-3 py-1.5 rounded-lg bg-void/50 border border-border/50 transition-colors duration-300 group-hover:border-accent/20">
-                  {tool}
-                </span>
-              ))}
-            </div>
+          <!-- Tools -->
+          <div class="flex flex-wrap gap-2">
+            {service.tools.map((tool) => (
+              <span class="text-xs font-mono text-muted px-3 py-1.5 rounded-lg bg-surface-alt border border-border transition-colors duration-300 group-hover:border-accent/20">
+                {tool}
+              </span>
+            ))}
           </div>
         </div>
       ))}
     </div>
 
     <!-- Tool logos marquee -->
-    <div class="mt-24 overflow-hidden relative reveal">
+    <div class="mt-20 overflow-hidden relative reveal">
       <div class="section-divider mb-10"></div>
       <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-void to-transparent z-10"></div>
       <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-void to-transparent z-10"></div>
       <div class="flex gap-16 items-center animate-marquee">
         {['Google Analytics 4', 'Google Tag Manager', 'BigQuery', 'Looker Studio', 'Power BI', 'Segment', 'Amplitude', 'Mixpanel', 'Snowflake', 'dbt', 'Google Analytics 4', 'Google Tag Manager', 'BigQuery', 'Looker Studio', 'Power BI', 'Segment', 'Amplitude', 'Mixpanel', 'Snowflake', 'dbt'].map((tool) => (
-          <span class="whitespace-nowrap font-mono text-sm text-muted/30 hover:text-accent/60 transition-colors duration-500 shrink-0 cursor-default">
+          <span class="whitespace-nowrap font-mono text-sm text-border hover:text-accent/60 transition-colors duration-500 shrink-0 cursor-default">
             {tool}
           </span>
         ))}

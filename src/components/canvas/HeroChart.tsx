@@ -9,12 +9,12 @@ interface Milestone {
 
 const MILESTONES: Milestone[] = [
   { progress: 0.05, label: 'Broken tracking', value: '12%', color: '#EF4444' },
-  { progress: 0.15, label: 'Analytics Audit', value: '18%', color: '#FFB84C' },
-  { progress: 0.28, label: 'Added GTM', value: '31%', color: '#FFB84C' },
-  { progress: 0.42, label: 'Server-side Tagging', value: '52%', color: '#4C8CFF' },
-  { progress: 0.56, label: 'Attribution Model', value: '78%', color: '#4C8CFF' },
-  { progress: 0.72, label: 'Custom Dashboards', value: '112%', color: '#00E5A0' },
-  { progress: 0.88, label: 'Full Optimization', value: '147%', color: '#00E5A0' },
+  { progress: 0.15, label: 'Analytics Audit', value: '18%', color: '#F59E0B' },
+  { progress: 0.28, label: 'Added GTM', value: '31%', color: '#F59E0B' },
+  { progress: 0.42, label: 'Server-side Tagging', value: '52%', color: '#0066FF' },
+  { progress: 0.56, label: 'Attribution Model', value: '78%', color: '#0066FF' },
+  { progress: 0.72, label: 'Custom Dashboards', value: '112%', color: '#10B981' },
+  { progress: 0.88, label: 'Full Optimization', value: '147%', color: '#10B981' },
 ];
 
 function generatePath(width: number, height: number, progress: number): string {
@@ -66,11 +66,8 @@ export function HeroChart() {
     window.addEventListener('resize', update);
 
     const handleScroll = () => {
-      const scrollH = document.documentElement.scrollHeight - window.innerHeight;
-      // Map hero sticky scroll (~100vh) to full chart progress
       const heroHeight = window.innerHeight;
       const raw = window.scrollY / heroHeight;
-      // Always show at least the first milestone so something is visible
       setProgress(Math.max(0.08, Math.min(1, raw)));
     };
 
@@ -108,42 +105,32 @@ export function HeroChart() {
       >
         <defs>
           <linearGradient id="hero-area" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#00E5A0" stopOpacity="0.25" />
-            <stop offset="60%" stopColor="#00E5A0" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#00E5A0" stopOpacity="0" />
+            <stop offset="0%" stopColor="#0066FF" stopOpacity="0.12" />
+            <stop offset="60%" stopColor="#0066FF" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#0066FF" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="hero-line" x1="0" x2="1" y1="0" y2="0">
             <stop offset="0%" stopColor="#EF4444" />
-            <stop offset="25%" stopColor="#FFB84C" />
-            <stop offset="55%" stopColor="#4C8CFF" />
-            <stop offset="100%" stopColor="#00E5A0" />
+            <stop offset="25%" stopColor="#F59E0B" />
+            <stop offset="55%" stopColor="#0066FF" />
+            <stop offset="100%" stopColor="#10B981" />
           </linearGradient>
-          <filter id="hero-glow">
-            <feGaussianBlur stdDeviation="10" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
         </defs>
 
-        {/* Subtle grid */}
+        {/* Subtle grid lines */}
         {[0.25, 0.5, 0.75].map(y => (
-          <line key={`h${y}`} x1={0} y1={h * y} x2={w} y2={h * y} stroke="#2A2A3A" strokeWidth="0.5" strokeDasharray="6 12" opacity="0.5" />
+          <line key={`h${y}`} x1={0} y1={h * y} x2={w} y2={h * y} stroke="#E5E5EA" strokeWidth="1" strokeDasharray="4 8" opacity="0.8" />
         ))}
         {[0.2, 0.4, 0.6, 0.8].map(x => (
-          <line key={`v${x}`} x1={w * x} y1={0} x2={w * x} y2={h} stroke="#2A2A3A" strokeWidth="0.5" strokeDasharray="6 12" opacity="0.3" />
+          <line key={`v${x}`} x1={w * x} y1={0} x2={w * x} y2={h} stroke="#E5E5EA" strokeWidth="1" strokeDasharray="4 8" opacity="0.5" />
         ))}
 
-        {/* Area */}
+        {/* Area fill */}
         {areaPath && <path d={areaPath} fill="url(#hero-area)" />}
 
-        {/* Glow line */}
+        {/* Main line — no glow filter on light theme */}
         {linePath && (
-          <>
-            <path d={linePath} fill="none" stroke="url(#hero-line)" strokeWidth="8" strokeLinecap="round" filter="url(#hero-glow)" opacity="0.5" />
-            <path d={linePath} fill="none" stroke="url(#hero-line)" strokeWidth="3.5" strokeLinecap="round" />
-          </>
+          <path d={linePath} fill="none" stroke="url(#hero-line)" strokeWidth="3" strokeLinecap="round" />
         )}
 
         {/* Milestone dots */}
@@ -151,9 +138,9 @@ export function HeroChart() {
           const pos = getMilestonePos(m);
           return (
             <g key={i}>
-              <line x1={pos.x} y1={pos.y} x2={pos.x} y2={h} stroke={m.color} strokeWidth="1" strokeDasharray="4 8" opacity="0.35" />
-              <circle cx={pos.x} cy={pos.y} r="16" fill={m.color} opacity="0.1" />
-              <circle cx={pos.x} cy={pos.y} r="7" fill="#0A0A0F" stroke={m.color} strokeWidth="2" />
+              <line x1={pos.x} y1={pos.y} x2={pos.x} y2={h} stroke={m.color} strokeWidth="1" strokeDasharray="4 8" opacity="0.2" />
+              <circle cx={pos.x} cy={pos.y} r="20" fill={m.color} opacity="0.06" />
+              <circle cx={pos.x} cy={pos.y} r="6" fill="white" stroke={m.color} strokeWidth="2.5" />
             </g>
           );
         })}
@@ -163,7 +150,6 @@ export function HeroChart() {
       {visibleMilestones.map((m, i) => {
         const pos = getMilestonePos(m);
         const xPct = (pos.x / w) * 100;
-        // Clamp so labels don't go off-screen
         const clampedX = Math.max(5, Math.min(95, xPct));
         const isAbove = i % 2 === 0;
 
@@ -173,14 +159,14 @@ export function HeroChart() {
             className="absolute pointer-events-none transition-opacity duration-700"
             style={{
               left: `${clampedX}%`,
-              top: isAbove ? `${pos.y - 52}px` : `${pos.y + 14}px`,
+              top: isAbove ? `${pos.y - 56}px` : `${pos.y + 16}px`,
               transform: 'translateX(-50%)',
-              opacity: progress >= m.progress ? 0.9 : 0,
+              opacity: progress >= m.progress ? 0.95 : 0,
             }}
           >
-            <div className="glass rounded-lg px-3 py-1.5 text-center whitespace-nowrap">
+            <div className="bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.04)] border border-[#E5E5EA] rounded-lg px-3 py-2 text-center whitespace-nowrap">
               <span className="font-mono text-xs font-bold" style={{ color: m.color }}>{m.value}</span>
-              <span className="block text-[11px] font-mono text-[#6B6B80] uppercase tracking-wider">{m.label}</span>
+              <span className="block text-[11px] font-mono text-[#8E8E93] uppercase tracking-wider">{m.label}</span>
             </div>
           </div>
         );

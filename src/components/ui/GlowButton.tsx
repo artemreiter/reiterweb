@@ -9,13 +9,13 @@ interface Props {
 }
 
 const variants = {
-  primary: 'bg-accent text-void hover:bg-accent-hover shadow-[0_0_30px_var(--color-accent-dim)]',
-  amber: 'bg-amber text-void hover:brightness-110 shadow-[0_0_30px_var(--color-amber-dim)]',
+  primary: 'bg-accent text-white hover:bg-accent-hover shadow-[0_4px_14px_rgba(0,102,255,0.25)] hover:shadow-[0_6px_20px_rgba(0,102,255,0.3)]',
+  amber: 'bg-amber text-white hover:brightness-90 shadow-[0_4px_14px_rgba(255,107,44,0.25)] hover:shadow-[0_6px_20px_rgba(255,107,44,0.3)]',
   outline: 'border border-border text-heading hover:border-accent hover:text-accent bg-transparent',
 };
 
 export function GlowButton({ children, href, variant = 'primary', className = '', onClick }: Props) {
-  const base = 'inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-display font-semibold text-sm tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]';
+  const base = 'inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-display font-semibold text-sm tracking-wide transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0';
   const cls = `${base} ${variants[variant]} ${className}`;
 
   if (href) {

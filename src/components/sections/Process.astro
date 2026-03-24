@@ -31,26 +31,24 @@ const steps = [
 ];
 
 const accentMap = {
-  accent: { text: 'text-accent', bg: 'bg-accent/10', border: 'border-accent/20', dot: 'bg-accent' },
-  blue: { text: 'text-blue', bg: 'bg-blue/10', border: 'border-blue/20', dot: 'bg-blue' },
-  amber: { text: 'text-amber', bg: 'bg-amber/10', border: 'border-amber/20', dot: 'bg-amber' },
+  accent: { text: 'text-accent', bg: 'bg-accent/6', border: 'border-accent/12' },
+  blue: { text: 'text-blue', bg: 'bg-blue/6', border: 'border-blue/12' },
+  amber: { text: 'text-amber', bg: 'bg-amber/6', border: 'border-amber/12' },
 };
 ---
 
 <section id="process" class="relative py-20 md:py-28">
-  <div class="absolute top-0 right-0 w-[800px] h-[600px] glow-orb-green pointer-events-none opacity-30"></div>
-
   <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section header -->
-    <div class="mb-20 reveal">
+    <div class="mb-16 reveal">
       <div class="flex items-center gap-3 mb-6">
         <div class="h-px w-12 bg-accent"></div>
         <span class="font-mono text-xs text-accent uppercase tracking-[0.25em]">Process</span>
       </div>
-      <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-display font-bold text-heading leading-[1.05]">
+      <h2 class="text-[clamp(2.5rem,5vw,3.5rem)] font-display font-bold text-heading leading-[1.05]">
         How We Work
       </h2>
-      <p class="mt-5 text-lg text-body/80 max-w-xl leading-relaxed">
+      <p class="mt-5 text-lg text-body max-w-xl leading-relaxed">
         A proven four-step methodology. No surprises, no scope creep.
       </p>
     </div>
@@ -58,12 +56,11 @@ const accentMap = {
     <!-- Steps with connecting line -->
     <div class="relative">
       <!-- Connecting line (desktop) -->
-      <div class="hidden md:block absolute top-[4.5rem] left-[3.5rem] right-[3.5rem] h-px">
-        <div class="h-full bg-gradient-to-r from-accent/40 via-blue/40 to-amber/40 line-draw"></div>
-        <!-- Animated dots on the line -->
-        <div class="absolute top-1/2 -translate-y-1/2 left-[25%] w-1.5 h-1.5 rounded-full bg-accent/60 animate-pulse"></div>
-        <div class="absolute top-1/2 -translate-y-1/2 left-[50%] w-1.5 h-1.5 rounded-full bg-blue/60 animate-pulse" style="animation-delay: 0.5s"></div>
-        <div class="absolute top-1/2 -translate-y-1/2 left-[75%] w-1.5 h-1.5 rounded-full bg-amber/60 animate-pulse" style="animation-delay: 1s"></div>
+      <div class="hidden md:block absolute top-[4.5rem] left-[4rem] right-[4rem] h-px">
+        <div class="h-full bg-border line-draw"></div>
+        <div class="absolute top-1/2 -translate-y-1/2 left-[25%] w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></div>
+        <div class="absolute top-1/2 -translate-y-1/2 left-[50%] w-1.5 h-1.5 rounded-full bg-blue animate-pulse" style="animation-delay: 0.5s"></div>
+        <div class="absolute top-1/2 -translate-y-1/2 left-[75%] w-1.5 h-1.5 rounded-full bg-amber animate-pulse" style="animation-delay: 1s"></div>
       </div>
 
       <div class="grid md:grid-cols-4 gap-8">
@@ -71,9 +68,9 @@ const accentMap = {
           const colors = accentMap[step.accent as keyof typeof accentMap];
           return (
             <div class={`reveal reveal-delay-${i + 1} relative group`}>
-              {/* Step indicator dot */}
+              {/* Step indicator */}
               <div class="relative z-10 flex items-center gap-4 mb-6">
-                <div class={`w-16 h-16 rounded-2xl ${colors.bg} border ${colors.border} flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-500`}>
+                <div class={`w-16 h-16 rounded-2xl ${colors.bg} border ${colors.border} flex items-center justify-center group-hover:scale-108 group-hover:shadow-lg transition-all duration-500`}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class={colors.text}>
                     <path d={step.icon} />
                   </svg>
@@ -82,11 +79,11 @@ const accentMap = {
               </div>
 
               {/* Card */}
-              <div class="glass rounded-2xl p-6 transition-all duration-500 hover:border-accent/10">
-                <h3 class={`text-lg font-display font-bold text-heading mb-3 group-hover:${colors.text} transition-colors duration-300`}>
+              <div class="card-elevated rounded-xl p-6 transition-all duration-500">
+                <h3 class="text-lg font-display font-semibold text-heading mb-3">
                   {step.title}
                 </h3>
-                <p class="text-sm text-body/70 leading-relaxed">
+                <p class="text-sm text-body leading-relaxed">
                   {step.description}
                 </p>
               </div>
