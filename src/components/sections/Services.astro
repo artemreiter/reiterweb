@@ -1,0 +1,101 @@
+---
+const services = [
+  {
+    title: 'Analytics Architecture',
+    description: 'GA4 & GTM setup, server-side tagging, data layer design. We build the foundation that makes everything else possible.',
+    tools: ['GA4', 'GTM', 'BigQuery', 'Server-side Tagging'],
+    icon: 'pipeline',
+    metric: '99.7%',
+    metricLabel: 'Data Accuracy',
+  },
+  {
+    title: 'Attribution & Measurement',
+    description: 'Multi-touch attribution, conversion modeling, incrementality testing. Know exactly what drives your revenue.',
+    tools: ['Attribution Models', 'Conversion API', 'A/B Testing', 'MMM'],
+    icon: 'converge',
+    metric: '3.2x',
+    metricLabel: 'ROAS Improvement',
+  },
+  {
+    title: 'Dashboards & Insights',
+    description: 'Custom Looker Studio & Power BI dashboards. Automated reporting that turns data into decisions, not just charts.',
+    tools: ['Looker Studio', 'Power BI', 'Automated Reports', 'AI Insights'],
+    icon: 'dashboard',
+    metric: '40hrs',
+    metricLabel: 'Saved / Month',
+  },
+];
+---
+
+<section id="services" class="relative py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="mb-16">
+      <span class="font-mono text-xs text-accent uppercase tracking-[0.2em] mb-4 block">Services</span>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-display font-bold text-heading">
+        What We Do
+      </h2>
+      <p class="mt-4 text-lg text-body max-w-xl">
+        End-to-end web analytics — from raw tracking implementation to actionable business insights.
+      </p>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+      {services.map((service) => (
+        <div class="group relative bg-surface rounded-2xl border border-border p-8 transition-all duration-500 hover:border-accent/30 hover:shadow-[0_0_40px_var(--color-accent-dim)]">
+          <!-- Metric badge -->
+          <div class="mb-6">
+            <span class="font-mono text-3xl font-bold text-accent">{service.metric}</span>
+            <span class="block text-xs font-mono text-muted uppercase tracking-wider mt-1">{service.metricLabel}</span>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-display font-bold text-heading mb-3">
+            {service.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-body text-sm leading-relaxed mb-6">
+            {service.description}
+          </p>
+
+          <!-- Tools -->
+          <div class="flex flex-wrap gap-2">
+            {service.tools.map((tool) => (
+              <span class="text-xs font-mono text-muted px-2.5 py-1 rounded-md bg-surface-alt border border-border">
+                {tool}
+              </span>
+            ))}
+          </div>
+
+          <!-- Hover glow line at top -->
+          <div class="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Tool logos marquee -->
+    <div class="mt-20 overflow-hidden relative">
+      <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-void to-transparent z-10"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-void to-transparent z-10"></div>
+      <div class="flex gap-12 items-center animate-marquee">
+        {['Google Analytics 4', 'Google Tag Manager', 'BigQuery', 'Looker Studio', 'Power BI', 'Segment', 'Amplitude', 'Mixpanel', 'Snowflake', 'dbt', 'Google Analytics 4', 'Google Tag Manager', 'BigQuery', 'Looker Studio', 'Power BI', 'Segment', 'Amplitude', 'Mixpanel', 'Snowflake', 'dbt'].map((tool) => (
+          <span class="whitespace-nowrap font-mono text-sm text-muted/40 hover:text-muted transition-colors duration-300 shrink-0">
+            {tool}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+</style>

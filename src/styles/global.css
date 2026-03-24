@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand: Observatory palette */
+  --color-void: #0A0A0F;
+  --color-surface: #12121A;
+  --color-surface-alt: #1A1A26;
+  --color-border: #2A2A3A;
+  --color-muted: #6B6B80;
+  --color-body: #B8B8CC;
+  --color-heading: #EAEAF0;
+  --color-white: #F5F5FA;
+
+  /* Accent: Signal Green */
+  --color-accent: #00E5A0;
+  --color-accent-dim: #00E5A033;
+  --color-accent-hover: #33FFBD;
+
+  /* Secondary: Insight Blue */
+  --color-blue: #4C8CFF;
+  --color-blue-dim: #4C8CFF22;
+
+  /* Tertiary: Alert Amber */
+  --color-amber: #FFB84C;
+  --color-amber-dim: #FFB84C22;
+
+  /* Fonts */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Font faces - self hosted from Google Fonts CDN */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoMM3T6r8E7mPb54C_k3HqUtEw.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v18/UcCo3FwrK3iLTcviYwY.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/jetbrainsmono/v21/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
+}
+
+/* Base styles */
+html {
+  background-color: var(--color-void);
+  color: var(--color-body);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-accent-dim);
+  color: var(--color-white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-heading);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.font-mono, code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Grid overlay */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.15;
+}
+
+/* Glow effects */
+.glow-accent {
+  box-shadow: 0 0 30px var(--color-accent-dim), 0 0 60px var(--color-accent-dim);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

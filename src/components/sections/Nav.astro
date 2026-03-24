@@ -1,0 +1,109 @@
+---
+const links = [
+  { label: 'Services', href: '#services' },
+  { label: 'Results', href: '#results' },
+  { label: 'Process', href: '#process' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<nav id="site-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 group">
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+      </span>
+      <span class="font-display font-bold text-lg text-heading tracking-tight">reiterweb</span>
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-8">
+      {links.map(link => (
+        <a
+          href={link.href}
+          class="text-sm text-muted hover:text-accent transition-colors duration-300 font-medium"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="#contact"
+        class="inline-flex items-center px-5 py-2 rounded-full bg-amber text-void text-sm font-display font-semibold hover:brightness-110 transition-all duration-300 shadow-[0_0_20px_var(--color-amber-dim)]"
+      >
+        Get an Audit
+      </a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-toggle"
+      class="md:hidden flex flex-col gap-1.5 p-2"
+      aria-label="Toggle menu"
+    >
+      <span class="block w-5 h-0.5 bg-heading transition-transform duration-300" id="burger-1"></span>
+      <span class="block w-5 h-0.5 bg-heading transition-opacity duration-300" id="burger-2"></span>
+      <span class="block w-5 h-0.5 bg-heading transition-transform duration-300" id="burger-3"></span>
+    </button>
+  </div>
+
+  <!-- Mobile overlay -->
+  <div id="mobile-menu" class="md:hidden fixed inset-0 bg-void/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300">
+    {links.map(link => (
+      <a
+        href={link.href}
+        class="mobile-link text-2xl font-display font-semibold text-heading hover:text-accent transition-colors"
+      >
+        {link.label}
+      </a>
+    ))}
+    <a
+      href="#contact"
+      class="mt-4 inline-flex items-center px-8 py-3 rounded-full bg-amber text-void text-lg font-display font-semibold"
+    >
+      Get an Audit
+    </a>
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  const toggle = document.getElementById('mobile-toggle');
+  const menu = document.getElementById('mobile-menu');
+  let open = false;
+
+  // Scroll effect
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      nav?.classList.add('bg-void/80', 'backdrop-blur-xl', 'border-b', 'border-border');
+    } else {
+      nav?.classList.remove('bg-void/80', 'backdrop-blur-xl', 'border-b', 'border-border');
+    }
+  });
+
+  // Mobile toggle
+  toggle?.addEventListener('click', () => {
+    open = !open;
+    if (open) {
+      menu?.classList.remove('opacity-0', 'pointer-events-none');
+      menu?.classList.add('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = 'hidden';
+    } else {
+      menu?.classList.add('opacity-0', 'pointer-events-none');
+      menu?.classList.remove('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close on link click
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      open = false;
+      menu?.classList.add('opacity-0', 'pointer-events-none');
+      menu?.classList.remove('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = '';
+    });
+  });
+</script>

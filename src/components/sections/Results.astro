@@ -1,0 +1,96 @@
+---
+const colorMap = {
+  accent: 'text-accent',
+  blue: 'text-blue',
+  amber: 'text-amber',
+} as const;
+
+const glowMap = {
+  accent: 'hover:shadow-[0_0_40px_var(--color-accent-dim)]',
+  blue: 'hover:shadow-[0_0_40px_var(--color-blue-dim)]',
+  amber: 'hover:shadow-[0_0_40px_var(--color-amber-dim)]',
+} as const;
+
+type AccentKey = keyof typeof colorMap;
+
+const cases = [
+  {
+    industry: 'E-commerce',
+    metric: '+147%',
+    metricLabel: 'Conversion Rate',
+    story: 'Rebuilt their entire measurement stack. Server-side tagging recovered 35% of lost conversions. Custom attribution model revealed that email was 3x more effective than paid social.',
+    color: 'accent',
+  },
+  {
+    industry: 'SaaS',
+    metric: '-62%',
+    metricLabel: 'CAC Reduction',
+    story: 'Their GA4 was tracking page views, nothing else. We implemented full-funnel event tracking, built a lead scoring model, and identified the 3 channels actually driving qualified signups.',
+    color: 'blue',
+  },
+  {
+    industry: 'FinTech',
+    metric: '3.8x',
+    metricLabel: 'ROAS Improvement',
+    story: 'Multi-touch attribution replaced last-click. We proved that branded search was getting credit for conversions started by content marketing. Budget reallocation drove 3.8x ROAS.',
+    color: 'amber',
+  },
+];
+---
+
+<section id="results" class="relative py-24 md:py-32">
+  <!-- Grid background -->
+  <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="mb-16 text-center">
+      <span class="font-mono text-xs text-accent uppercase tracking-[0.2em] mb-4 block">Results</span>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-display font-bold text-heading">
+        Numbers That Matter
+      </h2>
+      <p class="mt-4 text-lg text-body max-w-xl mx-auto">
+        Real outcomes from real engagements. No vanity metrics.
+      </p>
+    </div>
+
+    <!-- Case study cards -->
+    <div class="grid md:grid-cols-3 gap-6">
+      {cases.map((c) => (
+          <div class={`relative bg-surface rounded-2xl border border-border p-8 transition-all duration-500 hover:border-opacity-50 ${glowMap[c.color as AccentKey]}`}>
+            <span class={`inline-block text-xs font-mono uppercase tracking-wider mb-6 ${colorMap[c.color as AccentKey]}`}>
+              {c.industry}
+            </span>
+
+            <div class="mb-4">
+              <span class={`font-mono text-5xl font-bold ${colorMap[c.color as AccentKey]}`}>{c.metric}</span>
+              <span class="block text-sm font-mono text-muted uppercase tracking-wider mt-2">{c.metricLabel}</span>
+            </div>
+
+            <!-- Story -->
+            <p class="text-sm text-body leading-relaxed">
+              {c.story}
+            </p>
+
+            <!-- Sparkline decoration -->
+            <div class="mt-6 h-8">
+              <svg viewBox="0 0 200 30" class="w-full h-full" preserveAspectRatio="none">
+                <path
+                  d={c.color === 'accent'
+                    ? 'M0,25 Q20,24 40,22 T80,18 T120,10 T160,5 T200,2'
+                    : c.color === 'blue'
+                    ? 'M0,20 Q30,22 50,18 T100,12 T150,6 T200,3'
+                    : 'M0,28 Q25,26 50,20 T100,14 T150,8 T200,2'}
+                  fill="none"
+                  stroke={c.color === 'accent' ? '#00E5A0' : c.color === 'blue' ? '#4C8CFF' : '#FFB84C'}
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  opacity="0.5"
+                />
+              </svg>
+            </div>
+          </div>
+      ))}
+    </div>
+  </div>
+</section>

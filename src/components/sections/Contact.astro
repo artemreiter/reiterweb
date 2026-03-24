@@ -1,0 +1,108 @@
+---
+
+---
+
+<section id="contact" class="relative py-24 md:py-32">
+  <!-- Grid background -->
+  <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="mb-16 text-center">
+      <span class="font-mono text-xs text-accent uppercase tracking-[0.2em] mb-4 block">Contact</span>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-display font-bold text-heading">
+        Let's Talk Data
+      </h2>
+      <p class="mt-4 text-lg text-body max-w-xl mx-auto">
+        Ready to turn your data into decisions? Tell us about your challenge.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+      <!-- Left: info -->
+      <div>
+        <h3 class="text-xl font-display font-bold text-heading mb-4">
+          What happens next?
+        </h3>
+        <div class="space-y-6">
+          <div class="flex gap-4">
+            <span class="font-mono text-sm text-accent shrink-0">01</span>
+            <div>
+              <p class="text-heading font-medium text-sm">Free 30-min discovery call</p>
+              <p class="text-body text-sm mt-1">We discuss your current setup and goals.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="font-mono text-sm text-blue shrink-0">02</span>
+            <div>
+              <p class="text-heading font-medium text-sm">Quick audit report</p>
+              <p class="text-body text-sm mt-1">We review your analytics and share initial findings.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="font-mono text-sm text-amber shrink-0">03</span>
+            <div>
+              <p class="text-heading font-medium text-sm">Custom proposal</p>
+              <p class="text-body text-sm mt-1">A tailored plan with clear deliverables and timeline.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 pt-8 border-t border-border">
+          <p class="font-mono text-xs text-muted uppercase tracking-wider mb-3">Or reach out directly</p>
+          <a href="mailto:artem@reiterweb.com" class="text-accent hover:text-accent-hover transition-colors font-medium">
+            artem@reiterweb.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <form class="space-y-5" action="#" method="POST">
+        <div>
+          <label class="block text-xs font-mono text-muted uppercase tracking-wider mb-2">Name</label>
+          <input
+            type="text"
+            name="name"
+            required
+            class="w-full bg-surface border border-border rounded-xl px-4 py-3 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 transition-colors placeholder:text-muted/50"
+            placeholder="Your name"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-muted uppercase tracking-wider mb-2">Company</label>
+          <input
+            type="text"
+            name="company"
+            class="w-full bg-surface border border-border rounded-xl px-4 py-3 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 transition-colors placeholder:text-muted/50"
+            placeholder="Company name"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-muted uppercase tracking-wider mb-2">Email</label>
+          <input
+            type="email"
+            name="email"
+            required
+            class="w-full bg-surface border border-border rounded-xl px-4 py-3 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 transition-colors placeholder:text-muted/50"
+            placeholder="you@company.com"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-muted uppercase tracking-wider mb-2">Your biggest analytics challenge</label>
+          <textarea
+            name="message"
+            rows={4}
+            class="w-full bg-surface border border-border rounded-xl px-4 py-3 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 transition-colors placeholder:text-muted/50 resize-none"
+            placeholder="Tell us what you're struggling with..."
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-accent text-void text-sm font-display font-semibold hover:bg-accent-hover transition-all duration-300 shadow-[0_0_30px_var(--color-accent-dim)] hover:scale-[1.02] active:scale-[0.98]"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

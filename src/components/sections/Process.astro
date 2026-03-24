@@ -1,0 +1,75 @@
+---
+const steps = [
+  {
+    num: '01',
+    title: 'Audit',
+    description: 'We analyze your current analytics setup, identify tracking gaps, data quality issues, and document what\'s broken or missing.',
+    accent: 'accent',
+  },
+  {
+    num: '02',
+    title: 'Architect',
+    description: 'We design the measurement plan, data layer specification, and tagging strategy tailored to your business objectives.',
+    accent: 'blue',
+  },
+  {
+    num: '03',
+    title: 'Implement',
+    description: 'We build and deploy the tracking, test every event, validate every dimension, and ensure data flows correctly.',
+    accent: 'accent',
+  },
+  {
+    num: '04',
+    title: 'Optimize',
+    description: 'We monitor data quality, refine dashboards, and deliver monthly insight reports that drive action.',
+    accent: 'amber',
+  },
+];
+---
+
+<section id="process" class="relative py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="mb-16">
+      <span class="font-mono text-xs text-accent uppercase tracking-[0.2em] mb-4 block">Process</span>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-display font-bold text-heading">
+        How We Work
+      </h2>
+      <p class="mt-4 text-lg text-body max-w-xl">
+        A proven four-step methodology. No surprises, no scope creep.
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid md:grid-cols-4 gap-6">
+      {steps.map((step, i) => {
+        const accentColor = step.accent === 'blue' ? 'text-blue' : step.accent === 'amber' ? 'text-amber' : 'text-accent';
+        return (
+          <div class="relative group">
+            {/* Connecting line */}
+            {i < steps.length - 1 && (
+              <div class="hidden md:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-border to-transparent z-0" style="width: calc(100% - 2rem); left: calc(50% + 1.5rem);"></div>
+            )}
+
+            <div class="relative bg-surface rounded-2xl border border-border p-8 transition-all duration-500 hover:border-accent/20">
+              {/* Step number */}
+              <span class={`font-mono text-4xl font-bold ${accentColor} opacity-30 block mb-4`}>
+                {step.num}
+              </span>
+
+              {/* Title */}
+              <h3 class="text-lg font-display font-bold text-heading mb-3">
+                {step.title}
+              </h3>
+
+              {/* Description */}
+              <p class="text-sm text-body leading-relaxed">
+                {step.description}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

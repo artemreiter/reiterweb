@@ -1,0 +1,66 @@
+---
+
+---
+
+<section id="about" class="relative py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="mb-16">
+      <span class="font-mono text-xs text-accent uppercase tracking-[0.2em] mb-4 block">About</span>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-display font-bold text-heading">
+        Who Is Behind the Data
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <!-- Photo placeholder -->
+      <div class="relative">
+        <div class="aspect-[3/4] rounded-2xl bg-surface border border-border overflow-hidden flex items-center justify-center">
+          <!-- Placeholder until real photo -->
+          <div class="text-center p-8">
+            <div class="w-32 h-32 rounded-full bg-surface-alt border-2 border-accent/20 mx-auto mb-6 flex items-center justify-center">
+              <span class="font-display text-4xl font-bold text-accent">AR</span>
+            </div>
+            <p class="text-sm text-muted font-mono">Photo coming soon</p>
+          </div>
+        </div>
+        <!-- Decorative accent -->
+        <div class="absolute -bottom-3 -right-3 w-24 h-24 border border-accent/20 rounded-2xl -z-10"></div>
+      </div>
+
+      <!-- Bio -->
+      <div>
+        <h3 class="text-2xl font-display font-bold text-heading mb-2">
+          Artem Reiter
+        </h3>
+        <span class="font-mono text-sm text-accent mb-6 block">Founder & Lead Analyst</span>
+
+        <div class="space-y-4 text-body leading-relaxed">
+          <p>
+            I've spent 8+ years turning messy analytics into clear business intelligence.
+            From startups burning ad budgets on broken tracking to enterprises drowning in
+            dashboards nobody reads — I've seen it all and fixed it.
+          </p>
+          <p>
+            My approach is simple: your analytics should answer business questions, not create
+            new ones. Every tag, every event, every dashboard exists for a reason — or it doesn't exist.
+          </p>
+          <p>
+            Before founding Reiterweb, I led analytics at several product companies and consulted
+            for agencies across Europe. I'm Google Analytics certified, BigQuery proficient, and
+            unreasonably passionate about clean data layers.
+          </p>
+        </div>
+
+        <!-- Credentials -->
+        <div class="mt-8 flex flex-wrap gap-3">
+          {['Google Analytics Certified', 'BigQuery', 'GTM Expert', '50+ Projects'].map((badge) => (
+            <span class="text-xs font-mono text-muted px-3 py-1.5 rounded-full border border-border bg-surface">
+              {badge}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
