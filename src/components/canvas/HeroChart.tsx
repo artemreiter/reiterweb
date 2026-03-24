@@ -53,7 +53,7 @@ function generateAreaPath(width: number, height: number, progress: number): stri
 
 export function HeroChart() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0.02);
+  const [progress, setProgress] = useState(0.08);
   const [dims, setDims] = useState({ w: 1200, h: 600 });
 
   useEffect(() => {
@@ -67,11 +67,11 @@ export function HeroChart() {
 
     const handleScroll = () => {
       const scrollH = document.documentElement.scrollHeight - window.innerHeight;
-      // Map first 60% of page scroll to chart progress
-      const scrollRange = scrollH * 0.55;
+      // Map first 50% of page scroll to chart progress
+      const scrollRange = scrollH * 0.5;
       const raw = window.scrollY / scrollRange;
-      // Start with a small initial progress so something is visible
-      setProgress(Math.max(0.02, Math.min(1, raw)));
+      // Always show at least the first milestone so something is visible
+      setProgress(Math.max(0.08, Math.min(1, raw)));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -128,7 +128,7 @@ export function HeroChart() {
 
         {/* Subtle grid */}
         {[0.25, 0.5, 0.75].map(y => (
-          <line key={`h${y}`} x1={0} y1={h * y} x2={w} y2={h * y} stroke="#2A2A3A" strokeWidth="0.5" strokeDasharray="6 12" opacity="0.4" />
+          <line key={`h${y}`} x1={0} y1={h * y} x2={w} y2={h * y} stroke="#2A2A3A" strokeWidth="0.5" strokeDasharray="6 12" opacity="0.5" />
         ))}
         {[0.2, 0.4, 0.6, 0.8].map(x => (
           <line key={`v${x}`} x1={w * x} y1={0} x2={w * x} y2={h} stroke="#2A2A3A" strokeWidth="0.5" strokeDasharray="6 12" opacity="0.3" />
