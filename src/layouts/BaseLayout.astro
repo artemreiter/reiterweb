@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = 'Reiterweb — Web Analytics Agency',
-  description = 'Web analytics consulting for businesses that want to stop guessing and start knowing. GA4, GTM, attribution, dashboards.',
+  description = 'Web analytics consulting that turns data chaos into revenue intelligence. GA4, GTM, attribution, dashboards.',
 } = Astro.props;
 ---
 
@@ -42,6 +42,9 @@ const {
     <title>{title}</title>
   </head>
   <body class="bg-void text-body antialiased">
+    <!-- Noise overlay -->
+    <div class="noise" aria-hidden="true"></div>
+
     <slot />
 
     <!-- Scroll reveal observer -->
@@ -59,7 +62,6 @@ const {
 
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      // Re-observe after hydration for dynamic content
       setTimeout(() => {
         document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
       }, 500);

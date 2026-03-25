@@ -2,119 +2,45 @@
 
 ---
 
-<section id="contact" class="relative py-20 md:py-28">
-  <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
-    <!-- Section header -->
-    <div class="mb-16 text-center reveal">
-      <div class="flex items-center justify-center gap-3 mb-6">
-        <div class="h-px w-12 bg-accent"></div>
-        <span class="font-mono text-xs text-accent uppercase tracking-[0.25em]">Contact</span>
-        <div class="h-px w-12 bg-accent"></div>
-      </div>
-      <h2 class="text-[clamp(2.5rem,5vw,3.5rem)] font-display font-bold text-heading leading-[1.05]">
-        Let's Talk <span class="text-gradient">Data</span>
+<section id="cta" class="relative py-28 md:py-40 overflow-hidden">
+  <!-- Gradient mesh background -->
+  <div class="absolute inset-0 gradient-mesh opacity-50" aria-hidden="true"></div>
+
+  <div class="relative max-w-3xl mx-auto px-6 lg:px-8 text-center">
+    <div class="reveal">
+      <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-display font-bold text-heading leading-tight mb-6">
+        Ready to hear what your<br />
+        <span class="text-gradient">data is saying?</span>
       </h2>
-      <p class="mt-5 text-lg text-body max-w-xl mx-auto leading-relaxed">
-        Ready to turn your data into decisions? Tell us about your challenge.
+
+      <p class="text-lg text-body mb-10">
+        Free 30-min discovery call. No commitment.
       </p>
-    </div>
 
-    <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-      <!-- Left: info -->
-      <div class="reveal">
-        <h3 class="text-2xl font-display font-bold text-heading mb-8">
-          What happens next?
-        </h3>
-        <div class="space-y-8">
-          {[
-            { num: '01', color: 'text-accent', title: 'Free 30-min discovery call', desc: 'We discuss your current setup and goals.' },
-            { num: '02', color: 'text-blue', title: 'Quick audit report', desc: 'We review your analytics and share initial findings.' },
-            { num: '03', color: 'text-amber', title: 'Custom proposal', desc: 'A tailored plan with clear deliverables and timeline.' },
-          ].map((step) => (
-            <div class="flex gap-5 group">
-              <div class="shrink-0">
-                <span class={`font-mono text-2xl font-bold ${step.color} opacity-40 group-hover:opacity-100 transition-opacity duration-300`}>
-                  {step.num}
-                </span>
-              </div>
-              <div>
-                <p class="text-heading font-semibold mb-1">{step.title}</p>
-                <p class="text-body/70 text-sm">{step.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+      <!-- Email form -->
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6" action="#" method="POST">
+        <input
+          type="email"
+          name="email"
+          required
+          aria-label="Your email"
+          class="flex-1 bg-surface border border-border rounded-full px-6 py-3.5 text-white text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all duration-300 placeholder:text-muted"
+          placeholder="you@company.com"
+        />
+        <button
+          type="submit"
+          class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-accent text-void text-sm font-mono font-bold hover:bg-accent-hover transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,209,0.3)] shrink-0"
+        >
+          Get a Free Audit
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
 
-        <div class="mt-12 pt-8 section-divider">
-          <div class="pt-8">
-            <p class="font-mono text-[11px] text-muted uppercase tracking-[0.2em] mb-3">Or reach out directly</p>
-            <a href="mailto:artem@reiterweb.com" class="text-accent hover:text-accent-hover transition-colors font-medium text-lg">
-              artem@reiterweb.com
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: form -->
-      <div class="reveal reveal-delay-2">
-        <form class="card-elevated rounded-2xl p-8 space-y-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_30px_rgba(0,0,0,0.06)]" action="#" method="POST">
-          <div>
-            <label for="contact-name" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Name</label>
-            <input
-              type="text"
-              id="contact-name"
-              name="name"
-              required
-              aria-label="Your name"
-              class="w-full bg-surface-alt border border-border rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/50"
-              placeholder="Your name"
-            />
-          </div>
-          <div>
-            <label for="contact-company" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Company</label>
-            <input
-              type="text"
-              id="contact-company"
-              name="company"
-              aria-label="Company name"
-              class="w-full bg-surface-alt border border-border rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/50"
-              placeholder="Company name"
-            />
-          </div>
-          <div>
-            <label for="contact-email" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Email</label>
-            <input
-              type="email"
-              id="contact-email"
-              name="email"
-              required
-              aria-label="Your email address"
-              class="w-full bg-surface-alt border border-border rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/50"
-              placeholder="you@company.com"
-            />
-          </div>
-          <div>
-            <label for="contact-message" class="block text-[11px] font-mono text-muted uppercase tracking-[0.2em] mb-2.5">Your biggest analytics challenge</label>
-            <textarea
-              id="contact-message"
-              name="message"
-              rows={4}
-              aria-label="Your biggest analytics challenge"
-              class="w-full bg-surface-alt border border-border rounded-xl px-5 py-3.5 text-heading text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-muted/50 resize-none"
-              placeholder="Tell us what you're struggling with..."
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            class="w-full inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-accent text-white text-sm font-display font-bold hover:bg-accent-hover transition-all duration-300 shadow-[0_4px_14px_rgba(0,102,255,0.25)] hover:shadow-[0_6px_20px_rgba(0,102,255,0.3)] hover:-translate-y-0.5 active:translate-y-0"
-          >
-            Send Message
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </form>
-      </div>
+      <p class="text-xs text-muted">
+        Or email directly: <a href="mailto:artem@reiterweb.com" class="text-accent hover:underline">artem@reiterweb.com</a>
+      </p>
     </div>
   </div>
 </section>

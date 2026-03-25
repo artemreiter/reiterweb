@@ -1,95 +1,63 @@
 ---
 const steps = [
-  {
-    num: '01',
-    title: 'Audit',
-    description: 'We analyze your current analytics setup, identify tracking gaps, data quality issues, and document what\'s broken or missing.',
-    accent: 'accent',
-    icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
-  },
-  {
-    num: '02',
-    title: 'Architect',
-    description: 'We design the measurement plan, data layer specification, and tagging strategy tailored to your business objectives.',
-    accent: 'blue',
-    icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
-  },
-  {
-    num: '03',
-    title: 'Implement',
-    description: 'We build and deploy the tracking, test every event, validate every dimension, and ensure data flows correctly.',
-    accent: 'accent',
-    icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
-  },
-  {
-    num: '04',
-    title: 'Optimize',
-    description: 'We monitor data quality, refine dashboards, and deliver monthly insight reports that drive action.',
-    accent: 'amber',
-    icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
-  },
+  { num: '01', title: 'Audit', desc: 'We find what\'s broken.', color: 'accent' },
+  { num: '02', title: 'Architect', desc: 'We design the fix.', color: 'violet' },
+  { num: '03', title: 'Implement', desc: 'We build and test.', color: 'blue' },
+  { num: '04', title: 'Optimize', desc: 'We refine forever.', color: 'amber' },
 ];
 
-const accentMap = {
-  accent: { text: 'text-accent', bg: 'bg-accent/6', border: 'border-accent/12' },
-  blue: { text: 'text-blue', bg: 'bg-blue/6', border: 'border-blue/12' },
-  amber: { text: 'text-amber', bg: 'bg-amber/6', border: 'border-amber/12' },
+const dotColors: Record<string, string> = {
+  accent: 'bg-accent shadow-[0_0_12px_rgba(0,255,209,0.4)]',
+  violet: 'bg-violet shadow-[0_0_12px_rgba(139,92,246,0.4)]',
+  blue: 'bg-blue shadow-[0_0_12px_rgba(59,130,246,0.4)]',
+  amber: 'bg-amber shadow-[0_0_12px_rgba(251,191,36,0.4)]',
+};
+
+const textColors: Record<string, string> = {
+  accent: 'text-accent',
+  violet: 'text-violet',
+  blue: 'text-blue',
+  amber: 'text-amber',
 };
 ---
 
-<section id="process" class="relative py-20 md:py-28">
-  <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
-    <!-- Section header -->
-    <div class="mb-16 reveal">
-      <div class="flex items-center gap-3 mb-6">
-        <div class="h-px w-12 bg-accent"></div>
-        <span class="font-mono text-xs text-accent uppercase tracking-[0.25em]">Process</span>
-      </div>
-      <h2 class="text-[clamp(2.5rem,5vw,3.5rem)] font-display font-bold text-heading leading-[1.05]">
-        How We Work
+<section id="process" class="relative py-28 md:py-40">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-20 reveal">
+      <span class="font-mono text-[11px] text-accent uppercase tracking-[0.25em] mb-4 block">Process</span>
+      <h2 class="text-[clamp(2rem,4vw,3rem)] font-display font-bold text-heading">
+        How it works
       </h2>
-      <p class="mt-5 text-lg text-body max-w-xl leading-relaxed">
-        A proven four-step methodology. No surprises, no scope creep.
-      </p>
     </div>
 
-    <!-- Steps with connecting line -->
+    <!-- Timeline -->
     <div class="relative">
-      <!-- Connecting line (desktop) -->
-      <div class="hidden md:block absolute top-[4.5rem] left-[4rem] right-[4rem] h-px">
-        <div class="h-full bg-border line-draw"></div>
-        <div class="absolute top-1/2 -translate-y-1/2 left-[25%] w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></div>
-        <div class="absolute top-1/2 -translate-y-1/2 left-[50%] w-1.5 h-1.5 rounded-full bg-blue animate-pulse" style="animation-delay: 0.5s"></div>
-        <div class="absolute top-1/2 -translate-y-1/2 left-[75%] w-1.5 h-1.5 rounded-full bg-amber animate-pulse" style="animation-delay: 1s"></div>
-      </div>
+      <!-- Vertical line (desktop) -->
+      <div class="hidden md:block absolute left-[39px] top-0 bottom-0 w-px bg-border"></div>
 
-      <div class="grid md:grid-cols-4 gap-8">
-        {steps.map((step, i) => {
-          const colors = accentMap[step.accent as keyof typeof accentMap];
-          return (
-            <div class={`reveal reveal-delay-${i + 1} relative group`}>
-              {/* Step indicator */}
-              <div class="relative z-10 flex items-center gap-4 mb-6">
-                <div class={`w-16 h-16 rounded-2xl ${colors.bg} border ${colors.border} flex items-center justify-center group-hover:scale-108 group-hover:shadow-lg transition-all duration-500`}>
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class={colors.text}>
-                    <path d={step.icon} />
-                  </svg>
-                </div>
-                <span class={`font-mono text-xs ${colors.text} uppercase tracking-[0.2em] opacity-60`}>Step {step.num}</span>
-              </div>
+      <div class="space-y-16 md:space-y-20">
+        {steps.map((step, i) => (
+          <div class={`reveal reveal-delay-${i + 1} relative flex gap-8 md:gap-16 items-start`}>
+            <!-- Dot on timeline -->
+            <div class="hidden md:flex shrink-0 w-20 items-center justify-center relative z-10">
+              <div class={`w-3 h-3 rounded-full ${dotColors[step.color]}`}></div>
+            </div>
 
-              {/* Card */}
-              <div class="card-elevated rounded-xl p-6 transition-all duration-500">
-                <h3 class="text-lg font-display font-semibold text-heading mb-3">
+            <!-- Content -->
+            <div class="flex-1">
+              <div class="flex items-baseline gap-4 mb-3">
+                <span class={`font-mono text-sm ${textColors[step.color]} opacity-60`}>{step.num}</span>
+                <h3 class="text-2xl md:text-3xl font-display font-bold text-heading">
                   {step.title}
                 </h3>
-                <p class="text-sm text-body leading-relaxed">
-                  {step.description}
-                </p>
               </div>
+              <p class="text-body text-lg">
+                {step.desc}
+              </p>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   </div>

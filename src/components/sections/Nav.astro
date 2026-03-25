@@ -1,109 +1,90 @@
 ---
-const links = [
-  { label: 'Services', href: '#services' },
-  { label: 'Results', href: '#results' },
-  { label: 'Process', href: '#process' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
-];
+
 ---
 
-<nav id="site-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-    <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 group">
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
-      </span>
-      <span class="font-display font-bold text-lg text-heading tracking-tight">reiterweb</span>
-    </a>
-
-    <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-8">
-      {links.map(link => (
-        <a
-          href={link.href}
-          class="text-sm text-muted hover:text-accent transition-colors duration-300 font-medium"
-        >
-          {link.label}
-        </a>
-      ))}
-      <a
-        href="#contact"
-        class="inline-flex items-center px-5 py-2 rounded-full bg-accent text-white text-sm font-display font-semibold hover:bg-accent-hover transition-all duration-300"
-      >
-        Get an Audit
+<nav class="fixed top-0 left-0 right-0 z-40 transition-all duration-500" id="main-nav">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 md:h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 group">
+        <span class="h-2 w-2 rounded-full bg-accent group-hover:shadow-[0_0_12px_rgba(0,255,209,0.6)] transition-shadow duration-300"></span>
+        <span class="font-mono text-sm font-bold text-white tracking-tight">reiterweb</span>
       </a>
-    </div>
 
-    <!-- Mobile menu button -->
-    <button
-      id="mobile-toggle"
-      class="md:hidden flex flex-col gap-1.5 p-2"
-      aria-label="Toggle menu"
-    >
-      <span class="block w-5 h-0.5 bg-heading transition-transform duration-300" id="burger-1"></span>
-      <span class="block w-5 h-0.5 bg-heading transition-opacity duration-300" id="burger-2"></span>
-      <span class="block w-5 h-0.5 bg-heading transition-transform duration-300" id="burger-3"></span>
-    </button>
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#services" class="text-sm text-muted hover:text-white transition-colors duration-300">Services</a>
+        <a href="#cases" class="text-sm text-muted hover:text-white transition-colors duration-300">Cases</a>
+        <a href="#process" class="text-sm text-muted hover:text-white transition-colors duration-300">Process</a>
+        <a href="#about" class="text-sm text-muted hover:text-white transition-colors duration-300">About</a>
+        <a
+          href="#cta"
+          class="inline-flex items-center px-5 py-2 rounded-full text-sm font-mono font-bold text-void bg-accent hover:bg-accent-hover transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,209,0.3)]"
+        >
+          Book a Call
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        class="md:hidden flex flex-col gap-1.5 p-2"
+        id="nav-toggle"
+        aria-label="Toggle menu"
+      >
+        <span class="block w-5 h-px bg-white transition-all duration-300" id="bar1"></span>
+        <span class="block w-5 h-px bg-white transition-all duration-300" id="bar2"></span>
+      </button>
+    </div>
   </div>
 
   <!-- Mobile overlay -->
-  <div id="mobile-menu" class="md:hidden fixed inset-0 bg-void/97 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300">
-    {links.map(link => (
-      <a
-        href={link.href}
-        class="mobile-link text-2xl font-display font-semibold text-heading hover:text-accent transition-colors"
-      >
-        {link.label}
-      </a>
-    ))}
+  <div
+    id="mobile-menu"
+    class="md:hidden fixed inset-0 top-16 bg-void/97 backdrop-blur-xl flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300 z-30"
+  >
+    <a href="#services" class="text-2xl font-display text-white">Services</a>
+    <a href="#cases" class="text-2xl font-display text-white">Cases</a>
+    <a href="#process" class="text-2xl font-display text-white">Process</a>
+    <a href="#about" class="text-2xl font-display text-white">About</a>
     <a
-      href="#contact"
-      class="mt-4 inline-flex items-center px-8 py-3 rounded-full bg-accent text-white text-lg font-display font-semibold"
+      href="#cta"
+      class="mt-4 inline-flex items-center px-8 py-3 rounded-full bg-accent text-void text-lg font-mono font-bold"
     >
-      Get an Audit
+      Book a Call
     </a>
   </div>
 </nav>
 
 <script>
-  const nav = document.getElementById('site-nav');
-  const toggle = document.getElementById('mobile-toggle');
-  const menu = document.getElementById('mobile-menu');
+  const nav = document.getElementById('main-nav')!;
+  const toggle = document.getElementById('nav-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const bar1 = document.getElementById('bar1')!;
+  const bar2 = document.getElementById('bar2')!;
   let open = false;
 
-  // Scroll effect
   window.addEventListener('scroll', () => {
     if (window.scrollY > 80) {
-      nav?.classList.add('bg-void/80', 'backdrop-blur-xl', 'border-b', 'border-border', 'shadow-[0_1px_3px_rgba(0,0,0,0.04)]');
+      nav.classList.add('bg-void/80', 'backdrop-blur-xl', 'border-b', 'border-border');
     } else {
-      nav?.classList.remove('bg-void/80', 'backdrop-blur-xl', 'border-b', 'border-border', 'shadow-[0_1px_3px_rgba(0,0,0,0.04)]');
+      nav.classList.remove('bg-void/80', 'backdrop-blur-xl', 'border-b', 'border-border');
     }
-  });
+  }, { passive: true });
 
-  // Mobile toggle
-  toggle?.addEventListener('click', () => {
+  toggle.addEventListener('click', () => {
     open = !open;
-    if (open) {
-      menu?.classList.remove('opacity-0', 'pointer-events-none');
-      menu?.classList.add('opacity-100', 'pointer-events-auto');
-      document.body.style.overflow = 'hidden';
-    } else {
-      menu?.classList.add('opacity-0', 'pointer-events-none');
-      menu?.classList.remove('opacity-100', 'pointer-events-auto');
-      document.body.style.overflow = '';
-    }
+    menu.classList.toggle('opacity-0', !open);
+    menu.classList.toggle('pointer-events-none', !open);
+    bar1.style.transform = open ? 'rotate(45deg) translateY(4px)' : '';
+    bar2.style.transform = open ? 'rotate(-45deg) translateY(-4px)' : '';
   });
 
-  // Close on link click
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
       open = false;
-      menu?.classList.add('opacity-0', 'pointer-events-none');
-      menu?.classList.remove('opacity-100', 'pointer-events-auto');
-      document.body.style.overflow = '';
+      menu.classList.add('opacity-0', 'pointer-events-none');
+      bar1.style.transform = '';
+      bar2.style.transform = '';
     });
   });
 </script>
