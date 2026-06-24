@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'Reiterweb — Web Analytics Agency',
-  description = 'Web analytics consulting that turns data chaos into revenue intelligence. GA4, GTM, attribution, dashboards.',
+  title = 'Reiterweb — GA4, GTM & paid media tracking audits',
+  description = 'Independent analytics consulting by Artem Reiter: GA4, GTM, Consent Mode, pixels, CAPI and dashboard audits with evidence-backed fix lists.',
 } = Astro.props;
 ---
 
@@ -20,8 +20,9 @@ const {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
-    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoMM3T6r8E7mPb54C_k3HqUtEw.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcCo3FwrK3iLTcviYwY.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -31,40 +32,32 @@ const {
 
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "ProfessionalService",
       "name": "Reiterweb",
       "description": description,
       "founder": { "@type": "Person", "name": "Artem Reiter" },
-      "serviceType": ["Web Analytics", "Data Analytics", "Marketing Analytics"]
+      "email": "artem@reiterweb.com",
+      "areaServed": "Worldwide",
+      "serviceType": ["GA4 audit", "GTM audit", "Consent Mode QA", "Paid media tracking audit", "Looker Studio dashboard reconciliation"]
     })} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="bg-void text-body antialiased">
-    <!-- Noise overlay -->
-    <div class="noise" aria-hidden="true"></div>
-
+  <body class="bg-paper text-charcoal antialiased">
     <slot />
 
-    <!-- Scroll reveal observer -->
     <script>
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visible');
           });
         },
-        { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
       );
 
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-      setTimeout(() => {
-        document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
-      }, 500);
     </script>
   </body>
 </html>

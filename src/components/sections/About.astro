@@ -1,70 +1,45 @@
 ---
-
+const tools = ['GA4', 'GTM', 'BigQuery', 'Looker Studio', 'Meta CAPI', 'Google Ads', 'Shopify', 'OneTrust'];
 ---
 
-<section id="about" class="relative py-28 md:py-40">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="grid md:grid-cols-2 gap-16 items-center">
-      <!-- Left: text -->
-      <div class="reveal">
-        <span class="font-mono text-[11px] text-accent uppercase tracking-[0.25em] mb-6 block">About</span>
-
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-heading mb-2">
-          Artem Reiter
-        </h2>
-        <span class="font-mono text-sm text-violet mb-8 block">Founder</span>
-
-        <div class="space-y-4 text-body leading-relaxed">
-          <p>
-            8 years turning messy analytics into clear business intelligence.
-            From startups burning ad budgets on broken tracking to enterprises
-            drowning in dashboards nobody reads.
-          </p>
-          <p class="text-heading/80 italic border-l-2 border-accent/30 pl-4 my-6">
-            "Your analytics should answer questions, not create new ones."
-          </p>
+<section id="about" class="relative py-20 md:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+      <div class="reveal soft-panel p-7 md:p-10">
+        <div class="mb-8 flex items-center gap-4">
+          <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-navy font-display text-2xl font-extrabold text-white">AR</div>
+          <div>
+            <p class="font-display text-2xl font-extrabold tracking-[-0.045em] text-navy">Artem Reiter</p>
+            <p class="text-sm text-muted">Independent analytics consultant</p>
+          </div>
         </div>
-
-        <!-- LinkedIn -->
-        <a
-          href="https://linkedin.com/in/artemreiter"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors mt-6"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-          Connect on LinkedIn
-        </a>
+        <h2 class="mb-5 font-display text-[clamp(2.2rem,4vw,4rem)] font-extrabold leading-[0.98] text-navy">
+          Senior specialist energy, not faceless platform energy.
+        </h2>
+        <p class="text-lg leading-8 text-body">
+          Reiterweb is built around one practical promise: find what is wrong in the measurement stack, prove it clearly, and make the fix understandable for marketing and engineering.
+        </p>
       </div>
 
-      <!-- Right: credentials -->
-      <div class="reveal reveal-delay-2">
-        <div class="glass-strong rounded-2xl p-8 md:p-10">
-          <h3 class="font-mono text-[11px] text-muted uppercase tracking-[0.2em] mb-8">Credentials</h3>
-
-          <div class="grid grid-cols-2 gap-6">
-            {[
-              { value: '50+', label: 'Projects', color: 'text-accent' },
-              { value: '8', label: 'Years', color: 'text-violet' },
-              { value: 'GA4', label: 'Certified', color: 'text-blue' },
-              { value: 'GTM', label: 'Expert', color: 'text-amber' },
-            ].map((cred) => (
-              <div>
-                <span class={`font-mono text-2xl font-bold ${cred.color}`}>{cred.value}</span>
-                <span class="block font-mono text-[10px] text-muted uppercase tracking-widest mt-1">{cred.label}</span>
-              </div>
-            ))}
-          </div>
-
-          <div class="section-divider my-8"></div>
-
-          <div class="flex flex-wrap gap-2">
-            {['BigQuery', 'Looker Studio', 'Power BI', 'Snowflake', 'dbt', 'Segment'].map((tool) => (
-              <span class="text-[11px] font-mono text-muted px-2.5 py-1 rounded-md bg-surface-alt border border-border">{tool}</span>
-            ))}
-          </div>
+      <div class="reveal reveal-delay-1">
+        <p class="kicker mb-4">What this replaces</p>
+        <h3 class="mb-6 font-display text-4xl font-extrabold tracking-[-0.05em] text-navy">No more “the dashboard says so”.</h3>
+        <div class="grid gap-3">
+          {[
+            'Every material finding should have evidence: screenshot, payload, query, DebugView or report comparison.',
+            'Every fix should have a business reason: inflated ROAS, missing signal, broken consent, wrong dashboard logic.',
+            'Every recommendation should be implementable: owner, priority, dependency and retest path.',
+          ].map((line) => (
+            <div class="card flex gap-4 p-5">
+              <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-teal"></span>
+              <p class="leading-7 text-body">{line}</p>
+            </div>
+          ))}
+        </div>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {tools.map((tool) => (
+            <span class="rounded-full border border-line bg-white px-3 py-1.5 font-mono text-[11px] text-muted">{tool}</span>
+          ))}
         </div>
       </div>
     </div>

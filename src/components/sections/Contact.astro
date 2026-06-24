@@ -2,45 +2,34 @@
 
 ---
 
-<section id="cta" class="relative py-28 md:py-40 overflow-hidden">
-  <!-- Gradient mesh background -->
-  <div class="absolute inset-0 gradient-mesh opacity-50" aria-hidden="true"></div>
-
-  <div class="relative max-w-3xl mx-auto px-6 lg:px-8 text-center">
-    <div class="reveal">
-      <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-display font-bold text-heading leading-tight mb-6">
-        Ready to hear what your<br />
-        <span class="text-gradient">data is saying?</span>
-      </h2>
-
-      <p class="text-lg text-body mb-10">
-        Free 30-min discovery call. No commitment.
-      </p>
-
-      <!-- Email form -->
-      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6" action="#" method="POST">
-        <input
-          type="email"
-          name="email"
-          required
-          aria-label="Your email"
-          class="flex-1 bg-surface border border-border rounded-full px-6 py-3.5 text-white text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all duration-300 placeholder:text-muted"
-          placeholder="you@company.com"
-        />
-        <button
-          type="submit"
-          class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-accent text-void text-sm font-mono font-bold hover:bg-accent-hover transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,209,0.3)] shrink-0"
-        >
-          Get a Free Audit
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </form>
-
-      <p class="text-xs text-muted">
-        Or email directly: <a href="mailto:artem@reiterweb.com" class="text-accent hover:underline">artem@reiterweb.com</a>
-      </p>
+<section id="cta" class="relative py-20 md:py-28">
+  <div class="mx-auto max-w-6xl px-5 lg:px-8">
+    <div class="reveal relative overflow-hidden rounded-[36px] bg-navy p-8 text-white shadow-[0_40px_100px_-56px_rgba(7,27,58,0.75)] md:p-12">
+      <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue/30 blur-3xl" aria-hidden="true"></div>
+      <div class="absolute -bottom-20 left-10 h-56 w-56 rounded-full bg-teal/24 blur-3xl" aria-hidden="true"></div>
+      <div class="relative grid gap-10 md:grid-cols-[1fr_0.75fr] md:items-center">
+        <div>
+          <p class="mb-5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-teal">Start with the number you do not trust</p>
+          <h2 class="mb-6 max-w-3xl font-display text-[clamp(2.5rem,5vw,5rem)] font-extrabold leading-[0.95] tracking-[-0.05em] text-white">
+            Send the site, the stack and what feels wrong.
+          </h2>
+          <p class="max-w-2xl text-lg leading-8 text-white/72">
+            I’ll reply with the most useful next step: focused audit, implementation plan, or a direct note if the problem does not need a full project.
+          </p>
+        </div>
+        <div class="rounded-[28px] border border-white/12 bg-white/8 p-6 backdrop-blur-sm">
+          <p class="mb-4 text-lg font-semibold text-white">Useful first message</p>
+          <div class="space-y-3 text-sm leading-6 text-white/68">
+            <p><span class="font-mono text-teal">01</span> Website and platform</p>
+            <p><span class="font-mono text-teal">02</span> GA4 / GTM / CMP / CAPI stack</p>
+            <p><span class="font-mono text-teal">03</span> The number your team does not trust</p>
+          </div>
+          <a href="mailto:artem@reiterweb.com?subject=Tracking%20audit%20request&body=Hi%20Artem%2C%0A%0AWebsite%3A%20%0AStack%3A%20%0AThe%20number%20we%20do%20not%20trust%3A%20%0A" class="mt-7 inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-4 font-semibold text-navy transition-colors hover:bg-teal-soft">
+            Email audit request
+          </a>
+          <p class="mt-4 text-center text-sm text-white/55">artem@reiterweb.com</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>

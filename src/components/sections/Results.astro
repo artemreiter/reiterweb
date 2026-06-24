@@ -1,85 +1,40 @@
 ---
-const cases = [
-  {
-    industry: 'E-commerce',
-    metric: '+147%',
-    metricLabel: 'Conversion Rate',
-    story: 'Rebuilt their entire measurement stack. Server-side tagging recovered 35% of lost conversions. Custom attribution revealed email was 3x more effective than paid social.',
-    color: 'accent',
-    barWidth: '82%',
-  },
-  {
-    industry: 'SaaS',
-    metric: '-62%',
-    metricLabel: 'CAC Reduction',
-    story: 'GA4 was tracking page views, nothing else. Full-funnel event tracking + lead scoring identified the 3 channels actually driving qualified signups.',
-    color: 'violet',
-    barWidth: '68%',
-  },
-  {
-    industry: 'FinTech',
-    metric: '3.8x',
-    metricLabel: 'ROAS Improvement',
-    story: 'Multi-touch attribution replaced last-click. Proved branded search was stealing credit from content marketing. Budget reallocation drove 3.8x ROAS.',
-    color: 'amber',
-    barWidth: '91%',
-  },
+const issues = [
+  ['GA4 revenue is higher than backend orders', 'Duplicate purchase, refunds ignored, or transaction_id missing'],
+  ['Meta reports conversions the CRM cannot verify', 'Pixel/CAPI dedupe, attribution window or event quality problem'],
+  ['Consent Mode is “installed” but not reliable', 'Defaults fire late, updates are inconsistent, or tags ignore state'],
+  ['Looker Studio looks clean but numbers drift', 'Blended sources, weak join keys or mismatched metric definitions'],
+  ['Paid media optimization gets weaker over time', 'Low-quality conversion payloads and missing enhanced signals'],
+  ['Nobody knows which report is the source of truth', 'GA4, Shopify, CRM and ad platforms disagree without a reconciliation layer'],
 ];
-
-const colorMap = {
-  accent: { text: 'text-accent', bg: 'bg-accent', glow: 'glow-accent', border: 'border-accent/20' },
-  violet: { text: 'text-violet', bg: 'bg-violet', glow: 'glow-violet', border: 'border-violet/20' },
-  amber: { text: 'text-amber', bg: 'bg-amber', glow: 'glow-pink', border: 'border-amber/20' },
-} as const;
 ---
 
-<section id="cases" class="relative py-28 md:py-40">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <!-- Header -->
-    <div class="mb-16 text-center reveal">
-      <span class="font-mono text-[11px] text-accent uppercase tracking-[0.25em] mb-4 block">Results</span>
-      <h2 class="text-[clamp(2rem,4vw,3rem)] font-display font-bold text-heading">
-        The proof is in the <span class="text-gradient">data</span>
-      </h2>
+<section id="proof" class="relative overflow-hidden border-y border-line bg-navy py-20 md:py-28 text-white">
+  <div class="absolute inset-0 signal-grid opacity-[0.16]" aria-hidden="true"></div>
+  <div class="mx-auto max-w-7xl px-5 lg:px-8 relative">
+    <div class="mb-14 grid gap-8 md:grid-cols-[0.82fr_1fr] md:items-end">
+      <div class="reveal">
+        <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-teal mb-4 font-semibold">Proof points</p>
+        <h2 class="font-display text-[clamp(2.4rem,5vw,4.6rem)] font-extrabold leading-[0.98] tracking-[-0.045em] text-white">
+          The audit starts where the numbers stop making sense.
+        </h2>
+      </div>
+      <p class="reveal reveal-delay-1 max-w-2xl text-lg leading-8 text-white/72">
+        Inspired by how mature measurement teams communicate: translate technical tracking defects into business impact, then hand off fixes that engineering can execute.
+      </p>
     </div>
 
-    <!-- Cases -->
-    <div class="grid md:grid-cols-3 gap-6">
-      {cases.map((c, i) => {
-        const colors = colorMap[c.color as keyof typeof colorMap];
-        return (
-          <div class={`reveal reveal-delay-${i + 1} group relative`}>
-            <div class={`glass-strong rounded-2xl p-8 h-full flex flex-col transition-all duration-500 hover:${colors.glow}`}>
-              <!-- Industry tag -->
-              <div class="flex items-center gap-2 mb-8">
-                <div class={`h-1.5 w-1.5 rounded-full ${colors.bg}`}></div>
-                <span class={`text-[11px] font-mono uppercase tracking-[0.2em] ${colors.text}`}>
-                  {c.industry}
-                </span>
-              </div>
-
-              <!-- Metric -->
-              <div class="mb-2">
-                <span class={`font-mono text-[3.5rem] font-bold leading-none ${colors.text}`}>{c.metric}</span>
-              </div>
-              <span class="block text-[10px] font-mono text-muted uppercase tracking-widest mb-6">{c.metricLabel}</span>
-
-              <!-- Progress bar -->
-              <div class="h-1 rounded-full bg-border mb-6 overflow-hidden">
-                <div
-                  class={`h-full rounded-full ${colors.bg} transition-all duration-1000`}
-                  style={`width: ${c.barWidth}`}
-                ></div>
-              </div>
-
-              <!-- Story -->
-              <p class="text-sm text-body leading-relaxed flex-1">
-                {c.story}
-              </p>
-            </div>
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {issues.map((issue, i) => (
+        <article class={`reveal reveal-delay-${(i % 4) + 1} rounded-[28px] border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm`}>
+          <div class="mb-5 flex items-center justify-between gap-4">
+            <span class="font-mono text-[11px] text-white/45">0{i + 1}</span>
+            <span class:list={['rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em]', i < 3 ? 'bg-orange/20 text-orange' : 'bg-teal/20 text-teal']}>{i < 3 ? 'High risk' : 'Medium risk'}</span>
           </div>
-        );
-      })}
+          <h3 class="mb-3 font-display text-2xl font-extrabold tracking-[-0.045em] text-white">{issue[0]}</h3>
+          <p class="text-sm leading-6 text-white/66">{issue[1]}</p>
+        </article>
+      ))}
     </div>
   </div>
 </section>
